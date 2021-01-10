@@ -1,6 +1,6 @@
 # Smart Web Design Scraper
 
-[⏳WIP - 🧪Experimental] Extract web design data from a web page.
+Extract web design data from a web page.
 
 A prototype implementation of the following paper:
 
