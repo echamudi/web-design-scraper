@@ -23,6 +23,7 @@
     "simple-statistics": "^7.4.0"
   },
   "devDependencies": {
+    "@types/chrome": "0.0.128",
     "@types/color-rgba": "^2.1.0",
     "@types/jest": "^26.0.20",
     "@types/react": "^17.0.0",
