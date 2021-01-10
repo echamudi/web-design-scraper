@@ -1,3 +1,5 @@
+// @ts-check
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -5,14 +7,17 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
+/**
+ * @type import('webpack').Configuration
+ */
+const chromeExt = {
   entry: {
-    content: './lib/content/content.ts',
-    background: './lib/background/background.ts',
-    popup: './lib/popup/popup.tsx',
-    preferences: './lib/preferences/preferences.tsx',
-    report: './lib/report/report.tsx',
-    style: './lib/style/style.scss'
+    content: './chrome-ext/content/content.ts',
+    background: './chrome-ext/background/background.ts',
+    popup: './chrome-ext/popup/popup.tsx',
+    preferences: './chrome-ext/preferences/preferences.tsx',
+    report: './chrome-ext/report/report.tsx',
+    style: './chrome-ext/style/style.scss'
   },
   module: {
     rules: [
@@ -31,7 +36,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               // Prefer `dart-sass`
-              implementation: require('node-sass'),
+              implementation: require('sass'),
             },
           },
         ],
@@ -39,47 +44,57 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.ProgressPlugin(),
+    new webpack.ProgressPlugin({}),
     // new CleanWebpackPlugin(), // doesn't work well with HtmlWebpackPlugin
     new HtmlWebpackPlugin({
       filename: 'popup.html',
-      template: 'lib/popup/popup.html',
+      template: './chrome-ext/popup/popup.html',
       chunks: ['popup']
     }),
     new HtmlWebpackPlugin({
       filename: 'preferences.html',
-      template: 'lib/preferences/preferences.html',
+      template: './chrome-ext/preferences/preferences.html',
       chunks: ['preferences']
     }),
     new HtmlWebpackPlugin({
       filename: 'report.html',
-      template: 'lib/report/report.html',
+      template: './chrome-ext/report/report.html',
       chunks: ['report']
     }),
+    // @ts-ignore
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       // filename: '[name].css',
       // chunkFilename: '[id].css',
     }),
+    // @ts-ignore
     new CopyWebpackPlugin({
       patterns: [
-      { from: './lib/manifest.json', to: './manifest.json' },
-      // { from: './lib/background/background.js', to: './background.js' }
+      { from: './chrome-ext/manifest.json', to: './manifest.json' },
     ]})
   ],
-  devtool: "", // fastest! doc: https://webpack.js.org/configuration/devtool/
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
     alias: {
-      "Shared": path.resolve(__dirname, '../shared'),
-      "ChromeExt": path.resolve(__dirname, '../chrome-ext/lib'),
-      "Angular": path.resolve(__dirname, '../client/src'),
-      "Express": path.resolve(__dirname, '../server/src'),
+      "Core": path.resolve(__dirname, './core'),
+      "ChromeExt": path.resolve(__dirname, './chrome-ext/lib')
     }
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname , './dist'),
+    path: path.resolve(__dirname , './chrome-ext-dist'),
   },
+};
+
+module.exports = (env, argv) => {
+
+  if (argv.mode === 'development') {
+    chromeExt.mode = 'development';
+    chromeExt.devtool = 'inline-source-map';
+  } else {
+    chromeExt.mode = 'production';
+  }
+
+  return [chromeExt];
 };

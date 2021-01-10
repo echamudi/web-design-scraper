@@ -5,8 +5,8 @@ import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2 } from 'Core
 import { FinalScore } from 'Core/evaluator/score-calculator/final';
 import { vibrantColorsExtract } from 'Core/evaluator/feature-extractor/vibrant-colors';
 import { DominantColorsExtractResult, ColorCountExtractResult } from 'Core/types/factors';
-import { dominantColorsExtract } from 'ChromeExt/evaluator-legacy/dominant-colors';
-import { colorCountExtract } from 'ChromeExt/evaluator-legacy/color-count';
+import { dominantColorsExtract } from '../evaluator-legacy/dominant-colors';
+import { colorCountExtract } from '../evaluator-legacy/color-count';
 
 type ContentRes = {
   phase1FeatureExtractorResult: FeatureExtractorResultPhase1
