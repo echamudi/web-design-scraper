@@ -7,11 +7,7 @@ import { equalWithTolerance } from 'Core/utils/equality';
  * @param image base64 image uri
  */
 export async function vibrantColorsExtract(imageURI: string): Promise<VibrantColorsExtractResult> {
-    const palette: VibrantColorsPallete = await new Promise<VibrantColorsPallete>((resolve, reject) => {
-        Vibrant.from(imageURI).getPalette((err, palette) => {
-            resolve(palette as VibrantColorsPallete)
-        });
-    });
+    const palette: VibrantColorsPallete = await Vibrant.from(imageURI).getPalette();
 
     return new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas');

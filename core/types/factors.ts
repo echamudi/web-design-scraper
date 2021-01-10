@@ -1,4 +1,4 @@
-import { Palette } from "@vibrant/color";
+import { Palette } from "node-vibrant/lib/color";
 
 // factor id: symmetry
 

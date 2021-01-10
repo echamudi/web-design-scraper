@@ -5,11 +5,11 @@ import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2 } from 'Core
 import { FinalScore } from 'Core/evaluator/score-calculator/final';
 import { vibrantColorsExtract } from 'Core/evaluator/feature-extractor/vibrant-colors';
 import { DominantColorsExtractResult, ColorCountExtractResult } from 'Core/types/factors';
-import { dominantColorsExtract } from '../evaluator-legacy/dominant-colors';
+// import { dominantColorsExtract } from '../evaluator-legacy/dominant-colors';
 import { colorCountExtract } from '../evaluator-legacy/color-count';
 
 type ContentRes = {
-  phase1FeatureExtractorResult: FeatureExtractorResultPhase1
+  featureExtractorResultPhase1: FeatureExtractorResultPhase1
 };
 
 // Returns tabId number
@@ -83,6 +83,7 @@ class Analyzer extends React.Component {
     ] = await Promise.allSettled([
       new Promise<ContentRes>((resolve, reject) => {
         chrome.tabs.sendMessage(tabId, { message: "extract-features" }, (response: ContentRes) => {
+          console.log(response);
           resolve(response);
         });
       }),
@@ -101,50 +102,17 @@ class Analyzer extends React.Component {
       return;
     }
 
-    const phase1FeatureExtractorResult = contentRes.value.phase1FeatureExtractorResult;
+    const phase1FeatureExtractorResult = contentRes.value.featureExtractorResultPhase1;
     const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
 
 
-    // === START OF LEGACY CODES ===
-
-    // const ipsTestAll = await new Promise<JavaResponse>((resolve, reject) => {
-    //   fetch("http://localhost:3003/test/all", {
-    //       method: "POST",
-    //       body: JSON.stringify({img: image}),
-    //       headers: {
-    //           'Content-Type': 'application/json'
-    //       },
-    //   }).then((res) => {
-    //       res.json().then((obj) => {
-    //           resolve(obj);
-    //       })
-    //   }).catch(err => {
-    //       reject(err);
-    //   })
-    // });
-    // const ipsTestAll = javaCall.value;
-
-    // console.log('ipsTestAll (legacy)', ipsTestAll);
-
     // Calculate all async values
-    let [dominantColorsResult, colorCountResult] = await Promise.allSettled([
-      new Promise<DominantColorsExtractResult>((resolve, reject) => {
-        chrome.tabs.captureVisibleTab({}, async (image) => {
-          const result = await dominantColorsExtract(image);
-          resolve(result);
-        });
-      }),
+    let [colorCountResult] = await Promise.allSettled([
       new Promise<ColorCountExtractResult>(async (resolve, reject) => {
         const result = await colorCountExtract(image);
         resolve(result);
       }),
     ]);
-
-    if (dominantColorsResult.status === 'rejected') {
-      console.log('failed to do dominantColorsExtract');
-      this.setState(() => ({ analyzingStatus: 'Done!' }));
-      return;
-    }
 
     if (colorCountResult.status === 'rejected') {
       console.log('failed to do colorCountExtract');
@@ -157,13 +125,14 @@ class Analyzer extends React.Component {
     const phase2FeatureExtractorResult: FeatureExtractorResultPhase2 = {
       ...phase1FeatureExtractorResult,
       vibrantColors: vibrantColorsExtractResult,
-      dominantColors: dominantColorsResult.value,
       colorCount: colorCountResult.value
     }
 
+    console.log('phase1FeatureExtractorResult', phase1FeatureExtractorResult);
+    console.log('phase2FeatureExtractorResult', phase2FeatureExtractorResult);
+
     const finalScore = new FinalScore(document, phase2FeatureExtractorResult);
 
-    console.log('phase2FeatureExtractorResult', phase2FeatureExtractorResult);
     console.log('finalScore', finalScore.getAllScores());
 
     this.setState(() => {

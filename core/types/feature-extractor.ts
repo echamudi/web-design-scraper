@@ -1,7 +1,7 @@
 // Feature EXTRACTOR
 
 import { ElementPosition } from "./types";
-import { Palette } from "@vibrant/color";
+import { Palette } from "node-vibrant/lib/color";
 import { TextSizeExtractResult, DominantColorsExtractResult, ColorCountExtractResult } from "./factors";
 
 // All Results
@@ -20,7 +20,6 @@ export interface FeatureExtractorResultPhase1 {
 // Phase 2 is the phase 1 result + results from the extension side
 export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
     vibrantColors: VibrantColorsExtractResult,
-    dominantColors: DominantColorsExtractResult,
     colorCount: ColorCountExtractResult
 }
 
