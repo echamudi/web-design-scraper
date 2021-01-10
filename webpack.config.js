@@ -54,12 +54,12 @@ const chromeExt = {
     new HtmlWebpackPlugin({
       filename: 'preferences.html',
       template: './chrome-ext/preferences/preferences.html',
-      chunks: ['preferences']
+      chunks: ['preferences', 'style']
     }),
     new HtmlWebpackPlugin({
       filename: 'report.html',
       template: './chrome-ext/report/report.html',
-      chunks: ['report']
+      chunks: ['report', 'style']
     }),
     // @ts-ignore
     new MiniCssExtractPlugin({

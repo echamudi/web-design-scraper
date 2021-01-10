@@ -1,16 +1,19 @@
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+// Variables and mixins
+@import '../../node_modules/office-ui-fabric-core/dist/sass/References';
 
-body {
-    min-width: 300px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    // font-family: "Source Sans Pro";
-    // background: #dfe6ff;
-    // font-size: 14px;
-}
-
-// .main-button {
-//     width: 100%;
-//     height: 40px;
-//     font-size: 16px;
-// }
+// Partials that output CSS
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Animation';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/BrandIcon';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color.Background';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color.Border';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color.Font';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Depth';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Font';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Font.Definitions';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Grid';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Icon';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Icon.Definitions';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Responsive';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Utility';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Wrapper';
