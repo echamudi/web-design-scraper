@@ -2,6 +2,7 @@
   "name": "smart-web-design-scraper",
   "version": "0.1.0",
   "description": "[⏳WIP - 🧪Experimental] Extract web design data from a web page.",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
