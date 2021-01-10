@@ -1,0 +1,19 @@
+{
+  "name": "smart-web-design-scraper",
+  "version": "0.1.0",
+  "description": "[⏳WIP - 🧪Experimental] Extract web design data from a web page.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/echamudi/smart-web-design-scraper.git"
+  },
+  "author": "Ezzat Chamudi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/echamudi/smart-web-design-scraper/issues"
+  },
+  "homepage": "https://github.com/echamudi/smart-web-design-scraper#readme"
+}
