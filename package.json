@@ -26,6 +26,7 @@
     "@types/jest": "^26.0.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@vibrant/color": "^3.2.1-alpha.1",
     "bootstrap": "^4.5.3",
     "canvas": "^2.6.1",
     "clean-webpack-plugin": "^3.0.0",
