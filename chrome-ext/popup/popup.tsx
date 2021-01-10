@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import ReactDOM from 'react-dom';
-import { AppState } from 'Core/types/types';
+import { AppState, WebPageData } from 'Core/types/types';
 import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2 } from 'Core/types/feature-extractor';
 import { FinalScore } from 'Core/evaluator/score-calculator/final';
 import { vibrantColorsExtract } from 'Core/evaluator/feature-extractor/vibrant-colors';
@@ -31,11 +31,6 @@ async function init(): Promise<number> {
 //   console.log(image);
 // });
 
-// chrome.windows.create({
-//   url: '/report.html',
-//   type: 'popup'
-// }, function (window) { });
-
 class App extends React.Component {
   public state = {};
 
@@ -55,8 +50,8 @@ class App extends React.Component {
 class Analyzer extends React.Component {
   public state: AppState = {
     analyzingStatus: '',
-    result: {},
-    snapshot: null
+    result: null,
+    screenshot: null
   };
 
   constructor(props: any) {
@@ -70,7 +65,7 @@ class Analyzer extends React.Component {
     this.setState(() => ({ analyzingStatus: 'processing', lastReceiptId: undefined }));
 
     // Get screenshots
-    const image: string = await new Promise<string>((resolve, reject) => {
+    const screenshot: string = await new Promise<string>((resolve, reject) => {
       chrome.tabs.captureVisibleTab({}, async (image) => {
         resolve(image);
       });
@@ -87,7 +82,7 @@ class Analyzer extends React.Component {
           resolve(response);
         });
       }),
-      vibrantColorsExtract(image)
+      vibrantColorsExtract(screenshot)
     ]);
 
     if (contentRes.status === 'rejected') {
@@ -109,7 +104,7 @@ class Analyzer extends React.Component {
     // Calculate all async values
     let [colorCountResult] = await Promise.allSettled([
       new Promise<ColorCountExtractResult>(async (resolve, reject) => {
-        const result = await colorCountExtract(image);
+        const result = await colorCountExtract(screenshot);
         resolve(result);
       }),
     ]);
@@ -122,31 +117,53 @@ class Analyzer extends React.Component {
 
 
     // Combine contentside result with extension side result
-    const phase2FeatureExtractorResult: FeatureExtractorResultPhase2 = {
+    const featureExtractorResult: FeatureExtractorResultPhase2 = {
       ...phase1FeatureExtractorResult,
       vibrantColors: vibrantColorsExtractResult,
       colorCount: colorCountResult.value
     }
 
-    console.log('phase1FeatureExtractorResult', phase1FeatureExtractorResult);
-    console.log('phase2FeatureExtractorResult', phase2FeatureExtractorResult);
+    console.log('phase2FeatureExtractorResult', featureExtractorResult);
 
-    const finalScore = new FinalScore(document, phase2FeatureExtractorResult);
-
-    console.log('finalScore', finalScore.getAllScores());
+    const result: WebPageData = {
+      screenshot,
+      timestamp: Date.now(),
+      featureExtractorResult
+    };
 
     this.setState(() => {
       const x: Partial<AppState> = { 
         analyzingStatus: 'Done!',
-        result: phase2FeatureExtractorResult,
-        snapshot: image };
+        result,
+        screenshot
+      };
       return x;
     });
   };
 
 
-  openQuickReport() {
+  async openQuickReport() {
     console.log('Quick Report Clicked');
+
+    const webPageData = this.state.result;
+
+    if (webPageData === null) {
+      console.log('somehow webPageData is null, please try again');
+      return;
+    }
+
+    await new Promise(resolve => {
+      chrome.storage.local.set({ webPageData }, function() {
+        resolve(true);
+      });
+    });
+
+    chrome.windows.create({
+      url: '/report.html',
+      type: 'popup'
+    }, function (window) {
+      if (window) (window as any).hello = 'yooy';
+    });
   }
 
   render() {
@@ -180,3 +197,4 @@ class Analyzer extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
+

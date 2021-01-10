@@ -34,15 +34,28 @@ import { FinalScore } from "Core/evaluator/score-calculator/final";
 //     textElementsResult: TextElementsExtractResult
 // }
 
-export interface AppState {
-    analyzingStatus: string,
-    result?: Partial<FeatureExtractorResultPhase2>,
-    finalScore?: Partial<FinalScore>,
+export interface WebPageData {
+    /**
+     * Base64 of the viewport screenshot
+     */
+    screenshot: string;
 
     /**
-     * viewport snapshot
+     * Date.now() val when analyzing the web
      */
-    snapshot: string | null,
+    timestamp: number;
+
+    featureExtractorResult: FeatureExtractorResultPhase2;
+}
+
+export interface AppState {
+    analyzingStatus: string,
+    result: WebPageData | null,
+
+    /**
+     * viewport screenshot
+     */
+    screenshot: string | null,
 }
 
 // Helpers

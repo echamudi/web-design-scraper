@@ -49,7 +49,7 @@ const chromeExt = {
     new HtmlWebpackPlugin({
       filename: 'popup.html',
       template: './chrome-ext/popup/popup.html',
-      chunks: ['popup']
+      chunks: ['popup','style']
     }),
     new HtmlWebpackPlugin({
       filename: 'preferences.html',
@@ -65,7 +65,7 @@ const chromeExt = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      // filename: '[name].css',
+      filename: '[name].css',
       // chunkFilename: '[id].css',
     }),
     // @ts-ignore
