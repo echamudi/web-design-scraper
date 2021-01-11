@@ -7,6 +7,9 @@ import { vibrantColorsExtract } from 'Core/evaluator/feature-extractor/vibrant-c
 import { ColorCountExtractResult } from 'Core/types/factors';
 // import { dominantColorsExtract } from '../evaluator-legacy/dominant-colors';
 import { colorCountExtract } from '../evaluator-legacy/color-count';
+import { DefaultButton, PrimaryButton, Stack, IStackTokens } from 'office-ui-fabric-react';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 
 type ContentRes = {
   featureExtractorResultPhase1: FeatureExtractorResultPhase1
@@ -41,7 +44,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Analyzer />
+        <Stack tokens={{ childrenGap: 10 }}>
+          <div className="ms-fontSize-32">Smart Web Design Scraper</div>
+          <Analyzer />
+        </Stack>
       </div>
     )
   }
@@ -167,34 +173,47 @@ class Analyzer extends React.Component {
   }
 
   render() {
-    return ( 
-      <div>
-        <div className="card">
-          <div className="card-header">
-            Analyze
+    return (
+      <Stack tokens={{ childrenGap: 20 }}>
+        <PrimaryButton text="Analyze" onClick={this.analyzeHandler}/>
+        {
+          this.state.analyzingStatus === 'processing' &&
+          <div>
+            <Spinner label="Analyzing Page..." labelPosition="right" size={SpinnerSize.large}/>
           </div>
-          <div className="card-body">
-            <button type="button" className="btn btn-primary" onClick={this.analyzeHandler}>Analyze</button>
-          </div>
-        </div>
-
-        <div className="card" style={{marginTop: '20px'}}>
-          <div className="card-body">
-            {
-              this.state.analyzingStatus === 'processing' &&
-              <div className="spinner-border text-primary" role="status">
-              </div>
-            }
-            {
-              this.state.analyzingStatus === 'Done!' &&
-              <button type="button" className="btn btn-primary" onClick={this.openQuickReport}>Open Report</button>
-            }
-          </div>
-          </div>
-      </div>
+        }
+        {
+          this.state.analyzingStatus === 'Done!' &&
+          <DefaultButton text="Open Report" onClick={this.openQuickReport}/>
+        }
+      </Stack>
     )
   }
 }
+// <div>
+//   <div className="card">
+//     <div className="card-header">
+//       Analyze
+//     </div>
+//     <div className="card-body">
+//       <button type="button" className="btn btn-primary" onClick={this.analyzeHandler}>Analyze</button>
+//     </div>
+//   </div>
+
+//   <div className="card" style={{marginTop: '20px'}}>
+//     <div className="card-body">
+//       {
+//         this.state.analyzingStatus === 'processing' &&
+//         <div className="spinner-border text-primary" role="status">
+//         </div>
+//       }
+//       {
+//         this.state.analyzingStatus === 'Done!' &&
+//         <button type="button" className="btn btn-primary" onClick={this.openQuickReport}>Open Report</button>
+//       }
+//     </div>
+//     </div>
+// </div>
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
