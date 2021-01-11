@@ -167,8 +167,7 @@ class Analyzer extends React.Component {
     chrome.windows.create({
       url: '/report.html',
       type: 'popup'
-    }, function (window) {
-      if (window) (window as any).hello = 'yooy';
+    }, function () {
     });
   }
 
@@ -190,30 +189,5 @@ class Analyzer extends React.Component {
     )
   }
 }
-// <div>
-//   <div className="card">
-//     <div className="card-header">
-//       Analyze
-//     </div>
-//     <div className="card-body">
-//       <button type="button" className="btn btn-primary" onClick={this.analyzeHandler}>Analyze</button>
-//     </div>
-//   </div>
-
-//   <div className="card" style={{marginTop: '20px'}}>
-//     <div className="card-body">
-//       {
-//         this.state.analyzingStatus === 'processing' &&
-//         <div className="spinner-border text-primary" role="status">
-//         </div>
-//       }
-//       {
-//         this.state.analyzingStatus === 'Done!' &&
-//         <button type="button" className="btn btn-primary" onClick={this.openQuickReport}>Open Report</button>
-//       }
-//     </div>
-//     </div>
-// </div>
 
 ReactDOM.render(<App />, document.getElementById('root'));
-

@@ -185,31 +185,37 @@ class App extends React.Component {
 
     render() {
         return (
-            <Stack horizontal>
-                <Stack.Item disableShrink>
-                    <div style={{width: 300}}></div>
-                    <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto} style={{width: 300}}>
+            <div className="report">
+                <div className="report-navbar">
+                    <div className="report-navbar-title">
+                        Smart Web Design Scraper
+                    </div>
+                </div>
+                <div className="report-content">
+                    <div className="report-sidebar">
                         <Nav styles={navStyles} groups={navLinkGroups} />
-                    </ScrollablePane>
-                </Stack.Item>
-                <Stack.Item grow>
-                    {this.state.currentPage === 'meta-overview' &&
-                        <div>
-                            Overview
-                        </div>
-                    }
-                    {this.state.currentPage === 'meta-element-count' &&
-                        <div>
-                            Element Count
-                        </div>
-                    }
-                    {this.state.currentPage === 'meta-detection-visualization' &&
-                        <div>
-                            Detection Visualization
-                        </div>
-                    }
-                </Stack.Item>
-            </Stack>
+                    </div>
+                    <div className="report-details">
+                        {this.state.currentPage === 'meta-overview' &&
+                            <div className="report-details-container">
+                                <h1>
+                                    Overview
+                                </h1>
+                            </div>
+                        }
+                        {this.state.currentPage === 'meta-element-count' &&
+                            <div>
+                                Element Count
+                            </div>
+                        }
+                        {this.state.currentPage === 'meta-detection-visualization' &&
+                            <div>
+                                Detection Visualization
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         )
     }
 }

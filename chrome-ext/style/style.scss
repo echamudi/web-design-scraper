@@ -17,3 +17,45 @@
 @import '../../node_modules/office-ui-fabric-core/dist/sass/Responsive';
 @import '../../node_modules/office-ui-fabric-core/dist/sass/Utility';
 @import '../../node_modules/office-ui-fabric-core/dist/sass/Wrapper';
+
+// Report
+
+.report {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.report-navbar {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 20px;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 0 6px 0 rgb(0 0 0 / 0.4);
+
+    &-title {
+        font-size: 28px;
+    }
+}
+
+.report-content {
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+    display: flex;
+}
+
+.report-details {
+    flex: 1;
+    padding: 0 20px;
+    overflow-y: scroll;
+}
+
+.report-sidebar {
+    overflow-y: scroll;
+    border-right: 1px solid #e8e8e8;
+    width: 300px;
+}
