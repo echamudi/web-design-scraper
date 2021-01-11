@@ -23,6 +23,7 @@
   "dependencies": {
     "@fluentui/react": "^7.155.3",
     "color-rgba": "^2.2.3",
+    "moment": "^2.29.1",
     "node-vibrant": "^3.1.6",
     "office-ui-fabric-react": "^7.155.3",
     "simple-statistics": "^7.4.0"
