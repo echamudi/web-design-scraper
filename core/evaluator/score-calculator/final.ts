@@ -191,6 +191,3 @@ export class FinalScore {
         }
     }
 }
-
-// TEMP
-export type FinalScoreGetAllScores = ReturnType<FinalScore['getAllScores']>

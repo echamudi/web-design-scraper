@@ -6,160 +6,19 @@ import { Nav, INavStyles, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
 import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/ScrollablePane';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import * as moment from 'moment';
+import { navLinkGroups } from './nav-link-groups';
 
 initializeIcons();
 
-const navStyles: Partial<INavStyles> = { root: { width: 300 } };
-
-const navLinkGroups: INavLinkGroup[] = [
-  {
-    name: 'Overview',
-    links: [
-      {
-        name: 'Overview',
-        key: 'meta-overview',
-        url: ''
-      },
-      {
-        name: 'Element Count',
-        key: 'meta-element-count',
-        url: ''
-      },
-      {
-        name: 'Detection Visualization',
-        key: 'meta-detection-visualization',
-        url: ''
-      },
-    ],
-  },
-  {
-    name: 'Distribution of Components',
-    links: [
-      {
-        name: 'Symmetry (Pixel LR)',
-        key: 'symmetry-pixel-l-r',
-        url: ''
-      },
-      {
-        name: 'Symmetry (Pixel TB)',
-        key: 'symmetry-pixel-t-b',
-        url: ''
-      },
-      {
-        name: 'Complexity (Text DOM)',
-        key: 'complexity-text-dom',
-        url: ''
-      },
-      {
-        name: 'Density (Pixel)',
-        key: 'density-pixel',
-        url: ''
-      },
-      {
-        name: 'Density (DOM)',
-        key: 'density-major-dom',
-        url: ''
-      },
-    ],
-  },
-  {
-    name: 'Appearance of Components',
-    links: [
-      {
-        name: 'Cohesion (Image DOM)',
-        key: 'cohesion-image-dom',
-        url: ''
-      },
-      {
-        name: 'Economy (Image DOM)',
-        key: 'economy-image-dom',
-        url: ''
-      },
-      {
-        name: 'Economy (Text DOM)',
-        key: 'economy-text-dom',
-        url: ''
-      },
-    ],
-  },
-  {
-    name: 'Alignment of Components',
-    links: [
-      {
-        name: 'Simplicity (Horizontal)',
-        key: 'simplicity-horizontal',
-        url: ''
-      },
-      {
-        name: 'Simplicity (Vertical)',
-        key: 'simplicity-vertical',
-        url: ''
-      },
-    ],
-  },
-  {
-    name: 'Color Usage',
-    links: [
-      {
-        name: 'Dominant Colors',
-        key: 'dominant-colors',
-        url: ''
-      },
-    ],
-  },
-  {
-    name: 'Graphics',
-    links: [
-      {
-        name: 'Use of Pictures',
-        key: 'graphic-pictures',
-        url: ''
-      },
-      {
-        name: 'Use of Videos',
-        key: 'graphic-videos',
-        url: ''
-      },
-    ],
-  },
-  {
-    name: 'Typography',
-    links: [
-      {
-        name: 'Text Size',
-        key: 'text-size',
-        url: ''
-      },
-      {
-        name: 'Type of Font',
-        key: 'text-total-fonts',
-        url: ''
-      },
-      {
-        name: 'Type of Font',
-        key: 'text-font-type',
-        url: ''
-      },
-    ],
-  },
-  {
-    name: 'Structure',
-    links: [
-      {
-        name: 'Negative Space (Text)',
-        key: 'negative-space-text',
-        url: ''
-      },
-    ],
-  },
-];
+interface ReportState {
+  currentPage: string,
+  webPageData: WebPageData | null,
+  reportData__timestamp?: string,
+  reportData__url?: string
+}
 
 class App extends React.Component {
-  public state: {
-    currentPage: string,
-    webPageData: WebPageData | null,
-    reportData__timestamp?: string
-  } = {
+  public state: ReportState = {
     currentPage: 'overview',
     webPageData: null
   };
@@ -180,7 +39,7 @@ class App extends React.Component {
     });
 
     chrome.storage.local.get(['webPageData'], (items) => {
-      this.setState((prevStates) => ({
+      this.setState((prevStates: Readonly<ReportState>): ReportState => ({
         ...prevStates,
         webPageData: items['webPageData']
       }));
@@ -194,9 +53,10 @@ class App extends React.Component {
 
     const timestamp = moment.unix(this.state.webPageData.timestamp / 1000).format('LLLL');
 
-    this.setState((prevStates) => ({
+    this.setState((prevStates: Readonly<ReportState>): ReportState => ({
       ...prevStates,
-      reportData__timestamp: timestamp
+      reportData__timestamp: timestamp,
+      reportData__url: this.state.webPageData?.featureExtractorResult.browserInfo.url
     }));
   }
 
@@ -216,35 +76,45 @@ class App extends React.Component {
         </div>
         <div className="report-content">
           <div className="report-sidebar">
-            <Nav styles={navStyles} groups={navLinkGroups} />
+            <Nav styles={{ root: { width: 300 } }} groups={navLinkGroups} />
           </div>
           <div className="report-details">
-            { this.state.webPageData !== null &&
-              <>
-                {this.state.currentPage === 'meta-overview' &&
-                  <div className="report-details-container">
-                    <h1>
-                      Overview
-                    </h1>
-                    <hr/>
-                    <p>
-                      <b>URL: </b> {this.state.webPageData.featureExtractorResult.browserInfo.url}<br/>
-                      <b>Date: </b> {this.state.reportData__timestamp}<br/>
-                    </p>
-                    <img src={this.state.webPageData.screenshot} style={{width: 800}}/>
-                  </div>
-                }
-                {this.state.currentPage === 'meta-element-count' &&
-                  <div>
-                    Element Count
-                  </div>
-                }
-                {this.state.currentPage === 'meta-detection-visualization' &&
-                  <div>
-                    Detection Visualization
-                  </div>
-                }
-              </>
+            {this.state.currentPage === 'meta-overview' &&
+              <div className="report-details-container">
+                <h1>
+                  Overview
+                </h1>
+                <hr/>
+                <p>
+                  <b>URL: </b> <a href={this.state.reportData__url} target="_blank" rel="noopener noreferrer">{this.state.reportData__url}</a><br/>
+                  <b>Date: </b> {this.state.reportData__timestamp}<br/>
+                </p>
+                <img src={this.state.webPageData.screenshot} style={{width: 800}}/>
+                <table>
+                  <tr>
+                    <th style={{width: 200}}>Property</th>
+                    <th style={{width: 300}}>Value</th>
+                  </tr>
+                  <tr>
+                    <td>Viewport Height</td>
+                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.viewportHeight}</td>
+                  </tr>
+                  <tr>
+                    <td>Viewport Width</td>
+                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.viewportWidth}</td>
+                  </tr>
+                </table>
+              </div>
+            }
+            {this.state.currentPage === 'meta-element-count' &&
+              <div>
+                Element Count
+              </div>
+            }
+            {this.state.currentPage === 'meta-detection-visualization' &&
+              <div>
+                Detection Visualization
+              </div>
             }
           </div>
         </div>
