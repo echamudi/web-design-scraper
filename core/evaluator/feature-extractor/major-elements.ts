@@ -1,7 +1,8 @@
 import { GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement } from "Core/types/feature-extractor";
 
 /**
- * Get visible elements of major elements
+ * Get visible elements of major elements.
+ * Currently, major elements are only text and images elements.
  * @param textElements 
  * @param imageElements 
  */

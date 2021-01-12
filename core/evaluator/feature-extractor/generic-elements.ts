@@ -1,6 +1,6 @@
 import { GenericElementsExtractResult, GenericElement, BrowserInfoExtractResult } from "Core/types/feature-extractor";
 import { isVisible } from 'Core/utils/is-visible';
-import { getAbsolutePosition } from "Core/utils/get-absolute-position";
+import { getPositionInPage } from "Core/utils/get-absolute-position";
 
 /**
  * Generic Element Detection
@@ -20,7 +20,7 @@ export function genericElementsExtract(win: Window, browserInfoResult: BrowserIn
         const bound = currentEl.getBoundingClientRect();
 
         genericElements.push({
-            position: getAbsolutePosition(win, bound),
+            position: getPositionInPage(win, bound),
             area: currentEl.clientWidth * currentEl.clientHeight,
             visible: isVisible(currentEl)
         });

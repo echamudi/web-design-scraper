@@ -1,6 +1,21 @@
 import { BrowserInfoExtractResult, ImageElement, ImageElementsExtractResult } from 'Core/types/feature-extractor';
 import { isVisible } from 'Core/utils/is-visible';
-import { getAbsolutePosition } from 'Core/utils/get-absolute-position';
+import { getPositionInPage } from 'Core/utils/get-absolute-position';
+
+function posUtil(el: HTMLElement | SVGSVGElement, win: Window) {
+    const bound = el.getBoundingClientRect();
+    const position = getPositionInPage(win, bound);
+    let aspectRatio: number | undefined = position.w / position.h;
+    if (Object.is(aspectRatio, NaN)) aspectRatio = undefined;
+
+    return {
+        tagName: el.tagName,
+        position,
+        area: position.w * position.h,
+        aspectRatio,
+        visible: isVisible(el)
+    };
+}
 
 export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): ImageElementsExtractResult {
     const doc = win.document;
@@ -9,27 +24,12 @@ export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfo
 
     const imageElements: ImageElement[] = [];
 
-    function posUtil(el: HTMLElement | SVGSVGElement) {
-        const bound = el.getBoundingClientRect();
-        const position = getAbsolutePosition(win, bound);
-        let aspectRatio: number | undefined = position.w / position.h;
-        if (Object.is(aspectRatio, NaN)) aspectRatio = undefined;
-
-        return {
-            tagName: el.tagName,
-            position,
-            area: position.w * position.h,
-            aspectRatio,
-            visible: isVisible(el)
-        };
-    }
-
     // get imgs
     const imgs: HTMLImageElement[] = Array.from(doc.images);
     imgs.forEach(el => {
         imageElements.push({
             url: el.src,
-            ...posUtil(el)
+            ...posUtil(el, win)
         })
     });
 
@@ -38,7 +38,7 @@ export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfo
     svgs.forEach(el => {
         imageElements.push({
             url: '',
-            ...posUtil(el)
+            ...posUtil(el, win)
         })
     });
 
@@ -50,10 +50,10 @@ export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfo
         if ( style.backgroundImage != "none" ) {
             imageElements.push({
                 url: style.backgroundImage.slice( 4, -1 ).replace(/['"]/g, ""),
-                ...posUtil(el)
+                ...posUtil(el, win)
             })
         }
-    })
+    });
 
     return {
         elements: imageElements,

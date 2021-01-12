@@ -5,7 +5,7 @@ import { TextSizeConfig, TextSizeExtractResult } from 'Core/types/factors';
 /**
  * @param doc elements to be evaluated, ideally all elements in the page
  */
-export function TextSizeExtract(doc: Document): TextSizeExtractResult {
+export function textSizeExtract(doc: Document): TextSizeExtractResult {
     const elements: NodeListOf<Element> = doc.querySelectorAll('body *');
 
     // let totalElements = 0;
