@@ -27,7 +27,7 @@ if ((window as any).SWDS === undefined) {
                 majorElements.elements.map((el) => el.position),
                 browserInfo
             );
-            const textSize = textSizeExtract(document);
+            const textSize = textSizeExtract(textElements);
 
             const featureExtractorResultPhase1: FeatureExtractorResultPhase1 = {
                 browserInfo,
