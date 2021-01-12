@@ -1,6 +1,6 @@
 import { GenericElementsExtractResult, GenericElement, BrowserInfoExtractResult } from "Core/types/feature-extractor";
 import { isVisible } from 'Core/utils/is-visible';
-import { getPositionInPage } from "Core/utils/get-absolute-position";
+import { getPositionInPage } from "Core/utils/get-element-position";
 
 /**
  * Generic Element Detection

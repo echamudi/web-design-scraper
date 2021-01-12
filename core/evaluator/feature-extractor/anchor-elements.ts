@@ -1,6 +1,6 @@
 import { BrowserInfoExtractResult, AnchorElementsExtractResult, AnchorElement } from "Core/types/feature-extractor";
 import { isVisible } from 'Core/utils/is-visible';
-import { getPositionInPage } from "Core/utils/get-absolute-position";
+import { getPositionInPage } from "Core/utils/get-element-position";
 
 export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): AnchorElementsExtractResult {
     const doc = win.document;
