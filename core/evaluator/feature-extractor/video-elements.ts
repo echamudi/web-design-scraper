@@ -7,7 +7,7 @@ export function videoElementsExtract(win: Window, browserInfoResult: BrowserInfo
 
     const elements: VideoElement[] = [];
 
-    const { scrollWidth, scrollHeight } = browserInfoResult;
+    const { pageWidth, pageHeight } = browserInfoResult;
 
     // get vids
     const videos: HTMLVideoElement[] = Array.from(doc.getElementsByTagName("video"));
@@ -34,7 +34,7 @@ export function videoElementsExtract(win: Window, browserInfoResult: BrowserInfo
                 return prev;
             }
         }, 0),
-        scrollWidth,
-        scrollHeight
+        pageWidth,
+        pageHeight
     };
 }

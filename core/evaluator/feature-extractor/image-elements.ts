@@ -20,7 +20,7 @@ function posUtil(el: HTMLElement | SVGSVGElement, win: Window) {
 export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): ImageElementsExtractResult {
     const doc = win.document;
 
-    const { scrollWidth, scrollHeight } = browserInfoResult;
+    const { pageWidth, pageHeight } = browserInfoResult;
 
     const imageElements: ImageElement[] = [];
 
@@ -65,7 +65,7 @@ export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfo
                 return prev;
             }
         }, 0),
-        scrollWidth,
-        scrollHeight
+        pageWidth,
+        pageHeight
     };
 }

@@ -5,7 +5,7 @@ import { getBackgroundColor } from "Core/utils/get-background-color";
 export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): TextElementsExtractResult {
     const doc = win.document;
 
-    const { scrollWidth, scrollHeight } = browserInfoResult;
+    const { pageWidth, pageHeight } = browserInfoResult;
 
     const textElements: TextElement[] = [];
 
@@ -54,7 +54,7 @@ export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoE
                 return prev;
             }
         }, 0),
-        scrollWidth,
-        scrollHeight
+        pageWidth,
+        pageHeight
     };
 }

@@ -188,8 +188,8 @@ export interface DensityExtractResult {
 
 // factor id: negative space
 export interface NegativeSpaceExtractResult {
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
     textElementCount: number,
     components: {x: number, y: number, w: number, h: number}[],
 }

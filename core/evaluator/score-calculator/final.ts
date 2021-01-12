@@ -43,8 +43,8 @@ export class FinalScore {
 
         // Construct config for plotter
         const tileSize = Math.floor(features.browserInfo.viewportWidth / 6);
-        const pageHeight = features.browserInfo.scrollHeight;
-        const pageWidth = features.browserInfo.scrollWidth;
+        const pageHeight = features.browserInfo.pageHeight;
+        const pageWidth = features.browserInfo.pageWidth;
         this.plotterConfig = { pageHeight, pageWidth, tileSize };
 
         // Text Elements

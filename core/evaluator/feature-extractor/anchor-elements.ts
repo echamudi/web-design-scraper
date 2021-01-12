@@ -5,7 +5,7 @@ import { getPositionInPage } from "Core/utils/get-element-position";
 export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): AnchorElementsExtractResult {
     const doc = win.document;
 
-    const { scrollWidth, scrollHeight } = browserInfoResult;
+    const { pageWidth, pageHeight } = browserInfoResult;
 
     const anchorElements: AnchorElement[] = [];
 
@@ -41,7 +41,7 @@ export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInf
                 return prev;
             }
         }, 0),
-        scrollWidth,
-        scrollHeight
+        pageWidth,
+        pageHeight
     };
 }

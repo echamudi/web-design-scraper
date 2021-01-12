@@ -12,8 +12,8 @@
 //     } = textDetectionExtractResult;
 
 //     return {
-//         scrollWidth: browserInfoResult.scrollWidth,
-//         scrollHeight: browserInfoResult.scrollHeight,
+//         pageWidth: browserInfoResult.pageWidth,
+//         pageHeight: browserInfoResult.pageHeight,
 //         textElementCount,
 //         components
 //     };

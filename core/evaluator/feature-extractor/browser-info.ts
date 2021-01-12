@@ -8,9 +8,9 @@ export function browserInfoExtract(win: Window): BrowserInfoExtractResult {
     const url = win.location.href;
     const vw = Math.max(win.document.documentElement.clientWidth || 0, win.innerWidth || 0);
     const vh = Math.max(win.document.documentElement.clientHeight || 0, win.innerHeight || 0);
-    const scrollHeight = Math.max( body.scrollHeight, body.offsetHeight, 
+    const pageHeight = Math.max( body.scrollHeight, body.offsetHeight, 
                            html.clientHeight, html.scrollHeight, html.offsetHeight );
-    const scrollWidth = Math.max( body.scrollWidth, body.offsetWidth, 
+    const pageWidth = Math.max( body.scrollWidth, body.offsetWidth, 
                             html.clientWidth, html.scrollWidth, html.offsetWidth );
     const pageYOffset = win.pageYOffset;
     const pageXOffset = win.pageXOffset;
@@ -20,8 +20,8 @@ export function browserInfoExtract(win: Window): BrowserInfoExtractResult {
         userAgent,
         viewportWidth: vw,
         viewportHeight: vh,
-        scrollHeight,
-        scrollWidth,
+        pageHeight,
+        pageWidth,
         pageYOffset,
         pageXOffset
     };

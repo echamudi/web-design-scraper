@@ -30,9 +30,21 @@ export interface BrowserInfoExtractResult {
     userAgent: string,
     viewportWidth: number,
     viewportHeight: number,
-    scrollHeight: number,
-    scrollWidth: number,
+    /**
+     * The height of the entire page
+     */
+    pageHeight: number,
+    /**
+     * The width of the entire page
+     */
+    pageWidth: number,
+    /**
+     * How much is the page scrolled from the top
+     */
     pageYOffset: number,
+    /**
+     * How much is the page scrolled from the left
+     */
     pageXOffset: number
 }
 
@@ -55,8 +67,8 @@ export interface GenericElementsExtractResult {
      * Number of elements in the page (visible only)
      */
     visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
 }
 
 // text-detection
@@ -85,8 +97,8 @@ export interface TextElementsExtractResult {
      * Number of elements in the page (visible only)
      */
     visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
 }
 
 // image-detection
@@ -115,8 +127,8 @@ export interface ImageElementsExtractResult {
      * Number of elements in the page (visible only)
      */
     visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
 }
 
 // video-detection
@@ -140,8 +152,8 @@ export interface VideoElementsExtractResult {
      * Number of elements in the page (visible only)
      */
     visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
 }
 
 // anchor-detection
@@ -165,8 +177,8 @@ export interface AnchorElementsExtractResult {
      * Number of elements in the page (visible only)
      */
     visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
 }
 
 // vibrant-colors

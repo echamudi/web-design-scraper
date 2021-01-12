@@ -8,7 +8,7 @@ import { getPositionInPage } from "Core/utils/get-element-position";
 export function genericElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult, elementTag: string): GenericElementsExtractResult {
     const doc = win.document;
 
-    const { scrollWidth, scrollHeight } = browserInfoResult;
+    const { pageWidth, pageHeight } = browserInfoResult;
 
     const genericElements: GenericElement[] = [];
 
@@ -36,7 +36,7 @@ export function genericElementsExtract(win: Window, browserInfoResult: BrowserIn
                 return prev;
             }
         }, 0),
-        scrollWidth,
-        scrollHeight
+        pageWidth,
+        pageHeight
     };
 }

@@ -36,7 +36,7 @@ export function majorElementsExtract(
         elements: majorElementPosition,
         elementCount: majorElementPosition.length,
         visibleElementCount: majorElementPosition.length,
-        scrollWidth: textElements.scrollWidth,
-        scrollHeight: textElements.scrollHeight,
+        pageWidth: textElements.pageWidth,
+        pageHeight: textElements.pageHeight,
     }
 }
