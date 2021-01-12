@@ -1,10 +1,10 @@
-// Feature EXTRACTOR
-
 import { ElementPosition } from "./types";
 import { Palette } from "node-vibrant/lib/color";
 import { TextSizeExtractResult, DominantColorsExtractResult, ColorCountExtractResult } from "./factors";
 
+//
 // All Results
+//
 
 // Phase 1 happens only in the content-side
 export interface FeatureExtractorResultPhase1 {
@@ -17,11 +17,15 @@ export interface FeatureExtractorResultPhase1 {
     textSize: TextSizeExtractResult
 }
 
-// Phase 2 is the phase 1 result + results from the extension side
+// Phase 2 is the "phase 1 result" + "results from the extension side"
 export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
     vibrantColors: VibrantColorsExtractResult,
     colorCount: ColorCountExtractResult
 }
+
+//
+// Web page features
+//
 
 // browser-info
 
@@ -54,7 +58,7 @@ export interface GenericElement {
     position: ElementPosition,
 
     area: number, // width x height
-    visible: boolean,
+    visible: boolean
 };
 
 export interface GenericElementsExtractResult {
@@ -73,112 +77,55 @@ export interface GenericElementsExtractResult {
 
 // text-detection
 
-export interface TextElement {
-    position: ElementPosition,
-
+export interface TextElement extends GenericElement {
     fontType: string,
     fontSize: string,
     color: string,
     backgroundColor: string | undefined,
     fontWeight: string,
-    visible: boolean,
     totalCharacters: number,
     text: string,
-    area: number
 }
 
-export interface TextElementsExtractResult {
+export interface TextElementsExtractResult extends GenericElementsExtractResult {
     elements: TextElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    pageWidth: number,
-    pageHeight: number,
 }
 
 // image-detection
 
-export interface ImageElement {
-    position: ElementPosition,
-
+export interface ImageElement extends GenericElement {
     url: string,
     tagName: string,
-    area: number, // width x height
-
     /**
      * Aspect ratio is undefined if DIV/0
      */
     aspectRatio: number | undefined,
-    visible: boolean,
 }
 
-export interface ImageElementsExtractResult {
+export interface ImageElementsExtractResult extends GenericElementsExtractResult {
     elements: ImageElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    pageWidth: number,
-    pageHeight: number,
 }
 
 // video-detection
 
-export interface VideoElement {
-    position: ElementPosition,
-
+export interface VideoElement extends GenericElement {
     url: string,
     tagName: string,
-    area: number, // width x height
-    visible: boolean,
 }
 
-export interface VideoElementsExtractResult {
+export interface VideoElementsExtractResult extends GenericElementsExtractResult {
     elements: VideoElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    pageWidth: number,
-    pageHeight: number,
 }
 
 // anchor-detection
 
-export interface AnchorElement {
-    position: ElementPosition,
-
+export interface AnchorElement extends GenericElement {
     href: string | null,
-    text: string,
-    area: number, // width x height
-    visible: boolean,
+    text: string
 }
 
-export interface AnchorElementsExtractResult {
-    elements: AnchorElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    pageWidth: number,
-    pageHeight: number,
+export interface AnchorElementsExtractResult extends GenericElementsExtractResult {
+    elements: AnchorElement[]
 }
 
 // vibrant-colors
