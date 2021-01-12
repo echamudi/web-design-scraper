@@ -1,11 +1,11 @@
-import { alignmentPointsExtract } from 'Core/evaluator/feature-extractor/alignment-points';
-import { majorElementsExtract } from 'Core/evaluator/feature-extractor/major-elements';
-import { browserInfoExtract } from 'Core/evaluator/feature-extractor/browser-info';
-import { textElementsExtract } from 'Core/evaluator/feature-extractor/text-elements';
-import { imageElementsExtract } from 'Core/evaluator/feature-extractor/image-elements';
-import { videoElementsExtract } from 'Core/evaluator/feature-extractor/video-elements';
-import { anchorElementsExtract } from 'Core/evaluator/feature-extractor/anchor-elements';
-import { textSizeExtract } from 'Core/evaluator/feature-extractor/text-size';
+import { alignmentPointsExtract } from 'Core/evaluator/web-feature-extractor/alignment-points';
+import { majorElementsExtract } from 'Core/evaluator/web-feature-extractor/major-elements';
+import { browserInfoExtract } from 'Core/evaluator/web-feature-extractor/browser-info';
+import { textElementsExtract } from 'Core/evaluator/web-feature-extractor/text-elements';
+import { imageElementsExtract } from 'Core/evaluator/web-feature-extractor/image-elements';
+import { videoElementsExtract } from 'Core/evaluator/web-feature-extractor/video-elements';
+import { anchorElementsExtract } from 'Core/evaluator/web-feature-extractor/anchor-elements';
+import { textSizeExtract } from 'Core/evaluator/web-feature-extractor/text-size';
 
 import { FeatureExtractorResultPhase1 } from 'Core/types/feature-extractor';
 

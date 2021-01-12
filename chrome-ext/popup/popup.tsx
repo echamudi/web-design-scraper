@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { AppState, WebPageData } from 'Core/types/types';
 import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2 } from 'Core/types/feature-extractor';
 import { FinalScore } from 'Core/evaluator/score-calculator/final';
-import { vibrantColorsExtract } from 'Core/evaluator/feature-extractor/vibrant-colors';
+import { vibrantColorsExtract } from 'Core/evaluator/web-feature-extractor/vibrant-colors';
 import { ColorCountExtractResult } from 'Core/types/factors';
 // import { dominantColorsExtract } from '../evaluator-legacy/dominant-colors';
 import { colorCountExtract } from '../../core/evaluator/image-feature-extractor/color-count';
