@@ -15,6 +15,8 @@ export function browserInfoExtract(win: Window): BrowserInfoExtractResult {
     const pageYOffset = win.pageYOffset;
     const pageXOffset = win.pageXOffset;
 
+    const devicePixelRatio = win.devicePixelRatio;
+
     return {
         url,
         userAgent,
@@ -23,6 +25,7 @@ export function browserInfoExtract(win: Window): BrowserInfoExtractResult {
         pageHeight,
         pageWidth,
         pageYOffset,
-        pageXOffset
+        pageXOffset,
+        devicePixelRatio
     };
 }

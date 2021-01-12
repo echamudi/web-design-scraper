@@ -17,7 +17,8 @@ export function majorElementsExtract(
             majorElementPosition.push({
                 position: el.position,
                 area: el.area,
-                visible: true
+                visible: true,
+                aspectRatio: el.aspectRatio
             });
         };
     });
@@ -27,7 +28,8 @@ export function majorElementsExtract(
             majorElementPosition.push({
                 position: el.position,
                 area: el.area,
-                visible: true
+                visible: true,
+                aspectRatio: el.aspectRatio
             });
         };
     });

@@ -1,6 +1,7 @@
 import { GenericElementsExtractResult, GenericElement, BrowserInfoExtractResult } from "Core/types/feature-extractor";
 import { isVisible } from 'Core/utils/is-visible';
 import { getPositionInPage } from "Core/utils/get-element-position";
+import { numberOnly } from "Core/utils/number-only";
 
 /**
  * Generic Element Detection
@@ -22,7 +23,8 @@ export function genericElementsExtract(win: Window, browserInfoResult: BrowserIn
         genericElements.push({
             position: getPositionInPage(win, bound),
             area: currentEl.clientWidth * currentEl.clientHeight,
-            visible: isVisible(currentEl)
+            visible: isVisible(currentEl),
+            aspectRatio: numberOnly(currentEl.clientWidth / currentEl.clientHeight)
         });
     }
 

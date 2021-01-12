@@ -1,6 +1,7 @@
 import { BrowserInfoExtractResult, AnchorElementsExtractResult, AnchorElement } from "Core/types/feature-extractor";
 import { isVisible } from 'Core/utils/is-visible';
 import { getPositionInPage } from "Core/utils/get-element-position";
+import { numberOnly } from "Core/utils/number-only";
 
 export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): AnchorElementsExtractResult {
     const doc = win.document;
@@ -27,7 +28,8 @@ export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInf
             href: currentEl.getAttribute('href'),
             text,
             area: currentEl.clientWidth * currentEl.clientHeight,
-            visible: isVisible(currentEl)
+            visible: isVisible(currentEl),
+            aspectRatio: numberOnly(currentEl.clientWidth / currentEl.clientHeight)
         });
     }
 

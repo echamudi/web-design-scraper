@@ -1,6 +1,7 @@
 import { VideoElementsExtractResult, VideoElement, BrowserInfoExtractResult } from 'Core/types/feature-extractor';
 import { isVisible } from 'Core/utils/is-visible';
 import { getPositionInPage } from 'Core/utils/get-element-position';
+import { numberOnly } from 'Core/utils/number-only';
 
 export function videoElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): VideoElementsExtractResult {
     const doc = win.document;
@@ -14,13 +15,15 @@ export function videoElementsExtract(win: Window, browserInfoResult: BrowserInfo
 
     videos.forEach(el => {
         const bound = el.getBoundingClientRect();
+        const pos = getPositionInPage(win, bound);
 
         elements.push({
-            position: getPositionInPage(win, bound),
+            position: pos,
             tagName: el.tagName,
             area: el.clientWidth * el.clientHeight,
             visible: isVisible(el),
-            url: ''
+            url: '', 
+            aspectRatio: numberOnly(pos.w / pos.h)
         })
     });
 

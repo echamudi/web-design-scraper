@@ -1,6 +1,8 @@
 import { BrowserInfoExtractResult, TextElementsExtractResult, TextElement } from "Core/types/feature-extractor";
 import { isVisible } from 'Core/utils/is-visible';
 import { getBackgroundColor } from "Core/utils/get-background-color";
+import { getPositionInPage } from "Core/utils/get-element-position";
+import { numberOnly } from "Core/utils/number-only";
 
 export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): TextElementsExtractResult {
     const doc = win.document;
@@ -22,10 +24,7 @@ export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoE
 
         if (text !== '') {
             const bound = currentEl.getBoundingClientRect();
-            const x = Math.floor(bound.x + win.scrollX);
-            const y = Math.floor(bound.y + win.scrollY);
-            const w = Math.floor(bound.width);
-            const h = Math.floor(bound.height);
+            const { x, y, w, h } = getPositionInPage(win, bound);
             const midX = Math.floor(x + (w / 2));
             const midY = Math.floor(y + (h / 2));
 
@@ -39,7 +38,8 @@ export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoE
                 fontWeight: win.getComputedStyle(currentEl).fontWeight,
                 visible: isVisible(currentEl),
                 totalCharacters: [...text].length,
-                text
+                text,
+                aspectRatio: numberOnly(w / h)
             });
         }
     }

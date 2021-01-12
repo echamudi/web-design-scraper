@@ -35,11 +35,13 @@ export interface BrowserInfoExtractResult {
     viewportWidth: number,
     viewportHeight: number,
     /**
-     * The height of the entire page
+     * The height of the entire page.
+     * Taken from window.scrollHeight
      */
     pageHeight: number,
     /**
-     * The width of the entire page
+     * The width of the entire page.
+     * Taken from window.scrollWidth
      */
     pageWidth: number,
     /**
@@ -49,16 +51,27 @@ export interface BrowserInfoExtractResult {
     /**
      * How much is the page scrolled from the left
      */
-    pageXOffset: number
+    pageXOffset: number,
+    /**
+     * Taken from window.devicePixelRatio
+     */
+    devicePixelRatio: number
 }
 
-// element-detection
+// generic-elements
 
 export interface GenericElement {
     position: ElementPosition,
 
+    /**
+     * Logical area
+     */
     area: number, // width x height
-    visible: boolean
+    visible: boolean,
+    /**
+     * Aspect ratio is undefined if DIV/0
+     */
+    aspectRatio: number | undefined
 };
 
 export interface GenericElementsExtractResult {
@@ -75,7 +88,7 @@ export interface GenericElementsExtractResult {
     pageHeight: number,
 }
 
-// text-detection
+// text-elements
 
 export interface TextElement extends GenericElement {
     fontType: string,
@@ -91,22 +104,18 @@ export interface TextElementsExtractResult extends GenericElementsExtractResult 
     elements: TextElement[],
 }
 
-// image-detection
+// image-elements
 
 export interface ImageElement extends GenericElement {
     url: string,
     tagName: string,
-    /**
-     * Aspect ratio is undefined if DIV/0
-     */
-    aspectRatio: number | undefined,
 }
 
 export interface ImageElementsExtractResult extends GenericElementsExtractResult {
     elements: ImageElement[],
 }
 
-// video-detection
+// video-elements
 
 export interface VideoElement extends GenericElement {
     url: string,
@@ -117,7 +126,7 @@ export interface VideoElementsExtractResult extends GenericElementsExtractResult
     elements: VideoElement[],
 }
 
-// anchor-detection
+// anchor-elements
 
 export interface AnchorElement extends GenericElement {
     href: string | null,
@@ -159,3 +168,42 @@ export interface AlignmentPointsExtractResult {
     totalXAlignmentPoints: number,
     totalYAlignmentPoints: number
 }
+
+// viewport-screenshot
+
+/**
+ * Screenshot of the viewport only
+ */
+export interface ViewportScreenshotExtractResult {
+    image: string,
+    imageWidth: number,
+    imageHeight: number,
+    imageArea: number,
+    viewportWidth: number,
+    viewportHeight: number,
+    viewportArea: number,
+    /**
+     * (imageArea / viewportArea) / 2
+     */
+    pixelRatio: number
+}
+
+// page-screenshot
+
+/**
+ * Screenshot of the entire page
+ */
+export interface PageScreenshotExtractResult {
+    image: string,
+    imageWidth: number,
+    imageHeight: number,
+    imageArea: number,
+    pageWidth: number,
+    pageHeight: number,
+    pageArea: number,
+    /**
+     * (imageArea / viewportArea) / 2
+     */
+    pixelRatio: number
+}
+
