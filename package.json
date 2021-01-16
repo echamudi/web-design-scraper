@@ -22,6 +22,7 @@
   "homepage": "https://github.com/echamudi/smart-web-design-scraper#readme",
   "dependencies": {
     "@fluentui/react": "^7.155.3",
+    "color-diff": "^1.2.0",
     "color-rgba": "^2.2.3",
     "moment": "^2.29.1",
     "node-vibrant": "^3.1.6",
@@ -33,6 +34,7 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
     "@types/chrome": "0.0.128",
+    "@types/color-diff": "^1.1.0",
     "@types/color-rgba": "^2.1.0",
     "@types/image-to-base64": "^2.1.0",
     "@types/jest": "^26.0.20",
@@ -67,7 +69,8 @@
   "jest": {
     "testMatch": [
       "<rootDir>/core/utils/**/*.test.ts",
-      "<rootDir>/core/evaluator/**/*.test.ts"
+      "<rootDir>/core/evaluator/**/*.test.ts",
+      "<rootDir>/test/dependency-tests/**/*.test.ts"
     ],
     "testEnvironment": "./jest-environment-custom"
   }
