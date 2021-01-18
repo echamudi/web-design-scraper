@@ -20,10 +20,10 @@ export function colorSymmetryExtract(imageData: ImageData, symmetryAxis: 'vertic
         const visualization = new ImageData(width, halfHeight);
         let ciede2000average = 0;
 
-        for (let x = 0; x < width; x++) {
-            for (let y = 0; y < halfHeight; y++) {
-                const counterY = height - y - 1;
+        for (let y = 0; y < halfHeight; y++) {
+            const counterY = height - y - 1;
 
+            for (let x = 0; x < width; x++) {
                 const colorAtTopSide = getPixelImageData(imageData, x, y);
                 const colorAtBottomSide = getPixelImageData(imageData, x, counterY);
 
