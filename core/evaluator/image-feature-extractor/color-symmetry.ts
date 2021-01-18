@@ -4,7 +4,7 @@ import { getPixelImageData, setPixelImageData } from "Core/utils/image-canvas";
 import { scaleValue } from "Core/utils/math";
 
 /**
- * The average of 
+ * Check image symmetry with CIEDE2000 algorithm
  * @param imageData 
  */
 export function colorSymmetryExtract(imageData: ImageData, symmetryAxis: 'vertical' | 'horizontal'): ColorSymmetryExtractResult {
