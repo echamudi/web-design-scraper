@@ -67,7 +67,23 @@ export interface ElementPosition {
 }
 
 export interface Color {
+    /**
+     * 0-255
+     */
     r: number,
+
+    /**
+     * 0-255
+     */
     g: number,
-    b: number
+
+    /**
+     * 0-255
+     */
+    b: number,
+
+    /**
+     * 0-255
+     */
+    a?: number
 }

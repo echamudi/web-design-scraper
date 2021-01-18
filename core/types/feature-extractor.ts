@@ -169,6 +169,28 @@ export interface AlignmentPointsExtractResult {
     totalYAlignmentPoints: number
 }
 
+// color-symmetry
+
+export interface ColorSymmetryExtractResult {
+    /**
+     * Visualized symmetry reult
+     */
+    visualization: ImageData,
+    /**
+     * Average of the CIEDE2000 values [0, 100]
+     */
+    ciede2000average: number,
+    /**
+     * Symmetry line
+     */
+    symmetryAxis: 'vertical' | 'horizontal',
+    /**
+     * Total traversed pixel pairs, usually around half the size of the image resolution
+     */
+    totalPixelPairs: number
+}
+
+
 // viewport-screenshot
 
 /**
