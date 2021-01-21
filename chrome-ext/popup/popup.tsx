@@ -10,6 +10,8 @@ import { colorCountExtract } from '../../core/evaluator/image-feature-extractor/
 import { DefaultButton, PrimaryButton, Stack, IStackTokens } from 'office-ui-fabric-react';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { Label } from 'office-ui-fabric-react/lib/Label';
+import { colorSymmetryExtract } from 'Core/evaluator/image-feature-extractor/color-symmetry';
+import { imageToImageData } from 'Core/utils/image-canvas';
 
 type ContentRes = {
   featureExtractorResultPhase1: FeatureExtractorResultPhase1
@@ -77,6 +79,8 @@ class Analyzer extends React.Component {
       });
     });
 
+    const screenshotImageData: ImageData = await imageToImageData(screenshot);
+
     // Calculate all async values
     const [
       contentRes,
@@ -105,7 +109,7 @@ class Analyzer extends React.Component {
 
     const phase1FeatureExtractorResult = contentRes.value.featureExtractorResultPhase1;
     const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
-
+    const colorSymmetryResult = colorSymmetryExtract(screenshotImageData);
 
     // Calculate all async values
     let [colorCountResult] = await Promise.allSettled([
@@ -126,13 +130,16 @@ class Analyzer extends React.Component {
     const featureExtractorResult: FeatureExtractorResultPhase2 = {
       ...phase1FeatureExtractorResult,
       vibrantColors: vibrantColorsExtractResult,
-      colorCount: colorCountResult.value
+      colorCount: colorCountResult.value,
+      colorSymmetry: colorSymmetryResult
     }
 
     console.log('phase2FeatureExtractorResult', featureExtractorResult);
 
     const result: WebPageData = {
       screenshot,
+      screenshotWidth: screenshotImageData.width,
+      screenshotHeight: screenshotImageData.height,
       timestamp: Date.now(),
       featureExtractorResult
     };
