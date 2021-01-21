@@ -1,11 +1,3 @@
-import { TextSizeConfig, TextSizeExtractResult, SymmetryExtractResult, DominantColorsConfig, PicturesConfig, SymmetryConfig, ColorCountExtractResult, DensityExtractResult, DensityConfig, NegativeSpaceExtractResult, VideosExtractResult } from "./factors";
-import { TextFontTypeExtractResult } from "./factors";
-import { PicturesExtractResult } from "./factors";
-import { DominantColorsExtractResult } from "./factors";
-import { ElementCountExtractResult } from "./factors";
-import { ImageElementsExtractResult, TextElementsExtractResult, BrowserInfoExtractResult, FeatureExtractorResultPhase2 } from './feature-extractor';
-import { FinalScore } from "Core/evaluator/score-calculator/final";
-
 // export interface AnalysisConfig {
 //     textSize: TextSizeConfig,
 //     dominantColors: DominantColorsConfig,

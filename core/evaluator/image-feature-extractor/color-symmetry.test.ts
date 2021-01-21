@@ -2,7 +2,6 @@ import { colorSymmetryExtract } from './color-symmetry';
 import imageToBase64 from 'image-to-base64';
 import path from 'path';
 import { imageToImageData } from 'Core/utils/image-canvas';
-import { ColorSymmetryExtractResult } from 'Core/types/feature-extractor';
 
 test('colorSymmetry', async () => {
     const imgUV = await imageToBase64(path.join(__dirname, '../../../test/fixtures/small-imgs/unsymmetrical-vertical.png'));

@@ -1,5 +1,4 @@
 import { blockDensityScoreCalculate } from './block-density';
-import { clamp } from 'Core/utils/clamp';
 
 test('standard', () => {
     const density1 = blockDensityScoreCalculate([[0,0],[0,0.5]]);

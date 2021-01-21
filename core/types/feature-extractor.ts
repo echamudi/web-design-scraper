@@ -1,6 +1,6 @@
 import { ElementPosition } from "./types";
 import { Palette } from "node-vibrant/lib/color";
-import { TextSizeExtractResult, DominantColorsExtractResult, ColorCountExtractResult } from "./factors";
+import { TextSizeExtractResult, ColorCountExtractResult } from "./factors";
 
 //
 // All Results

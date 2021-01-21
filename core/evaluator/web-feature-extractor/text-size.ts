@@ -1,6 +1,6 @@
 //TODO: Review this file to follow the standard in other files
 
-import { TextSizeConfig, TextSizeExtractResult } from 'Core/types/factors';
+import { TextSizeExtractResult } from 'Core/types/factors';
 import { TextElementsExtractResult } from 'Core/types/feature-extractor';
 
 export function textSizeExtract(textElementExtractResult: TextElementsExtractResult): TextSizeExtractResult {

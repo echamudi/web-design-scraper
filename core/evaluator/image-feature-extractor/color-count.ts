@@ -1,4 +1,3 @@
-import { equalWithTolerance } from 'Core/utils/equality';
 import { rgbToHex } from 'Core/utils/color';
 import { ColorCountExtractResult } from 'Core/types/factors';
 import { imageToCanvas } from 'Core/utils/image-canvas';
