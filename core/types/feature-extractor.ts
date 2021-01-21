@@ -1,4 +1,4 @@
-import { ElementPosition } from "./types";
+import { Color, ElementPosition } from "./types";
 import { Palette } from "node-vibrant/lib/color";
 import { TextSizeExtractResult, ColorCountExtractResult } from "./factors";
 
@@ -203,6 +203,21 @@ export interface ColorSymmetryExtractResult {
     }
 }
 
+// color-distribution
+
+export interface ColorDistributionExtractResult {
+    mostUsedColor: Color,
+
+    /** Total traversed pixel */
+    totalPixels: number,
+
+    /** percentage [0, 100] */
+    colorPercentageOfTheTop1: number,
+    /** percentage [0, 100] */
+    colorPercentageOfTheTop5: number,
+    /** percentage [0, 100] */
+    colorPercentageOfTheTop10: number
+}
 
 // viewport-screenshot
 

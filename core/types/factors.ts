@@ -1,4 +1,5 @@
 import { Palette } from "node-vibrant/lib/color";
+import { Color } from "./types";
 
 // factor id: symmetry
 
@@ -165,7 +166,7 @@ export interface ElementCountExtractResult {
 // factor id: color-count
 
 export interface ColorCountExtractResult {
-    rank: Array<{color: string, pixelCount: number}>,
+    rank: Array<{color: Color, pixelCount: number}>,
 }
 
 // factor id: density
