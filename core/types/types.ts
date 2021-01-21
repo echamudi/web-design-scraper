@@ -1,36 +1,13 @@
-// export interface AnalysisConfig {
-//     textSize: TextSizeConfig,
-//     dominantColors: DominantColorsConfig,
-//     pictures: PicturesConfig,
-//     symmetry: SymmetryConfig,
-//     density: DensityConfig
-// }
-
-// export interface AnalysisResult {
-//     html: string,
-//     analysisConfig: AnalysisConfig,
-
-//     screenshot: string,
-//     textSizeResult: TextSizeExtractResult,
-//     textFontTypeResult: TextFontTypeExtractResult,
-//     picturesResult: PicturesExtractResult,
-//     dominantColorsResult: DominantColorsExtractResult,
-//     elementCountResult: ElementCountExtractResult,
-//     browserInfoResult: BrowserInfoExtractResult,
-//     symmetryResult: SymmetryExtractResult,
-//     colorCountResult: ColorCountExtractResult,
-//     densityResult: DensityExtractResult,
-//     negativeSpaceResult: NegativeSpaceExtractResult,
-//     videosResult: VideosExtractResult,
-//     imageElementsResult: ImageElementsExtractResult,
-//     textElementsResult: TextElementsExtractResult
-// }
+import { FeatureExtractorResultPhase2 } from "./feature-extractor";
 
 export interface WebPageData {
     /**
      * Base64 of the viewport screenshot
      */
     screenshot: string;
+
+    screenshotWidth: number;
+    screenshotHeight: number;
 
     /**
      * Date.now() val when analyzing the web
