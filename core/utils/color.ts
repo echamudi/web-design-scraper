@@ -37,3 +37,18 @@ export function colorDiff(col1: Color, col2: Color): number {
 
     return diff(color1, color2);
 }
+
+/**
+ * 
+ * @param col1 Color 1. Alpha is ignored.
+ * @param col2 Color 2. Alpha is ignored.
+ * @param tolerance CIEDE2000 score tolerance (100 = accept all differences, 0 = strict equality)
+ */
+export function colorEquality(col1: Color, col2: Color, tolerance?: number): boolean {
+    if (tolerance === undefined || tolerance === 0) {
+        return col1.r === col2.r && col1.g === col2.g && col1.b === col2.b;
+    }
+
+    const ciede2000 = colorDiff(col1, col2);
+    return ciede2000 < tolerance;
+}
