@@ -17,7 +17,7 @@ export async function colorCountExtract(imageURI: string): Promise<ColorCountExt
     const map: {[x: string]: number} = {};
 
     for (let i = 0; i < imagePixels.length; i += 4) {
-        const hex = rgbToHex(imagePixels[i], imagePixels[i + 1], imagePixels[i + 2]);
+        const hex = rgbToHex({r: imagePixels[i], g: imagePixels[i + 1], b: imagePixels[i + 2]});
 
         if (map[hex] === undefined) {
             map[hex] = 1;
