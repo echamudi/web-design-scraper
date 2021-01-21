@@ -9,30 +9,20 @@ const navLinkGroups: INavLinkGroup[] = [
                 key: 'meta-overview',
                 url: ''
             },
-            {
-                name: 'Element Count',
-                key: 'meta-element-count',
-                url: ''
-            },
-            {
-                name: 'Detection Visualization',
-                key: 'meta-detection-visualization',
-                url: ''
-            },
+            // {
+            //     name: 'Detection Visualization',
+            //     key: 'meta-detection-visualization',
+            //     url: ''
+            // },
         ],
     },
     {
         name: 'Distribution of Components',
         links: [
             {
-                name: 'Symmetry (Pixel LR)',
-                key: 'symmetry-pixel-l-r',
-                url: ''
-            },
-            {
-                name: 'Symmetry (Pixel TB)',
-                key: 'symmetry-pixel-t-b',
-                url: ''
+                name: 'Symmetry (Pixel)',
+                key: 'symmetry-pixel',
+                url: '',
             },
             {
                 name: 'Complexity (Text DOM)',
@@ -123,12 +113,7 @@ const navLinkGroups: INavLinkGroup[] = [
                 name: 'Type of Font',
                 key: 'text-total-fonts',
                 url: ''
-            },
-            {
-                name: 'Type of Font',
-                key: 'text-font-type',
-                url: ''
-            },
+            }
         ],
     },
     {

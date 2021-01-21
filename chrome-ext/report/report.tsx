@@ -90,6 +90,7 @@ class App extends React.Component {
                   <b>Date: </b> {this.state.reportData__timestamp}<br/>
                 </p>
                 <img src={this.state.webPageData.screenshot} style={{width: 800}}/>
+                <hr/>
                 <table>
                   <tr>
                     <th style={{width: 200}}>Property</th>
@@ -103,17 +104,64 @@ class App extends React.Component {
                     <td>Viewport Width</td>
                     <td>{this.state.webPageData.featureExtractorResult.browserInfo.viewportWidth}</td>
                   </tr>
+                  <tr>
+                    <td>Page Height</td>
+                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.pageHeight}</td>
+                  </tr>
+                  <tr>
+                    <td>Page Width</td>
+                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.pageWidth}</td>
+                  </tr>
+                  <tr>
+                    <td>Device Pixel Ratio</td>
+                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.devicePixelRatio}</td>
+                  </tr>
                 </table>
               </div>
             }
-            {this.state.currentPage === 'meta-element-count' &&
-              <div>
-                Element Count
+            {/* {this.state.currentPage === 'meta-detection-visualization' &&
+              <div className="report-details-container">
+                <h1>
+                  Detection Visualization
+                </h1>
+                <hr/>
+                <p>
+                  Here are the detected el
+                </p>
               </div>
-            }
-            {this.state.currentPage === 'meta-detection-visualization' &&
-              <div>
-                Detection Visualization
+            } */}
+            {this.state.currentPage === 'symmetry-pixel' &&
+              <div className="report-details-container">
+                <h1>
+                  Symmetry (Pixel)
+                </h1>
+                <hr/>
+                <p>
+                  This factor item tells the symmetry of the viewport snapshot through a vertical line.
+                  The algorithm checks the ciede2000 difference of each pixel from each side.
+                </p>
+                
+                <h2>
+                  Visualization
+                </h2>
+                <p>Hover the cursor over the image to see the unsymmetrical pixel (marked with red colour)</p>
+                <h2>
+                  Design Scraping Result
+                </h2>
+                <table>
+                  <tr>
+                    <th style={{width: 200}}>Metric</th>
+                    <th style={{width: 300}}>Value</th>
+                  </tr>
+                  <tr>
+                    <td>Horizontal Ciede Average</td>
+                    <td>{this.state.webPageData.featureExtractorResult.colorSymmetry.horizontal.ciede2000average}</td>
+                  </tr>
+                  <tr>
+                    <td>Vertical Ciede Average</td>
+                    <td>{this.state.webPageData.featureExtractorResult.colorSymmetry.vertical.ciede2000average}</td>
+                  </tr>
+                </table>
               </div>
             }
           </div>
