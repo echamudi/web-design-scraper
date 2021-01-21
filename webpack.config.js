@@ -78,7 +78,8 @@ const chromeExt = {
     extensions: [ '.tsx', '.ts', '.js' ],
     alias: {
       "Core": path.resolve(__dirname, './core'),
-      "ChromeExt": path.resolve(__dirname, './chrome-ext/lib')
+      "ChromeExt": path.resolve(__dirname, './chrome-ext/lib'),
+      "Executor": path.resolve(__dirname, './executor'),
     }
   },
   output: {
