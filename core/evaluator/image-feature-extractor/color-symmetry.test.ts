@@ -10,11 +10,11 @@ test('colorSymmetry', async () => {
     const imageDataUV = await imageToImageData('data:image/png;base64,' + imgUV);
     const imageDataUH = await imageToImageData('data:image/png;base64,' + imgUH);
 
-    const uvHorizontalSymmetryCheckResult = colorSymmetryExtract(imageDataUV, 'horizontal');
-    expect(uvHorizontalSymmetryCheckResult.ciede2000average).toStrictEqual(0);
-    expect(uvHorizontalSymmetryCheckResult.visualization.height).toEqual(2);
-    expect(uvHorizontalSymmetryCheckResult.visualization.width).toEqual(8);
-    expect([...uvHorizontalSymmetryCheckResult.visualization.data])
+    const uvSymmetryCheckResult = colorSymmetryExtract(imageDataUV);
+    expect(uvSymmetryCheckResult.horizontal.ciede2000average).toStrictEqual(0);
+    expect(uvSymmetryCheckResult.horizontal.visualization.height).toEqual(2);
+    expect(uvSymmetryCheckResult.horizontal.visualization.width).toEqual(8);
+    expect([...uvSymmetryCheckResult.horizontal.visualization.data])
         .toEqual([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -24,11 +24,10 @@ test('colorSymmetry', async () => {
             0, 0, 0, 0
         ]);
 
-    const uvVerticalSymmetryCheckResult = colorSymmetryExtract(imageDataUV, 'vertical');
-    expect(uvVerticalSymmetryCheckResult.ciede2000average).toStrictEqual(100);
-    expect(uvVerticalSymmetryCheckResult.visualization.height).toEqual(4);
-    expect(uvVerticalSymmetryCheckResult.visualization.width).toEqual(4);
-    expect([...uvVerticalSymmetryCheckResult.visualization.data])
+    expect(uvSymmetryCheckResult.vertical.ciede2000average).toStrictEqual(100);
+    expect(uvSymmetryCheckResult.vertical.visualization.height).toEqual(4);
+    expect(uvSymmetryCheckResult.vertical.visualization.width).toEqual(4);
+    expect([...uvSymmetryCheckResult.vertical.visualization.data])
         .toEqual([
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
@@ -38,11 +37,11 @@ test('colorSymmetry', async () => {
             254, 0, 0, 0
         ]);
 
-    const uhHorizontalSymmetryCheckResult = colorSymmetryExtract(imageDataUH, 'horizontal');
-    expect(uhHorizontalSymmetryCheckResult.ciede2000average).toStrictEqual(100);
-    expect(uhHorizontalSymmetryCheckResult.visualization.height).toEqual(2);
-    expect(uhHorizontalSymmetryCheckResult.visualization.width).toEqual(8);
-    expect([...uhHorizontalSymmetryCheckResult.visualization.data])
+    const uhSymmetryCheckResult = colorSymmetryExtract(imageDataUH);
+    expect(uhSymmetryCheckResult.horizontal.ciede2000average).toStrictEqual(100);
+    expect(uhSymmetryCheckResult.horizontal.visualization.height).toEqual(2);
+    expect(uhSymmetryCheckResult.horizontal.visualization.width).toEqual(8);
+    expect([...uhSymmetryCheckResult.horizontal.visualization.data])
         .toEqual([
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
@@ -52,11 +51,10 @@ test('colorSymmetry', async () => {
             254, 0, 0, 0
         ]);
 
-    const uhVerticalSymmetryCheckResult = colorSymmetryExtract(imageDataUH, 'vertical');
-    expect(uhVerticalSymmetryCheckResult.ciede2000average).toStrictEqual(0);
-    expect(uhVerticalSymmetryCheckResult.visualization.height).toEqual(4);
-    expect(uhVerticalSymmetryCheckResult.visualization.width).toEqual(4);
-    expect([...uhVerticalSymmetryCheckResult.visualization.data])
+    expect(uhSymmetryCheckResult.vertical.ciede2000average).toStrictEqual(0);
+    expect(uhSymmetryCheckResult.vertical.visualization.height).toEqual(4);
+    expect(uhSymmetryCheckResult.vertical.visualization.width).toEqual(4);
+    expect([...uhSymmetryCheckResult.vertical.visualization.data])
         .toEqual([
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

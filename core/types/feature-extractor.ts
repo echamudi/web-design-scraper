@@ -20,7 +20,8 @@ export interface FeatureExtractorResultPhase1 {
 // Phase 2 is the "phase 1 result" + "results from the extension side"
 export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
     vibrantColors: VibrantColorsExtractResult,
-    colorCount: ColorCountExtractResult
+    colorCount: ColorCountExtractResult,
+    colorSymmetry: ColorSymmetryExtractResult
 }
 
 //
@@ -172,22 +173,34 @@ export interface AlignmentPointsExtractResult {
 // color-symmetry
 
 export interface ColorSymmetryExtractResult {
-    /**
-     * Visualized symmetry reult
-     */
-    visualization: ImageData,
-    /**
-     * Average of the CIEDE2000 values [0, 100]
-     */
-    ciede2000average: number,
-    /**
-     * Symmetry line
-     */
-    symmetryAxis: 'vertical' | 'horizontal',
-    /**
-     * Total traversed pixel pairs, usually around half the size of the image resolution
-     */
-    totalPixelPairs: number
+    horizontal: {
+        /**
+         * Visualized symmetry result
+         */
+        visualization: ImageData,
+        /**
+         * Average of the CIEDE2000 values [0, 100]
+         */
+        ciede2000average: number,
+        /**
+         * Total traversed pixel pairs, usually around half the size of the image resolution
+         */
+        totalPixelPairs: number
+    },
+    vertical: {
+        /**
+         * Visualized symmetry result
+         */
+        visualization: ImageData,
+        /**
+         * Average of the CIEDE2000 values [0, 100]
+         */
+        ciede2000average: number,
+        /**
+         * Total traversed pixel pairs, usually around half the size of the image resolution
+         */
+        totalPixelPairs: number
+    }
 }
 
 

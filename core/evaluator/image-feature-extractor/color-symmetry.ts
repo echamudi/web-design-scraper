@@ -7,7 +7,7 @@ import { scaleValue } from "Core/utils/math";
  * Check image symmetry with CIEDE2000 algorithm
  * @param imageData 
  */
-export function colorSymmetryExtract(imageData: ImageData, symmetryAxis: 'vertical' | 'horizontal'): ColorSymmetryExtractResult {
+export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtractResult {
     const { width, height } = imageData;
     const halfWidth = Math.floor(width / 2);
     const halfHeight = Math.floor(height / 2);
@@ -15,7 +15,7 @@ export function colorSymmetryExtract(imageData: ImageData, symmetryAxis: 'vertic
     const diffScale: [number, number] = [0, 100];
     const byteScale: [number, number] = [0, 255];
 
-    if (symmetryAxis === 'horizontal') {
+    const horizontal: ColorSymmetryExtractResult['horizontal'] = (() => {
         const totalPixelPairs = width * halfHeight;
         const visualization = new ImageData(width, halfHeight);
         let ciede2000average = 0;
@@ -44,10 +44,11 @@ export function colorSymmetryExtract(imageData: ImageData, symmetryAxis: 'vertic
         return {
             visualization,
             ciede2000average,
-            symmetryAxis,
             totalPixelPairs
-        }
-    } else {
+        };
+    })();
+
+    const vertical: ColorSymmetryExtractResult['vertical'] = (() => {
         const totalPixelPairs = halfWidth * height;
         const visualization = new ImageData(halfWidth, height);
         let ciede2000average = 0;
@@ -75,8 +76,12 @@ export function colorSymmetryExtract(imageData: ImageData, symmetryAxis: 'vertic
         return {
             visualization,
             ciede2000average,
-            symmetryAxis,
             totalPixelPairs
         }
-    }
+    })();
+
+    return {
+        horizontal,
+        vertical
+    };
 }
