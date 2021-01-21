@@ -1,4 +1,4 @@
-import { rgbToHex } from 'Core/utils/color';
+import { hexToRgb, rgbToHex } from 'Core/utils/color';
 import { ColorCountExtractResult } from 'Core/types/factors';
 import { imageToCanvas } from 'Core/utils/image-canvas';
 
@@ -30,7 +30,7 @@ export async function colorCountExtract(imageURI: string): Promise<ColorCountExt
 
     Object.keys(map).forEach((key) => {
         rank.push({
-            color: key,
+            color: hexToRgb(key),
             pixelCount: map[key]
         });
     });
