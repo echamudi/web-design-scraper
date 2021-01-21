@@ -1,0 +1,9 @@
+This folder contains scripts to execute the extractor codes inside the core folder.
+
+Flow:
+phase-one => phase-two => phase-three => visualize
+
+phase-one: gather design data from the web page
+phase-two: phase-one + results from image processing
+phase-three: engineers the data from phase-two using configurations (currently hard-coded)
+visualize: generate images that visualize the web design scraping data

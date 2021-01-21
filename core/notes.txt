@@ -1,0 +1,3 @@
+This folder contains scripts to be executed to gather design data from:
+- web page (web-feature-extractor folder)
+- screenshot image processing (image-feature-extractor folder)
