@@ -1,5 +1,7 @@
 # Web Design Scraper
 
+<!-- TODO Add logo -->
+
 Web Design Scraper is a tool to extract web design metrics from a web page. This repo contains the early implementation of the web design scraping concept that we coined in [our research paper](https://ieeexplore.ieee.org/abstract/document/9271770).
 
 This tool can run in the following environments:
@@ -39,9 +41,13 @@ This tool can run either as a chrome extension, or through command line.
 
 ### Chrome Extension
 
+<!-- TODO Add screenshot -->
+
 *to be added soon*
 
 ### Puppeteer
+
+<!-- TODO Add screenshot -->
 
 *to be added soon*
 
@@ -70,3 +76,5 @@ This tool is built by using TypeScript, React, Webpack, SCSS, Farbic UI, Vibrant
 ## Research Paper
 
 - A. Namoun, A. Alshanqiti, E. Chamudi and M. A. Rahmon, "Web Design Scraping: Enabling Factors, Opportunities and Research Directions," 2020 12th International Conference on Information Technology and Electrical Engineering (ICITEE), Yogyakarta, 2020, pp. 104-109, doi: [10.1109/ICITEE49829.2020.9271770.](https://ieeexplore.ieee.org/abstract/document/9271770)
+
+<!-- TODO Add citing -->
