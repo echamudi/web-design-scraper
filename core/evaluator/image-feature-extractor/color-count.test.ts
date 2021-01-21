@@ -1,10 +1,13 @@
 import { colorCountExtract } from './color-count';
 import imageToBase64 from 'image-to-base64';
 import path from 'path';
+import { imageToImageData } from 'Core/utils/image-canvas';
 
 test('colorCountExtract', async () => {
     const img = await imageToBase64(path.join(__dirname, '../../../test/fixtures/small-imgs/four-colors.png'));
-    const colorCountExtractResult = await colorCountExtract('data:image/png;base64,' + img);
+    const imageData = await imageToImageData('data:image/png;base64,' + img);
+    const colorCountExtractResult = await colorCountExtract(imageData);
+
     expect(colorCountExtractResult.rank).toStrictEqual([
         { color: { r: 0, g: 255, b: 0 }, pixelCount: 42 },
         { color: { r: 0, g: 0, b: 255 }, pixelCount: 24 },

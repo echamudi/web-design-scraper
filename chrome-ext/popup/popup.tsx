@@ -114,7 +114,7 @@ class Analyzer extends React.Component {
     // Calculate all async values
     let [colorCountResult] = await Promise.allSettled([
       new Promise<ColorCountExtractResult>(async (resolve, reject) => {
-        const result = await colorCountExtract(screenshot);
+        const result = await colorCountExtract(screenshotImageData);
         resolve(result);
       }),
     ]);

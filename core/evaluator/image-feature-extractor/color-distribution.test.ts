@@ -6,11 +6,11 @@ import { imageToImageData } from 'Core/utils/image-canvas';
 
 test('colorDistributionExtract', async () => {
     const img = await imageToBase64(path.join(__dirname, '../../../test/fixtures/small-imgs/four-colors.png'));
-    const colorCountExtractResult = await colorCountExtract('data:image/png;base64,' + img);
-    const imgData = await imageToImageData('data:image/png;base64,' + img);
+    const imageData = await imageToImageData('data:image/png;base64,' + img);
+    const colorCountExtractResult = await colorCountExtract(imageData);
 
     const colorDistributionExtractResult = await colorDistributionExtract(
-        imgData,
+        imageData,
         colorCountExtractResult
     );
 
