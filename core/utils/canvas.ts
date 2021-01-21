@@ -2,6 +2,9 @@ import { ElementPosition } from 'Core/types/types';
 
 export interface PlotterResult {
     canvas: HTMLCanvasElement,
+    /**
+     * Percentage of area in each grid
+     */
     distribution: number[][]
 }
 
