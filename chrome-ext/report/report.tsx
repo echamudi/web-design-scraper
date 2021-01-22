@@ -7,7 +7,7 @@ import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import * as moment from 'moment';
 import { navLinkGroups } from './nav-link-groups';
-import { FeatureExtractorResultPhase2 } from 'Core/types/feature-extractor';
+import { FeatureExtractorResultPhase2 } from 'Core/types/types';
 
 initializeIcons();
 

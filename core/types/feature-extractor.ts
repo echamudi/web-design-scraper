@@ -2,29 +2,6 @@ import { Color, ElementPosition } from "./types";
 import { Palette } from "node-vibrant/lib/color";
 import { TextSizeExtractResult, ColorCountExtractResult } from "./factors";
 
-//
-// All Results
-//
-
-// Phase 1 happens only in the content-side
-export interface FeatureExtractorResultPhase1 {
-    browserInfo: BrowserInfoExtractResult,
-    textElements: TextElementsExtractResult,
-    imageElements: ImageElementsExtractResult,
-    videoElements: VideoElementsExtractResult,
-    anchorElements: AnchorElementsExtractResult,
-    alignmentPoints: AlignmentPointsExtractResult,
-    textSize: TextSizeExtractResult
-}
-
-// Phase 2 is the "phase 1 result" + "results from the extension side"
-export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
-    vibrantColors: VibrantColorsExtractResult,
-    colorCount: ColorCountExtractResult,
-    colorSymmetry: ColorSymmetryExtractResult,
-    viewportScreenshot: ViewportScreenshotExtractResult,
-    timestamp: number
-}
 
 //
 // Web page features

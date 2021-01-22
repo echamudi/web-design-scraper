@@ -13,6 +13,8 @@ import { ColorCountExtractResult } from "Core/types/factors";
 import {
     FeatureExtractorResultPhase1,
     FeatureExtractorResultPhase2,
+} from "Core/types/types";
+import {
     ViewportScreenshotExtractResult
 } from "Core/types/feature-extractor";
 import { imageToImageData } from "Core/utils/image-canvas";

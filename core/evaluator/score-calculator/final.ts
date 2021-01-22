@@ -1,4 +1,5 @@
-import { FeatureExtractorResultPhase2, ImageElement, TextElement } from 'Core/types/feature-extractor';
+import { ImageElement, TextElement } from 'Core/types/feature-extractor';
+import { FeatureExtractorResultPhase2 } from 'Core/types/types';
 import { plotter, PlotterConfig } from 'Core/utils/canvas';
 import { ElementPosition } from 'Core/types/types';
 import { blockDensityScoreCalculate, BlockDensityScoreCalculateResult, BlockDensityScoreCalculateConfig } from './block-density';

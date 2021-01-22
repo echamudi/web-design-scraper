@@ -1,4 +1,4 @@
-import { FeatureExtractorResultPhase1 } from 'Core/types/feature-extractor';
+import { FeatureExtractorResultPhase1 } from 'Core/types/types';
 import { executePhase1 } from 'Executor/phases';
 
 if ((window as any).SWDS === undefined) {

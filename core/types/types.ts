@@ -1,28 +1,53 @@
-import { FeatureExtractorResultPhase2 } from "./feature-extractor";
+import { ColorCountExtractResult, TextSizeExtractResult } from "./factors";
+import {
+    AlignmentPointsExtractResult,
+    AnchorElementsExtractResult,
+    BrowserInfoExtractResult,
+    ColorSymmetryExtractResult,
+    ImageElementsExtractResult,
+    TextElementsExtractResult,
+    VibrantColorsExtractResult,
+    VideoElementsExtractResult,
+    ViewportScreenshotExtractResult
+} from "./feature-extractor";
 
-// export interface WebPageData {
-//     /**
-//      * Base64 of the viewport screenshot
-//      */
-//     screenshot: string;
+//
+// Phases
+//
 
-//     screenshotWidth: number;
-//     screenshotHeight: number;
+// Phase 1 happens only in the content-side
+export interface FeatureExtractorResultPhase1 {
+    browserInfo: BrowserInfoExtractResult,
+    textElements: TextElementsExtractResult,
+    imageElements: ImageElementsExtractResult,
+    videoElements: VideoElementsExtractResult,
+    anchorElements: AnchorElementsExtractResult,
+    alignmentPoints: AlignmentPointsExtractResult,
+    textSize: TextSizeExtractResult
+}
 
-//     /**
-//      * Date.now() val when analyzing the web
-//      */
-//     timestamp: number;
+// Phase 2 is the "phase 1 result" + "results from the extension side"
+export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
+    vibrantColors: VibrantColorsExtractResult,
+    colorCount: ColorCountExtractResult,
+    colorSymmetry: ColorSymmetryExtractResult,
+    viewportScreenshot: ViewportScreenshotExtractResult,
+    timestamp: number
+}
 
-//     featureExtractorResult: FeatureExtractorResultPhase2;
-// }
+//
+// React
+//
 
 export interface AppState {
     analyzingStatus: string,
     result: FeatureExtractorResultPhase2 | null,
 }
 
-// Helpers
+//
+// Others
+//
+
 export interface ElementPosition {
     x: number,
     y: number,
