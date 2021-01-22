@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import ReactDOM from 'react-dom';
-import { AppState, WebPageData } from 'Core/types/types';
-import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2 } from 'Core/types/feature-extractor';
+import { AppState } from 'Core/types/types';
+import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2, ViewportScreenshotExtractResult } from 'Core/types/feature-extractor';
 import { FinalScore } from 'Core/evaluator/score-calculator/final';
 import { vibrantColorsExtract } from 'Core/evaluator/web-feature-extractor/vibrant-colors';
 import { ColorCountExtractResult } from 'Core/types/factors';
@@ -12,6 +12,7 @@ import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { colorSymmetryExtract } from 'Core/evaluator/image-feature-extractor/color-symmetry';
 import { imageToImageData } from 'Core/utils/image-canvas';
+import { executePhase2 } from 'Executor/phases';
 
 type ContentRes = {
   featureExtractorResultPhase1: FeatureExtractorResultPhase1
@@ -58,8 +59,7 @@ class App extends React.Component {
 class Analyzer extends React.Component {
   public state: AppState = {
     analyzingStatus: '',
-    result: null,
-    screenshot: null
+    result: null
   };
 
   constructor(props: any) {
@@ -73,82 +73,44 @@ class Analyzer extends React.Component {
     this.setState(() => ({ analyzingStatus: 'processing', lastReceiptId: undefined }));
 
     // Get screenshots
-    const screenshot: string = await new Promise<string>((resolve, reject) => {
-      chrome.tabs.captureVisibleTab({}, async (image) => {
-        resolve(image);
-      });
-    });
-
-    const screenshotImageData: ImageData = await imageToImageData(screenshot);
-
-    // Calculate all async values
     const [
-      contentRes,
-      vibrantColorsExtractSettledResult
+      screenshot,
+      contentRes
     ] = await Promise.allSettled([
+      new Promise<string>((resolve, reject) => {
+        chrome.tabs.captureVisibleTab({}, async (image) => {
+          resolve(image);
+        });
+      }),
       new Promise<ContentRes>((resolve, reject) => {
         chrome.tabs.sendMessage(tabId, { message: "extract-features" }, (response: ContentRes) => {
           console.log(response);
           resolve(response);
         });
       }),
-      vibrantColorsExtract(screenshot)
     ]);
+
+    if (screenshot.status === 'rejected') {
+      console.log('screenshot.status rejected');
+      return;
+    }
 
     if (contentRes.status === 'rejected') {
-      console.log('failed to do content script');
-      this.setState(() => ({ analyzingStatus: 'Done!' }));
+      console.log('contentRes.status rejected');
       return;
     }
 
-    if (vibrantColorsExtractSettledResult.status === 'rejected') {
-      console.log('failed to do vibrantColorsExtract');
-      this.setState(() => ({ analyzingStatus: 'Done!' }));
-      return;
-    }
+    const featureExtractorResultPhase2 = await executePhase2(
+      contentRes.value.featureExtractorResultPhase1,
+      screenshot.value
+    );
 
-    const phase1FeatureExtractorResult = contentRes.value.featureExtractorResultPhase1;
-    const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
-    const colorSymmetryResult = colorSymmetryExtract(screenshotImageData);
-
-    // Calculate all async values
-    let [colorCountResult] = await Promise.allSettled([
-      new Promise<ColorCountExtractResult>(async (resolve, reject) => {
-        const result = await colorCountExtract(screenshotImageData);
-        resolve(result);
-      }),
-    ]);
-
-    if (colorCountResult.status === 'rejected') {
-      console.log('failed to do colorCountExtract');
-      this.setState(() => ({ analyzingStatus: 'Done!' }));
-      return;
-    }
-
-
-    // Combine contentside result with extension side result
-    const featureExtractorResult: FeatureExtractorResultPhase2 = {
-      ...phase1FeatureExtractorResult,
-      vibrantColors: vibrantColorsExtractResult,
-      colorCount: colorCountResult.value,
-      colorSymmetry: colorSymmetryResult
-    }
-
-    console.log('phase2FeatureExtractorResult', featureExtractorResult);
-
-    const result: WebPageData = {
-      screenshot,
-      screenshotWidth: screenshotImageData.width,
-      screenshotHeight: screenshotImageData.height,
-      timestamp: Date.now(),
-      featureExtractorResult
-    };
+    const result: FeatureExtractorResultPhase2 = featureExtractorResultPhase2;
 
     this.setState(() => {
-      const x: Partial<AppState> = { 
+      const x: Partial<AppState> = {
         analyzingStatus: 'Done!',
-        result,
-        screenshot
+        result
       };
       return x;
     });
@@ -158,15 +120,15 @@ class Analyzer extends React.Component {
   async openQuickReport() {
     console.log('Quick Report Clicked');
 
-    const webPageData = this.state.result;
+    const phase2Data = this.state.result;
 
-    if (webPageData === null) {
-      console.log('somehow webPageData is null, please try again');
+    if (phase2Data === null) {
+      console.log('somehow phase2Data is null, please try again');
       return;
     }
 
     await new Promise(resolve => {
-      chrome.storage.local.set({ webPageData }, function() {
+      chrome.storage.local.set({ webPageData: phase2Data }, function () {
         resolve(true);
       });
     });
@@ -181,16 +143,16 @@ class Analyzer extends React.Component {
   render() {
     return (
       <Stack tokens={{ childrenGap: 20 }}>
-        <PrimaryButton text="Analyze" onClick={this.analyzeHandler}/>
+        <PrimaryButton text="Analyze" onClick={this.analyzeHandler} />
         {
           this.state.analyzingStatus === 'processing' &&
           <div>
-            <Spinner label="Analyzing Page..." labelPosition="right" size={SpinnerSize.large}/>
+            <Spinner label="Analyzing Page..." labelPosition="right" size={SpinnerSize.large} />
           </div>
         }
         {
           this.state.analyzingStatus === 'Done!' &&
-          <DefaultButton text="Open Report" onClick={this.openQuickReport}/>
+          <DefaultButton text="Open Report" onClick={this.openQuickReport} />
         }
       </Stack>
     )

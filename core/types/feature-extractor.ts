@@ -21,7 +21,9 @@ export interface FeatureExtractorResultPhase1 {
 export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
     vibrantColors: VibrantColorsExtractResult,
     colorCount: ColorCountExtractResult,
-    colorSymmetry: ColorSymmetryExtractResult
+    colorSymmetry: ColorSymmetryExtractResult,
+    viewportScreenshot: ViewportScreenshotExtractResult,
+    timestamp: number
 }
 
 //

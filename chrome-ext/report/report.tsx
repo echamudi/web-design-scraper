@@ -1,4 +1,4 @@
-import { WebPageData } from "Core/types/types";
+// import { WebPageData } from "Core/types/types";
 import * as React from 'react';
 import { render } from "react-dom";
 import { DefaultButton, PrimaryButton, Stack, IStackTokens, initializeIcons } from 'office-ui-fabric-react';
@@ -7,12 +7,13 @@ import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import * as moment from 'moment';
 import { navLinkGroups } from './nav-link-groups';
+import { FeatureExtractorResultPhase2 } from 'Core/types/feature-extractor';
 
 initializeIcons();
 
 interface ReportState {
   currentPage: string,
-  webPageData: WebPageData | null,
+  webPageData: FeatureExtractorResultPhase2 | null,
   reportData__timestamp?: string,
   reportData__url?: string
 }
@@ -56,7 +57,7 @@ class App extends React.Component {
     this.setState((prevStates: Readonly<ReportState>): ReportState => ({
       ...prevStates,
       reportData__timestamp: timestamp,
-      reportData__url: this.state.webPageData?.featureExtractorResult.browserInfo.url
+      reportData__url: this.state.webPageData?.browserInfo.url
     }));
   }
 
@@ -89,7 +90,7 @@ class App extends React.Component {
                   <b>URL: </b> <a href={this.state.reportData__url} target="_blank" rel="noopener noreferrer">{this.state.reportData__url}</a><br/>
                   <b>Date: </b> {this.state.reportData__timestamp}<br/>
                 </p>
-                <img src={this.state.webPageData.screenshot} style={{width: 800}}/>
+                <img src={this.state.webPageData.viewportScreenshot.image} style={{width: 800}}/>
                 <hr/>
                 <table>
                   <tr>
@@ -98,23 +99,23 @@ class App extends React.Component {
                   </tr>
                   <tr>
                     <td>Viewport Height</td>
-                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.viewportHeight}</td>
+                    <td>{this.state.webPageData.browserInfo.viewportHeight}</td>
                   </tr>
                   <tr>
                     <td>Viewport Width</td>
-                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.viewportWidth}</td>
+                    <td>{this.state.webPageData.browserInfo.viewportWidth}</td>
                   </tr>
                   <tr>
                     <td>Page Height</td>
-                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.pageHeight}</td>
+                    <td>{this.state.webPageData.browserInfo.pageHeight}</td>
                   </tr>
                   <tr>
                     <td>Page Width</td>
-                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.pageWidth}</td>
+                    <td>{this.state.webPageData.browserInfo.pageWidth}</td>
                   </tr>
                   <tr>
                     <td>Device Pixel Ratio</td>
-                    <td>{this.state.webPageData.featureExtractorResult.browserInfo.devicePixelRatio}</td>
+                    <td>{this.state.webPageData.browserInfo.devicePixelRatio}</td>
                   </tr>
                 </table>
               </div>
@@ -155,11 +156,11 @@ class App extends React.Component {
                   </tr>
                   <tr>
                     <td>Horizontal Ciede Average</td>
-                    <td>{this.state.webPageData.featureExtractorResult.colorSymmetry.horizontal.ciede2000average}</td>
+                    <td>{this.state.webPageData.colorSymmetry.horizontal.ciede2000average}</td>
                   </tr>
                   <tr>
                     <td>Vertical Ciede Average</td>
-                    <td>{this.state.webPageData.featureExtractorResult.colorSymmetry.vertical.ciede2000average}</td>
+                    <td>{this.state.webPageData.colorSymmetry.vertical.ciede2000average}</td>
                   </tr>
                 </table>
               </div>
