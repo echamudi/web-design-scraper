@@ -1,14 +1,15 @@
-import { GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement } from "Core/types/feature-extractor";
+import { GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement, VideoElementsExtractResult } from "Core/types/feature-extractor";
 
 /**
  * Get visible elements of major elements.
- * Currently, major elements are only text and images elements.
+ * Currently, major elements are only text, image, and video elements.
  * @param textElements 
  * @param imageElements 
  */
 export function majorElementsExtract(
     textElements: TextElementsExtractResult,
-    imageElements: ImageElementsExtractResult): GenericElementsExtractResult {
+    imageElements: ImageElementsExtractResult,
+    videoElements: VideoElementsExtractResult): GenericElementsExtractResult {
 
     const majorElementPosition: GenericElement[] = [];
 
@@ -24,6 +25,17 @@ export function majorElementsExtract(
     });
 
     textElements.elements.forEach((el) => {
+        if (el.visible) {
+            majorElementPosition.push({
+                position: el.position,
+                area: el.area,
+                visible: true,
+                aspectRatio: el.aspectRatio
+            });
+        };
+    });
+
+    videoElements.elements.forEach((el) => {
         if (el.visible) {
             majorElementPosition.push({
                 position: el.position,
