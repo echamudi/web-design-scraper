@@ -1,4 +1,4 @@
-import { FeatureExtractorResultPhase1 } from 'Core/types/types';
+import { Phase1Result } from 'Core/types/types';
 import { executePhase1 } from 'Executor/phases';
 
 if ((window as any).SWDS === undefined) {
@@ -6,12 +6,12 @@ if ((window as any).SWDS === undefined) {
         const message = request.message as string;
 
         if (message == "extract-features") {
-            const featureExtractorResultPhase1: FeatureExtractorResultPhase1 = executePhase1(window);
-            console.log('featureExtractorResultPhase1', featureExtractorResultPhase1);
+            const phase1Result: Phase1Result = executePhase1(window);
+            console.log('phase1Result', phase1Result);
 
             sendResponse(
                 {
-                    featureExtractorResultPhase1,
+                    phase1Result,
                 }
             );
         };

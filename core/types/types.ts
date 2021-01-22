@@ -16,7 +16,7 @@ import {
 //
 
 // Phase 1 happens only in the content-side
-export interface FeatureExtractorResultPhase1 {
+export interface Phase1Result {
     browserInfo: BrowserInfoExtractResult,
     textElements: TextElementsExtractResult,
     imageElements: ImageElementsExtractResult,
@@ -27,7 +27,7 @@ export interface FeatureExtractorResultPhase1 {
 }
 
 // Phase 2 is the "phase 1 result" + "results from the extension side"
-export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
+export interface Phase2Result extends Phase1Result {
     vibrantColors: VibrantColorsExtractResult,
     colorCount: ColorCountExtractResult,
     colorSymmetry: ColorSymmetryExtractResult,
@@ -41,7 +41,7 @@ export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhas
 
 export interface AppState {
     analyzingStatus: string,
-    result: FeatureExtractorResultPhase2 | null,
+    result: Phase2Result | null,
 }
 
 //

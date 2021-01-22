@@ -7,13 +7,13 @@ import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import * as moment from 'moment';
 import { navLinkGroups } from './nav-link-groups';
-import { FeatureExtractorResultPhase2 } from 'Core/types/types';
+import { Phase2Result } from 'Core/types/types';
 
 initializeIcons();
 
 interface ReportState {
   currentPage: string,
-  webPageData: FeatureExtractorResultPhase2 | null,
+  webPageData: Phase2Result | null,
   reportData__timestamp?: string,
   reportData__url?: string
 }

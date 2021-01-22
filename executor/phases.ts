@@ -11,15 +11,15 @@ import { vibrantColorsExtract } from "Core/evaluator/web-feature-extractor/vibra
 import { videoElementsExtract } from "Core/evaluator/web-feature-extractor/video-elements";
 import { ColorCountExtractResult } from "Core/types/factors";
 import {
-    FeatureExtractorResultPhase1,
-    FeatureExtractorResultPhase2,
+    Phase1Result,
+    Phase2Result,
 } from "Core/types/types";
 import {
     ViewportScreenshotExtractResult
 } from "Core/types/feature-extractor";
 import { imageToImageData } from "Core/utils/image-canvas";
 
-export function executePhase1(win: Window): FeatureExtractorResultPhase1 {
+export function executePhase1(win: Window): Phase1Result {
     const browserInfo = browserInfoExtract(win);
     const textElements = textElementsExtract(win, browserInfo);
     const imageElements = imageElementsExtract(win, browserInfo);
@@ -32,7 +32,7 @@ export function executePhase1(win: Window): FeatureExtractorResultPhase1 {
     );
     const textSize = textSizeExtract(textElements);
 
-    const featureExtractorResultPhase1: FeatureExtractorResultPhase1 = {
+    const phase1Result: Phase1Result = {
         browserInfo,
         textElements,
         imageElements,
@@ -42,13 +42,13 @@ export function executePhase1(win: Window): FeatureExtractorResultPhase1 {
         textSize
     };
 
-    return featureExtractorResultPhase1;
+    return phase1Result;
 }
 
 export async function executePhase2(
-    featureExtractorResultPhase1: FeatureExtractorResultPhase1,
+    phase1Result: Phase1Result,
     screenshot: string
-): Promise<FeatureExtractorResultPhase2> {
+): Promise<Phase2Result> {
     const screenshotImageData: ImageData = await imageToImageData(screenshot);
 
     const [
@@ -61,7 +61,7 @@ export async function executePhase2(
         throw new Error('failed to do vibrantColorsExtract');
     }
 
-    const phase1FeatureExtractorResult = featureExtractorResultPhase1;
+    const phase1FeatureExtractorResult = phase1Result;
     const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
     const colorSymmetryResult = colorSymmetryExtract(screenshotImageData);
 
@@ -96,7 +96,7 @@ export async function executePhase2(
     };
 
     // Combine content side result with extension side result
-    const featureExtractorResult: FeatureExtractorResultPhase2 = {
+    const featureExtractorResult: Phase2Result = {
         ...phase1FeatureExtractorResult,
         vibrantColors: vibrantColorsExtractResult,
         colorCount: colorCountResult.value,

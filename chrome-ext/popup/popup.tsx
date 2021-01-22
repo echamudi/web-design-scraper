@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import ReactDOM from 'react-dom';
 import { AppState } from 'Core/types/types';
-import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2 } from 'Core/types/types';
+import { Phase1Result, Phase2Result } from 'Core/types/types';
 import { FinalScore } from 'Core/evaluator/score-calculator/final';
 import { vibrantColorsExtract } from 'Core/evaluator/web-feature-extractor/vibrant-colors';
 import { ColorCountExtractResult } from 'Core/types/factors';
@@ -15,7 +15,7 @@ import { imageToImageData } from 'Core/utils/image-canvas';
 import { executePhase2 } from 'Executor/phases';
 
 type ContentRes = {
-  featureExtractorResultPhase1: FeatureExtractorResultPhase1
+  phase1Result: Phase1Result
 };
 
 // Returns tabId number
@@ -100,12 +100,12 @@ class Analyzer extends React.Component {
       return;
     }
 
-    const featureExtractorResultPhase2 = await executePhase2(
-      contentRes.value.featureExtractorResultPhase1,
+    const phase2Result = await executePhase2(
+      contentRes.value.phase1Result,
       screenshot.value
     );
 
-    const result: FeatureExtractorResultPhase2 = featureExtractorResultPhase2;
+    const result: Phase2Result = phase2Result;
 
     this.setState(() => {
       const x: Partial<AppState> = {

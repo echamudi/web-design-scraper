@@ -1,5 +1,5 @@
 import { ImageElement, TextElement } from 'Core/types/feature-extractor';
-import { FeatureExtractorResultPhase2 } from 'Core/types/types';
+import { Phase2Result } from 'Core/types/types';
 import { plotter, PlotterConfig } from 'Core/utils/canvas';
 import { ElementPosition } from 'Core/types/types';
 import { blockDensityScoreCalculate, BlockDensityScoreCalculateResult, BlockDensityScoreCalculateConfig } from './block-density';
@@ -10,7 +10,7 @@ import { AlignmentPointsScoreCalculateResult, AlignmentPointsScoreCalculateConfi
  * Final Score Calculator
  */
 export class FinalScore {
-    public phase2Features: FeatureExtractorResultPhase2;
+    public phase2Features: Phase2Result;
 
     // common plotter config for element distributions
     public plotterConfig: PlotterConfig;
@@ -38,7 +38,7 @@ export class FinalScore {
     // Display Canvas
     public displayCanvas: HTMLCanvasElement | undefined;
 
-    constructor(doc: Document, features: FeatureExtractorResultPhase2) {
+    constructor(doc: Document, features: Phase2Result) {
         // Save features to the object
         this.phase2Features = features;
 
