@@ -35,8 +35,8 @@ export interface BlockDensityScoreCalculateConfig {
  */
 export function blockDensityScoreCalculate(
     distribution: number[][],
-    config?: BlockDensityScoreCalculateConfig)
-    : BlockDensityScoreCalculateResult {
+    config?: BlockDensityScoreCalculateConfig
+): BlockDensityScoreCalculateResult {
 
     const passPercentage = config?.passPercentage ?? 0;
     const failPercentage = config?.failPercentage ?? 1;
