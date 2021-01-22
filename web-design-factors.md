@@ -3,9 +3,9 @@
 List of web design factors from past research results.
 
 | Factor | Item | Description | Measurable? | Sub-item | Detection Area | Unique ID |
-| - | - | - | - | - | - | - | - |
-| Distribution of Components | Symmetry | Overall symmetrical appearance towards vertical, horizontal, and diagonal | Yes | Pixel color left-right symmetry | Viewport | symmetry-pixel-l-r |
-|  |  |  |  | Pixel color top-bottom symmetry | Viewport | symmetry-pixel-t-b |
+|  |  |  |  |  |  |  |
+| Distribution of Components | Symmetry | Overall symmetrical appearance towards vertical, horizontal, and diagonal | Yes | Pixel color vertical symmetry | Viewport | symmetry-pixel-vertical |
+|  |  |  |  | Pixel color horizontal symmetry | Viewport | symmetry-pixel-horizontal |
 |  | Balance | Difference of components weight between two sides divided by horizontal axis and vertical axis. | Yes |  |  | balance-lr |
 |  | Equilibrium | Difference of components center of mass toward screen center | Yes |  |  | equilibrium |
 |  | Homogeneity | Distributions of components in different quadrants. | Yes |  |  | homogenity |
@@ -26,12 +26,12 @@ List of web design factors from past research results.
 | Order of Components | Sequence | Order of components based on shape and information sequence. | Out of Scope |  |  | sequence |
 |  | Rhythm | Order of components based on component appearance | Yes |  |  | rhythm |
 | Color Usage | Color Harmony | Color selections belong together in certain harmony pattern | Yes |  |  | color-harmony |
-|  | Dominant Colors | Dominant and Accent colors | Yes |  | Viewport | dominant-colors |
-|  | Hue | Color selection for the primary color | Yes |  |  | hue |
-|  | Brightness | Overall brightness of the colors measured by the quantity of emitted light in the color | Yes |  |  | brightness |
-|  | Saturation | Overall saturation of the colors measured by the chromatic intensity | Yes |  |  | saturation |
-| Graphics | Use of Pictures | Existence of ample graphics | Yes |  | Entire Page | pictures |
-|  | Use of Videos | Existence of ample videos | Yes |  | Entire Page | videos |
+|  | Dominant Colors | Dominant and Accent colors | Yes |  | Viewport | color-dominant |
+|  | Hue | Color selection for the primary color | Yes |  |  | color-hue |
+|  | Brightness | Overall brightness of the colors measured by the quantity of emitted light in the color | Yes |  |  | color-brightness |
+|  | Saturation | Overall saturation of the colors measured by the chromatic intensity | Yes |  |  | color-saturation |
+| Graphics | Use of Pictures | Existence of ample graphics | Yes |  | Entire Page | graphic-pictures |
+|  | Use of Videos | Existence of ample videos | Yes |  | Entire Page | graphic-videos |
 | Performance | Speed | The loading speed of the webpage | Out of Scope |  |  | speed |
 | Typography | Text Contrast Ratio (Legibility) | The color difference between the text and the foreground color | Yes |  |  | text-contrast-ratio |
 |  | Text Size | Dimension of characters in term of readability | Yes |  | Entire Page | text-size |
@@ -42,7 +42,7 @@ List of web design factors from past research results.
 | Organizational Structure | Content Quality | The degree of the provided information whether it is sufficient and complete or not. | Out of Scope |  |  | content-quality |
 |  | Interactivity | How information is displayed to enhance consistent user interaction. | Out of Scope |  |  | interactivity |
 |  | Navigation (Complexity) | The degree of the navigations that guide the user to enter other sections in the website. | Yes |  |  | navigation |
-|  | Use of Negative Space | The ratio between content and the empty space | Yes | Text based negative space | Entire Page | negative-space-text |
+|  | Use of Negative Space | The ratio between content and the empty space | Yes |  | Entire Page | negative-space |
 
 <!-- 
 Find:
