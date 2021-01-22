@@ -1,2 +1,2 @@
-export { executePhase1 } from './execute-phase-1';
-export { executePhase2 } from './execute-phase-2';
+export { executePhase1 } from './phase-1';
+export { executePhase2 } from './phase-2';
