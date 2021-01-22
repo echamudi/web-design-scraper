@@ -1,17 +1,9 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppState } from 'Core/types/types';
 import { Phase1Result, Phase2Result } from 'Core/types/types';
-import { FinalScore } from 'Core/evaluator/score-calculator/final';
-import { vibrantColorsExtract } from 'Core/evaluator/web-feature-extractor/vibrant-colors';
-import { ColorCountExtractResult } from 'Core/types/factors';
-// import { dominantColorsExtract } from '../evaluator-legacy/dominant-colors';
-import { colorCountExtract } from '../../core/evaluator/image-feature-extractor/color-count';
 import { DefaultButton, PrimaryButton, Stack, IStackTokens } from 'office-ui-fabric-react';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { colorSymmetryExtract } from 'Core/evaluator/image-feature-extractor/color-symmetry';
-import { imageToImageData } from 'Core/utils/image-canvas';
 import { executePhase2 } from 'Executor/phases';
 
 type ContentRes = {

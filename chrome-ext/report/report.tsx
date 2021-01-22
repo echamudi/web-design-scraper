@@ -1,10 +1,8 @@
 // import { WebPageData } from "Core/types/types";
 import * as React from 'react';
 import { render } from "react-dom";
-import { DefaultButton, PrimaryButton, Stack, IStackTokens, initializeIcons } from 'office-ui-fabric-react';
-import { Nav, INavStyles, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
-import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/ScrollablePane';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { initializeIcons } from 'office-ui-fabric-react';
+import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import * as moment from 'moment';
 import { navLinkGroups } from './nav-link-groups';
 import { Phase2Result } from 'Core/types/types';
