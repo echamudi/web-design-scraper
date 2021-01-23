@@ -4,6 +4,7 @@ import { consistencyScoreCalculate, ConsistencyScoreCalculateConfig, Consistency
 import { ImageElement, TextElement } from "Core/types/feature-extractor";
 import { ElementPosition, Phase2Result } from "Core/types/types";
 import { plotter, PlotterConfig } from "Core/utils/canvas";
+import { configCohesionImageDom, configComplexityTextDom, configDensityMajorDom, configEconomyImageDom, configEconomyTextDom, configSimplicityHorizontal, configSimplicityVertical } from "./default-configs";
 
 export class Phase3 {
     public phase2Features: Phase2Result;
@@ -92,22 +93,17 @@ export class Phase3 {
     }
 
     public calculateComplexityTextDom(config?: BlockDensityScoreCalculateConfig) {
-        const usedConfig: BlockDensityScoreCalculateConfig = config ?? {
-            failPercentage: 0.75
-        };
+        const usedConfig = config ?? configComplexityTextDom;
         this.complexityTextDom = blockDensityScoreCalculate(this.textElementDistribution, usedConfig);
     }
 
     public calculateDensityMajorDom(config?: BlockDensityScoreCalculateConfig) {
-        const usedConfig: BlockDensityScoreCalculateConfig = config ?? {};
+        const usedConfig = config ?? configDensityMajorDom;
         this.densityMajorDom = blockDensityScoreCalculate(this.majorElementDistribution, usedConfig);
     }
 
     public calculateCohesionImageDom(config?: ConsistencyScoreCalculateConfig) {
-        const usedConfig: ConsistencyScoreCalculateConfig = config ?? {
-            failThreshold: 25,
-            transformer: ((val) => Math.round(val * 10) / 10)
-        };
+        const usedConfig = config ?? configCohesionImageDom;
         const aspectRatios: number[] = [];
         this.imageElements.forEach((el) => {
             if (el.visible && typeof el.aspectRatio === 'number')
@@ -118,35 +114,27 @@ export class Phase3 {
     }
 
     public calculateEconomyImageDom(config?: ConsistencyScoreCalculateConfig) {
-        const usedConfig: ConsistencyScoreCalculateConfig = config ?? {
-            failThreshold: 30,
-            transformer: ((val) => Math.round(val / 10000))
-        };
+        const usedConfig = config ?? configEconomyImageDom;
         const areas: number[] = [];
         this.imageElements.forEach((el) => {
             if (el.visible && typeof el.area === 'number')
-            areas.push(el.area);
+                areas.push(el.area);
         });
         this.economyImageDom = consistencyScoreCalculate(areas, usedConfig);
     }
 
     public calculateEconomyTextDom(config?: ConsistencyScoreCalculateConfig) {
-        const usedConfig: ConsistencyScoreCalculateConfig = config ?? {
-            failThreshold: 30,
-            transformer: ((val) => Math.round(val / 10000))
-        };
+        const usedConfig = config ?? configEconomyTextDom;
         const areas: number[] = [];
         this.textElements.forEach((el) => {
             if (el.visible && typeof el.area === 'number')
-            areas.push(el.area);
+                areas.push(el.area);
         });
         this.economyTextDom = consistencyScoreCalculate(areas, usedConfig);
     }
 
     public calculateSimplicityHorizontal(config?: AlignmentPointsScoreCalculateConfig) {
-        const usedConfig: AlignmentPointsScoreCalculateConfig = config ?? {
-            transformer: (val) => Math.floor(val / 10)
-        };
+        const usedConfig = config ?? configSimplicityHorizontal;
         this.simplicityHorizontal = alignmentPointsScoreCalculate(
             this.phase2Features.alignmentPoints.xAlignmentPoints,
             usedConfig
@@ -154,9 +142,7 @@ export class Phase3 {
     }
 
     public calculateSimplicityVertical(config?: AlignmentPointsScoreCalculateConfig) {
-        const usedConfig: AlignmentPointsScoreCalculateConfig = config ?? {
-            transformer: (val) => Math.floor(val / 10)
-        };
+        const usedConfig = config ?? configSimplicityVertical;
         this.simplicityVertical = alignmentPointsScoreCalculate(
             this.phase2Features.alignmentPoints.yAlignmentPoints,
             usedConfig
