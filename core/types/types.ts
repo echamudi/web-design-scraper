@@ -4,6 +4,7 @@ import {
     AnchorElementsExtractResult,
     BrowserInfoExtractResult,
     ColorSymmetryExtractResult,
+    GenericElementsExtractResult,
     ImageElementsExtractResult,
     TextElementsExtractResult,
     VibrantColorsExtractResult,
@@ -22,6 +23,7 @@ export interface Phase1Result {
     imageElements: ImageElementsExtractResult,
     videoElements: VideoElementsExtractResult,
     anchorElements: AnchorElementsExtractResult,
+    majorElements: GenericElementsExtractResult,
     alignmentPoints: AlignmentPointsExtractResult,
     textSize: TextSizeExtractResult
 }
