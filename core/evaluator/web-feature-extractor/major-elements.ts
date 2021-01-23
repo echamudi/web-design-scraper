@@ -1,5 +1,5 @@
 import {
-    GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement, VideoElementsExtractResult,
+    GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement, VideoElementsExtractResult, AnchorElementsExtractResult,
 } from 'Core/types/feature-extractor';
 
 /**
@@ -12,6 +12,7 @@ export function majorElementsExtract(
     textElements: TextElementsExtractResult,
     imageElements: ImageElementsExtractResult,
     videoElements: VideoElementsExtractResult,
+    anchorElements: AnchorElementsExtractResult,
 ): GenericElementsExtractResult {
     const majorElementPosition: GenericElement[] = [];
 
@@ -38,6 +39,17 @@ export function majorElementsExtract(
     });
 
     videoElements.elements.forEach((el) => {
+        if (el.visible) {
+            majorElementPosition.push({
+                position: el.position,
+                area: el.area,
+                visible: true,
+                aspectRatio: el.aspectRatio,
+            });
+        }
+    });
+
+    anchorElements.elements.forEach((el) => {
         if (el.visible) {
             majorElementPosition.push({
                 position: el.position,
