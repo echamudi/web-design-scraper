@@ -1,7 +1,7 @@
 import { alignmentPointsScoreCalculate, AlignmentPointsScoreCalculateConfig, AlignmentPointsScoreCalculateResult } from 'Core/evaluator/score-calculator/alignment-points';
 import { blockDensityScoreCalculate, BlockDensityScoreCalculateConfig, BlockDensityScoreCalculateResult } from 'Core/evaluator/score-calculator/block-density';
 import { consistencyScoreCalculate, ConsistencyScoreCalculateConfig, ConsistencyScoreCalculateResult } from 'Core/evaluator/score-calculator/consistency';
-import { ImageElement, TextElement } from 'Core/types/feature-extractor';
+import { GenericElement, ImageElement, TextElement } from 'Core/types/feature-extractor';
 import { ElementPosition, Phase2Result } from 'Core/types/types';
 import { plotter, PlotterConfig } from 'Core/utils/canvas';
 import {
@@ -9,7 +9,7 @@ import {
 } from './default-configs';
 
 export class Phase3 {
-    public phase2Features: Phase2Result;
+    private phase2Features: Phase2Result;
 
     // common plotter config for element distributions
     public plotterConfig: PlotterConfig;
@@ -19,6 +19,8 @@ export class Phase3 {
     public imageElementPositions: ElementPosition[];
     public textElements: TextElement[];
     public textElementPositions: ElementPosition[];
+    public majorElements: GenericElement[];
+    public majorElementPositions: ElementPosition[];
 
     // Element distributions
     public textElementDistribution: number[][];
@@ -35,7 +37,7 @@ export class Phase3 {
     public simplicityVertical: AlignmentPointsScoreCalculateResult | undefined;
 
     // Display Canvas
-    public displayCanvas: HTMLCanvasElement | undefined;
+    // public displayCanvas: HTMLCanvasElement | undefined;
 
     constructor(doc: Document, features: Phase2Result) {
         // Save features to the object
@@ -77,19 +79,25 @@ export class Phase3 {
 
         // Major Elements
         const majorPlotCanvas: HTMLCanvasElement = doc.createElement('canvas');
-        const majorElements: ElementPosition[] = [...textElementPositions, ...imageElementPositions];
-        features.videoElements.elements.forEach((el) => {
-            if (el.visible) majorElements.push(el.position);
+        const majorElements: GenericElement[] = [];
+        const majorElementPositions: ElementPosition[] = [];
+        features.majorElements.elements.forEach((el) => {
+            if (el.visible) {
+                majorElements.push(el);
+                majorElementPositions.push(el.position);
+            }
         });
-        this.majorElementDistribution = plotter(majorPlotCanvas, majorElements, this.plotterConfig).distribution;
+        this.majorElementDistribution = plotter(majorPlotCanvas, majorElementPositions, this.plotterConfig).distribution;
+        this.majorElements = majorElements;
+        this.majorElementPositions = majorElementPositions;
 
         // Display canvas is just for visualization view (TEMP)
 
-        const displayCanvas: HTMLCanvasElement = doc.createElement('canvas');
-        plotter(displayCanvas, imageElementPositions, { ...this.plotterConfig, backgroundColor: '#FFFFFF', blockColor: 'rgba(242, 120, 75, 0.7)' });
-        plotter(displayCanvas, textElementPositions, { ...this.plotterConfig, blockColor: 'rgba(25, 181, 254, 0.7)', skipResizingCanvas: true });
+        // const displayCanvas: HTMLCanvasElement = doc.createElement('canvas');
+        // plotter(displayCanvas, imageElementPositions, { ...this.plotterConfig, backgroundColor: '#FFFFFF', blockColor: 'rgba(242, 120, 75, 0.7)' });
+        // plotter(displayCanvas, textElementPositions, { ...this.plotterConfig, blockColor: 'rgba(25, 181, 254, 0.7)', skipResizingCanvas: true });
 
-        this.displayCanvas = displayCanvas;
+        // this.displayCanvas = displayCanvas;
 
         this.calculateAllScores();
     }
