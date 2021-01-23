@@ -1,4 +1,4 @@
-import { INavLinkGroup } from "office-ui-fabric-react";
+import { INavLinkGroup } from 'office-ui-fabric-react';
 
 const navLinkGroups: INavLinkGroup[] = [
     {
@@ -7,7 +7,7 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Overview',
                 key: 'meta-overview',
-                url: ''
+                url: '',
             },
             // {
             //     name: 'Detection Visualization',
@@ -27,17 +27,17 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Complexity (Text DOM)',
                 key: 'complexity-text-dom',
-                url: ''
+                url: '',
             },
             {
                 name: 'Density (Pixel)',
                 key: 'density-pixel',
-                url: ''
+                url: '',
             },
             {
                 name: 'Density (DOM)',
                 key: 'density-major-dom',
-                url: ''
+                url: '',
             },
         ],
     },
@@ -47,17 +47,17 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Cohesion (Image DOM)',
                 key: 'cohesion-image-dom',
-                url: ''
+                url: '',
             },
             {
                 name: 'Economy (Image DOM)',
                 key: 'economy-image-dom',
-                url: ''
+                url: '',
             },
             {
                 name: 'Economy (Text DOM)',
                 key: 'economy-text-dom',
-                url: ''
+                url: '',
             },
         ],
     },
@@ -67,12 +67,12 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Simplicity (Horizontal)',
                 key: 'simplicity-horizontal',
-                url: ''
+                url: '',
             },
             {
                 name: 'Simplicity (Vertical)',
                 key: 'simplicity-vertical',
-                url: ''
+                url: '',
             },
         ],
     },
@@ -82,7 +82,7 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Dominant Colors',
                 key: 'dominant-colors',
-                url: ''
+                url: '',
             },
         ],
     },
@@ -92,12 +92,12 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Use of Pictures',
                 key: 'graphic-pictures',
-                url: ''
+                url: '',
             },
             {
                 name: 'Use of Videos',
                 key: 'graphic-videos',
-                url: ''
+                url: '',
             },
         ],
     },
@@ -107,13 +107,13 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Text Size',
                 key: 'text-size',
-                url: ''
+                url: '',
             },
             {
                 name: 'Type of Font',
                 key: 'text-total-fonts',
-                url: ''
-            }
+                url: '',
+            },
         ],
     },
     {
@@ -122,7 +122,7 @@ const navLinkGroups: INavLinkGroup[] = [
             {
                 name: 'Negative Space (Text)',
                 key: 'negative-space-text',
-                url: ''
+                url: '',
             },
         ],
     },
