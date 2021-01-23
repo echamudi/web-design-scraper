@@ -27,6 +27,7 @@ export function executePhase1(win: Window): Phase1Result {
         imageElements,
         videoElements,
         anchorElements,
+        majorElements,
         alignmentPoints,
         textSize,
     };
