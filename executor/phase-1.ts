@@ -14,7 +14,12 @@ export function executePhase1(win: Window): Phase1Result {
     const imageElements = imageElementsExtract(win, browserInfo);
     const videoElements = videoElementsExtract(win, browserInfo);
     const anchorElements = anchorElementsExtract(win, browserInfo);
-    const majorElements = majorElementsExtract(textElements, imageElements, videoElements);
+    const majorElements = majorElementsExtract(
+        textElements,
+        imageElements,
+        videoElements,
+        anchorElements,
+    );
     const alignmentPoints = alignmentPointsExtract(
         majorElements.elements.map((el) => el.position),
         browserInfo,
