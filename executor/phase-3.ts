@@ -1,10 +1,12 @@
-import { alignmentPointsScoreCalculate, AlignmentPointsScoreCalculateConfig, AlignmentPointsScoreCalculateResult } from "Core/evaluator/score-calculator/alignment-points";
-import { blockDensityScoreCalculate, BlockDensityScoreCalculateConfig, BlockDensityScoreCalculateResult } from "Core/evaluator/score-calculator/block-density";
-import { consistencyScoreCalculate, ConsistencyScoreCalculateConfig, ConsistencyScoreCalculateResult } from "Core/evaluator/score-calculator/consistency";
-import { ImageElement, TextElement } from "Core/types/feature-extractor";
-import { ElementPosition, Phase2Result } from "Core/types/types";
-import { plotter, PlotterConfig } from "Core/utils/canvas";
-import { configCohesionImageDom, configComplexityTextDom, configDensityMajorDom, configEconomyImageDom, configEconomyTextDom, configSimplicityHorizontal, configSimplicityVertical } from "./default-configs";
+import { alignmentPointsScoreCalculate, AlignmentPointsScoreCalculateConfig, AlignmentPointsScoreCalculateResult } from 'Core/evaluator/score-calculator/alignment-points';
+import { blockDensityScoreCalculate, BlockDensityScoreCalculateConfig, BlockDensityScoreCalculateResult } from 'Core/evaluator/score-calculator/block-density';
+import { consistencyScoreCalculate, ConsistencyScoreCalculateConfig, ConsistencyScoreCalculateResult } from 'Core/evaluator/score-calculator/consistency';
+import { ImageElement, TextElement } from 'Core/types/feature-extractor';
+import { ElementPosition, Phase2Result } from 'Core/types/types';
+import { plotter, PlotterConfig } from 'Core/utils/canvas';
+import {
+    configCohesionImageDom, configComplexityTextDom, configDensityMajorDom, configEconomyImageDom, configEconomyTextDom, configSimplicityHorizontal, configSimplicityVertical,
+} from './default-configs';
 
 export class Phase3 {
     public phase2Features: Phase2Result;
@@ -41,8 +43,8 @@ export class Phase3 {
 
         // Construct config for plotter
         const tileSize = Math.floor(features.browserInfo.viewportWidth / 6);
-        const pageHeight = features.browserInfo.pageHeight;
-        const pageWidth = features.browserInfo.pageWidth;
+        const { pageHeight } = features.browserInfo;
+        const { pageWidth } = features.browserInfo;
         this.plotterConfig = { pageHeight, pageWidth, tileSize };
 
         // Text Elements
@@ -53,7 +55,7 @@ export class Phase3 {
             if (el.visible) {
                 textElements.push(el);
                 textElementPositions.push(el.position);
-            };
+            }
         });
         this.textElementDistribution = plotter(textPlotCanvas, textElementPositions, this.plotterConfig).distribution;
         this.textElements = textElements;
@@ -67,7 +69,7 @@ export class Phase3 {
             if (el.visible) {
                 imageElements.push(el);
                 imageElementPositions.push(el.position);
-            };
+            }
         });
         this.imageElementDistribution = plotter(imagePlotCanvas, imageElementPositions, this.plotterConfig).distribution;
         this.imageElements = imageElements;
@@ -106,8 +108,7 @@ export class Phase3 {
         const usedConfig = config ?? configCohesionImageDom;
         const aspectRatios: number[] = [];
         this.imageElements.forEach((el) => {
-            if (el.visible && typeof el.aspectRatio === 'number')
-                aspectRatios.push(el.aspectRatio);
+            if (el.visible && typeof el.aspectRatio === 'number') aspectRatios.push(el.aspectRatio);
         });
 
         this.cohesionImageDom = consistencyScoreCalculate(aspectRatios, usedConfig);
@@ -117,8 +118,7 @@ export class Phase3 {
         const usedConfig = config ?? configEconomyImageDom;
         const areas: number[] = [];
         this.imageElements.forEach((el) => {
-            if (el.visible && typeof el.area === 'number')
-                areas.push(el.area);
+            if (el.visible && typeof el.area === 'number') areas.push(el.area);
         });
         this.economyImageDom = consistencyScoreCalculate(areas, usedConfig);
     }
@@ -127,8 +127,7 @@ export class Phase3 {
         const usedConfig = config ?? configEconomyTextDom;
         const areas: number[] = [];
         this.textElements.forEach((el) => {
-            if (el.visible && typeof el.area === 'number')
-                areas.push(el.area);
+            if (el.visible && typeof el.area === 'number') areas.push(el.area);
         });
         this.economyTextDom = consistencyScoreCalculate(areas, usedConfig);
     }
@@ -137,7 +136,7 @@ export class Phase3 {
         const usedConfig = config ?? configSimplicityHorizontal;
         this.simplicityHorizontal = alignmentPointsScoreCalculate(
             this.phase2Features.alignmentPoints.xAlignmentPoints,
-            usedConfig
+            usedConfig,
         );
     }
 
@@ -145,7 +144,7 @@ export class Phase3 {
         const usedConfig = config ?? configSimplicityVertical;
         this.simplicityVertical = alignmentPointsScoreCalculate(
             this.phase2Features.alignmentPoints.yAlignmentPoints,
-            usedConfig
+            usedConfig,
         );
     }
 
@@ -181,6 +180,6 @@ export class Phase3 {
             textSize: -99,
             textTotalFonts: -99,
             textFontType: -99,
-        }
+        };
     }
 }

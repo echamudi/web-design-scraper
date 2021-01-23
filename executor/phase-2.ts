@@ -1,26 +1,26 @@
-import { colorCountExtract } from "Core/evaluator/image-feature-extractor/color-count";
-import { colorSymmetryExtract } from "Core/evaluator/image-feature-extractor/color-symmetry";
-import { vibrantColorsExtract } from "Core/evaluator/web-feature-extractor/vibrant-colors";
-import { ColorCountExtractResult } from "Core/types/factors";
+import { colorCountExtract } from 'Core/evaluator/image-feature-extractor/color-count';
+import { colorSymmetryExtract } from 'Core/evaluator/image-feature-extractor/color-symmetry';
+import { vibrantColorsExtract } from 'Core/evaluator/web-feature-extractor/vibrant-colors';
+import { ColorCountExtractResult } from 'Core/types/factors';
 import {
     Phase1Result,
     Phase2Result,
-} from "Core/types/types";
+} from 'Core/types/types';
 import {
-    ViewportScreenshotExtractResult
-} from "Core/types/feature-extractor";
-import { imageToImageData } from "Core/utils/image-canvas";
+    ViewportScreenshotExtractResult,
+} from 'Core/types/feature-extractor';
+import { imageToImageData } from 'Core/utils/image-canvas';
 
 export async function executePhase2(
     phase1Result: Phase1Result,
-    screenshot: string
+    screenshot: string,
 ): Promise<Phase2Result> {
     const screenshotImageData: ImageData = await imageToImageData(screenshot);
 
     const [
-        vibrantColorsExtractSettledResult
+        vibrantColorsExtractSettledResult,
     ] = await Promise.allSettled([
-        vibrantColorsExtract(screenshot)
+        vibrantColorsExtract(screenshot),
     ]);
 
     if (vibrantColorsExtractSettledResult.status === 'rejected') {
@@ -31,7 +31,7 @@ export async function executePhase2(
     const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
     const colorSymmetryResult = colorSymmetryExtract(screenshotImageData);
 
-    let [colorCountResult] = await Promise.allSettled([
+    const [colorCountResult] = await Promise.allSettled([
         new Promise<ColorCountExtractResult>(async (resolve, reject) => {
             const result = await colorCountExtract(screenshotImageData);
             resolve(result);
@@ -54,11 +54,11 @@ export async function executePhase2(
         imageArea: screenshotImageArea,
         viewportWidth: phase1FeatureExtractorResult.browserInfo.viewportWidth,
         viewportHeight: phase1FeatureExtractorResult.browserInfo.viewportHeight,
-        viewportArea: viewportArea,
+        viewportArea,
         /**
          * (imageArea / viewportArea) / 2
          */
-        pixelRatio: (screenshotImageArea / viewportArea) / 2
+        pixelRatio: (screenshotImageArea / viewportArea) / 2,
     };
 
     // Combine content side result with extension side result
@@ -68,7 +68,7 @@ export async function executePhase2(
         colorCount: colorCountResult.value,
         colorSymmetry: colorSymmetryResult,
         viewportScreenshot,
-        timestamp: Date.now()
+        timestamp: Date.now(),
     };
 
     return featureExtractorResult;

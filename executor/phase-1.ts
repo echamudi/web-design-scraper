@@ -1,14 +1,12 @@
-import { alignmentPointsExtract } from "Core/evaluator/web-feature-extractor/alignment-points";
-import { anchorElementsExtract } from "Core/evaluator/web-feature-extractor/anchor-elements";
-import { browserInfoExtract } from "Core/evaluator/web-feature-extractor/browser-info";
-import { imageElementsExtract } from "Core/evaluator/web-feature-extractor/image-elements";
-import { majorElementsExtract } from "Core/evaluator/web-feature-extractor/major-elements";
-import { textElementsExtract } from "Core/evaluator/web-feature-extractor/text-elements";
-import { textSizeExtract } from "Core/evaluator/web-feature-extractor/text-size";
-import { videoElementsExtract } from "Core/evaluator/web-feature-extractor/video-elements";
-import {
-    Phase1Result,
-} from "Core/types/types";
+import { alignmentPointsExtract } from 'Core/evaluator/web-feature-extractor/alignment-points';
+import { anchorElementsExtract } from 'Core/evaluator/web-feature-extractor/anchor-elements';
+import { browserInfoExtract } from 'Core/evaluator/web-feature-extractor/browser-info';
+import { imageElementsExtract } from 'Core/evaluator/web-feature-extractor/image-elements';
+import { majorElementsExtract } from 'Core/evaluator/web-feature-extractor/major-elements';
+import { textElementsExtract } from 'Core/evaluator/web-feature-extractor/text-elements';
+import { textSizeExtract } from 'Core/evaluator/web-feature-extractor/text-size';
+import { videoElementsExtract } from 'Core/evaluator/web-feature-extractor/video-elements';
+import { Phase1Result } from 'Core/types/types';
 
 export function executePhase1(win: Window): Phase1Result {
     const browserInfo = browserInfoExtract(win);
@@ -19,7 +17,7 @@ export function executePhase1(win: Window): Phase1Result {
     const majorElements = majorElementsExtract(textElements, imageElements, videoElements);
     const alignmentPoints = alignmentPointsExtract(
         majorElements.elements.map((el) => el.position),
-        browserInfo
+        browserInfo,
     );
     const textSize = textSizeExtract(textElements);
 
@@ -30,7 +28,7 @@ export function executePhase1(win: Window): Phase1Result {
         videoElements,
         anchorElements,
         alignmentPoints,
-        textSize
+        textSize,
     };
 
     return phase1Result;
