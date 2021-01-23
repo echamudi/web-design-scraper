@@ -1,7 +1,7 @@
-import { BrowserInfoExtractResult, AnchorElementsExtractResult, AnchorElement } from "Core/types/feature-extractor";
+import { BrowserInfoExtractResult, AnchorElementsExtractResult, AnchorElement } from 'Core/types/feature-extractor';
 import { isVisible } from 'Core/utils/is-visible';
-import { getPositionInPage } from "Core/utils/get-element-position";
-import { numberOnly } from "Core/utils/number-only";
+import { getPositionInPage } from 'Core/utils/get-element-position';
+import { numberOnly } from 'Core/utils/number-only';
 
 export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): AnchorElementsExtractResult {
     const doc = win.document;
@@ -18,7 +18,7 @@ export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInf
         let text = '';
         currentEl.childNodes.forEach((cn) => {
             if (cn.nodeType === Node.TEXT_NODE) text += cn.textContent ?? '';
-        })
+        });
         text = text.trim();
 
         const bound = currentEl.getBoundingClientRect();
@@ -29,7 +29,7 @@ export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInf
             text,
             area: currentEl.clientWidth * currentEl.clientHeight,
             visible: isVisible(currentEl),
-            aspectRatio: numberOnly(currentEl.clientWidth / currentEl.clientHeight)
+            aspectRatio: numberOnly(currentEl.clientWidth / currentEl.clientHeight),
         });
     }
 
@@ -39,11 +39,10 @@ export function anchorElementsExtract(win: Window, browserInfoResult: BrowserInf
         visibleElementCount: anchorElements.reduce<number>((prev, curr) => {
             if (curr.visible) {
                 return prev + 1;
-            } else {
-                return prev;
             }
+            return prev;
         }, 0),
         pageWidth,
-        pageHeight
+        pageHeight,
     };
 }

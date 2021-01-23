@@ -1,7 +1,7 @@
 /**
  * Source: https://stackoverflow.com/questions/49751396/determine-if-element-is-behind-another
  * @author Niklas E. (https://stackoverflow.com/users/1027902/niklas-e)
- * 
+ *
  * Modified by
  * @author Ezzat Chamudi (https://github.com/echamudi)
  */
@@ -32,7 +32,7 @@ export function isBehindOtherElement(element: HTMLElement | SVGSVGElement): bool
     const bottom = boundingRect.bottom - 1;
 
     // Check if the center of element is covered by something
-    if (document.elementFromPoint((right + left)/2, (top + bottom)/2) !== element) return true;
+    if (document.elementFromPoint((right + left) / 2, (top + bottom) / 2) !== element) return true;
 
     return false;
 }

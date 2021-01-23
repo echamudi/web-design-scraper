@@ -1,13 +1,13 @@
-import { colorSymmetryExtract } from './color-symmetry';
 import imageToBase64 from 'image-to-base64';
 import path from 'path';
 import { imageToImageData } from 'Core/utils/image-canvas';
+import { colorSymmetryExtract } from './color-symmetry';
 
 test('colorSymmetry', async () => {
     const imgUV = await imageToBase64(path.join(__dirname, '../../../test/fixtures/small-imgs/unsymmetrical-vertical.png'));
     const imgUH = await imageToBase64(path.join(__dirname, '../../../test/fixtures/small-imgs/unsymmetrical-horizontal.png'));
-    const imageDataUV = await imageToImageData('data:image/png;base64,' + imgUV);
-    const imageDataUH = await imageToImageData('data:image/png;base64,' + imgUH);
+    const imageDataUV = await imageToImageData(`data:image/png;base64,${imgUV}`);
+    const imageDataUH = await imageToImageData(`data:image/png;base64,${imgUH}`);
 
     const uvSymmetryCheckResult = colorSymmetryExtract(imageDataUV);
     expect(uvSymmetryCheckResult.horizontal.ciede2000average).toStrictEqual(0);
@@ -20,7 +20,7 @@ test('colorSymmetry', async () => {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0
+            0, 0, 0, 0,
         ]);
 
     expect(uvSymmetryCheckResult.vertical.ciede2000average).toStrictEqual(100);
@@ -33,7 +33,7 @@ test('colorSymmetry', async () => {
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0
+            254, 0, 0, 0,
         ]);
 
     const uhSymmetryCheckResult = colorSymmetryExtract(imageDataUH);
@@ -47,7 +47,7 @@ test('colorSymmetry', async () => {
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
             254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0
+            254, 0, 0, 0,
         ]);
 
     expect(uhSymmetryCheckResult.vertical.ciede2000average).toStrictEqual(0);
@@ -60,6 +60,6 @@ test('colorSymmetry', async () => {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0
+            0, 0, 0, 0,
         ]);
 });

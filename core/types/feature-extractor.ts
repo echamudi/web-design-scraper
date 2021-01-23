@@ -1,7 +1,6 @@
-import { Color, ElementPosition } from "./types";
-import { Palette } from "node-vibrant/lib/color";
-import { TextSizeExtractResult, ColorCountExtractResult } from "./factors";
-
+import { Palette } from 'node-vibrant/lib/color';
+import { Color, ElementPosition } from './types';
+import { TextSizeExtractResult, ColorCountExtractResult } from './factors';
 
 //
 // Web page features
@@ -52,7 +51,7 @@ export interface GenericElement {
      * Aspect ratio is undefined if DIV/0
      */
     aspectRatio: number | undefined
-};
+}
 
 export interface GenericElementsExtractResult {
     elements: GenericElement[],
@@ -235,4 +234,3 @@ export interface PageScreenshotExtractResult {
      */
     pixelRatio: number
 }
-

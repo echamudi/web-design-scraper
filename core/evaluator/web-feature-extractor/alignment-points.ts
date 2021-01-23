@@ -1,14 +1,15 @@
-import { ElementPosition } from "Core/types/types";
-import { AlignmentPointsExtractResult, BrowserInfoExtractResult } from "Core/types/feature-extractor";
+import { ElementPosition } from 'Core/types/types';
+import { AlignmentPointsExtractResult, BrowserInfoExtractResult } from 'Core/types/feature-extractor';
 
 export function alignmentPointsExtract(elementPositions: ElementPosition[], browserInfo: BrowserInfoExtractResult): AlignmentPointsExtractResult {
     const mapX: Record<number, number> = {};
     const mapY: Record<number, number> = {};
 
-    const { viewportHeight: vh, viewportWidth: vw, pageXOffset, pageYOffset } = browserInfo;
+    const {
+        viewportHeight: vh, viewportWidth: vw, pageXOffset, pageYOffset,
+    } = browserInfo;
 
     elementPositions.forEach((elPos) => {
-
         // Skip if elPos is outside the viewport
         if (elPos.x > (pageXOffset + vw)) return;
         if (elPos.y > (pageYOffset + vh)) return;
@@ -55,6 +56,6 @@ export function alignmentPointsExtract(elementPositions: ElementPosition[], brow
         yAlignmentPoints: mapY,
         totalXAlignmentPoints,
         totalYAlignmentPoints,
-        totalAlignmentPoints
-    }
+        totalAlignmentPoints,
+    };
 }

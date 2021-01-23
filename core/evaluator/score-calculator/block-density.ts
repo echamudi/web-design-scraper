@@ -35,9 +35,8 @@ export interface BlockDensityScoreCalculateConfig {
  */
 export function blockDensityScoreCalculate(
     distribution: number[][],
-    config?: BlockDensityScoreCalculateConfig
+    config?: BlockDensityScoreCalculateConfig,
 ): BlockDensityScoreCalculateResult {
-
     const passPercentage = config?.passPercentage ?? 0;
     const failPercentage = config?.failPercentage ?? 1;
 
@@ -60,7 +59,7 @@ export function blockDensityScoreCalculate(
             clampedDistribution[row].push(clamp(
                 distribution[row][col],
                 passPercentage,
-                failPercentage
+                failPercentage,
             ));
 
             totalBlocks += 1;
@@ -86,10 +85,10 @@ export function blockDensityScoreCalculate(
                 average: undefined,
                 maxDensityClamped: undefined,
                 minDensityClamped: undefined,
-                averageClamped: undefined
+                averageClamped: undefined,
             },
-            score: undefined
-        }
+            score: undefined,
+        };
     }
 
     average /= totalBlocks;
@@ -103,8 +102,8 @@ export function blockDensityScoreCalculate(
             average,
             maxDensityClamped,
             minDensityClamped,
-            averageClamped
+            averageClamped,
         },
-        score
+        score,
     };
 }

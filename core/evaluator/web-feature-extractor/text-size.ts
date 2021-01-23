@@ -1,4 +1,4 @@
-//TODO: Review this file to follow the standard in other files
+// TODO: Review this file to follow the standard in other files
 
 import { TextSizeExtractResult } from 'Core/types/factors';
 import { TextElementsExtractResult } from 'Core/types/feature-extractor';
@@ -63,7 +63,6 @@ export function textSizeExtract(textElementExtractResult: TextElementsExtractRes
 //             } else {
 //                 textSizeMap[fontSize] += [...text].length;
 //             }
-
 
 //             // currentEl.setAttribute('data-swds-textSize', '1');
 //             // totalElements += 1;

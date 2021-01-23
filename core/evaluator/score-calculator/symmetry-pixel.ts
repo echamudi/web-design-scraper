@@ -9,5 +9,5 @@
 //         ColorSymmetryExtractResult['horizontal']
 //         | ColorSymmetryExtractResult['vertical']
 //     ): SymmetryPixelScoreCalculateResult {
-        
+
 // }

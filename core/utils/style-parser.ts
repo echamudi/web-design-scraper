@@ -21,7 +21,7 @@
  *          var fontStacksInUse = styleInPage('fontFamily');
  *          console.log(fontStacksInUse);
  *          highlightInPage(8);
- * 
+ *
  * Modified by
  * @author Ezzat Chamudi (https://github.com/echamudi)
  */
@@ -34,26 +34,27 @@
  */
 export function styleInPage(win: Window, css: string, verbose: Boolean) {
     // polyfill getComputedStyle
-    if (typeof getComputedStyle == "undefined") {
+    if (typeof getComputedStyle === 'undefined') {
         (win.getComputedStyle) = function (elem: any) {
             return elem.currentStyle;
-        }
+        };
     }
 
     // set vars
-    let style: string,
-        thisNode,
-        styleId: string,
-        allStyles: Array<[string, string] | string> = [],
-        nodes = document.body.getElementsByTagName('*'),
-        styleBefore,
-        styleAfter
+    let style: string;
+    let thisNode;
+    let styleId: string;
+    const allStyles: Array<[string, string] | string> = [];
+    const nodes = document.body.getElementsByTagName('*');
+    let styleBefore;
+    let styleAfter;
 
     // loop over all elements
-    for (var i = 0; i < nodes.length; i++) {
+    for (let i = 0; i < nodes.length; i++) {
         thisNode = <HTMLElement>nodes[i];
         if (thisNode.style) {
-            styleId = '#' + (thisNode.id || thisNode.nodeName + '(' + i + ')');
+            // eslint-disable-line
+            styleId = `#${thisNode.id || `${thisNode.nodeName}(${i})`}`;
             style = thisNode.style.fontFamily || (getComputedStyle(thisNode, '') as any)[css];
 
             // get element’s style

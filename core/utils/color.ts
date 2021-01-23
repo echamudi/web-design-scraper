@@ -1,7 +1,6 @@
-import { diff, LabColor, rgb_to_lab } from "color-diff";
-import { Color } from "Core/types/types";
-import { hex } from "color-convert";
-import { rgb } from "color-convert";
+import { diff, LabColor, rgb_to_lab } from 'color-diff';
+import { Color } from 'Core/types/types';
+import { hex, rgb } from 'color-convert';
 
 // export function componentToHex(c: number) {
 //     var hex = c.toString(16);
@@ -26,20 +25,20 @@ export function hexToRgb(hexString: string): Color {
     const color: Color = {
         r: rgb[0],
         g: rgb[1],
-        b: rgb[2]
-    }
+        b: rgb[2],
+    };
     return color;
 }
 
 export function colorDiff(col1: Color, col2: Color): number {
-    const color1: LabColor = rgb_to_lab({R: col1.r, G: col1.g, B: col1.b});
-    const color2: LabColor = rgb_to_lab({R: col2.r, G: col2.g, B: col2.b});
+    const color1: LabColor = rgb_to_lab({ R: col1.r, G: col1.g, B: col1.b });
+    const color2: LabColor = rgb_to_lab({ R: col2.r, G: col2.g, B: col2.b });
 
     return diff(color1, color2);
 }
 
 /**
- * 
+ *
  * @param col1 Color 1. Alpha is ignored.
  * @param col2 Color 2. Alpha is ignored.
  * @param tolerance CIEDE2000 score tolerance (100 = accept all differences, 0 = strict equality)

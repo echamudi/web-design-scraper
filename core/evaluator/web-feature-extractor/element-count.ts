@@ -13,15 +13,13 @@ export function elementCountExtract(document: Document): ElementCountExtractResu
 
         if (list[tag] === undefined) {
             list[tag] = 1;
-            return;
         } else {
             list[tag] += 1;
-            return;
         }
     });
 
     return {
         count,
-        list
+        list,
     };
 }

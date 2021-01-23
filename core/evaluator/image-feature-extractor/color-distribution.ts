@@ -1,7 +1,7 @@
-import { ColorCountExtractResult } from "Core/types/factors";
-import { ColorDistributionExtractResult } from "Core/types/feature-extractor";
-import { Color } from "Core/types/types";
-import { colorEquality } from "Core/utils/color";
+import { ColorCountExtractResult } from 'Core/types/factors';
+import { ColorDistributionExtractResult } from 'Core/types/feature-extractor';
+import { Color } from 'Core/types/types';
+import { colorEquality } from 'Core/utils/color';
 
 /**
  * Ciede equality tolerance to consider different colors as the same
@@ -10,7 +10,7 @@ const equalityTolerance = 2;
 
 export function colorDistributionExtract(
     imageData: ImageData,
-    colorCountExtractResult: ColorCountExtractResult
+    colorCountExtractResult: ColorCountExtractResult,
 ): ColorDistributionExtractResult {
     const { rank } = colorCountExtractResult;
     const totalPixels = imageData.width * imageData.height;
@@ -24,8 +24,8 @@ export function colorDistributionExtract(
         const colorFromData: Color = {
             r: data[(i * 4) + 0],
             g: data[(i * 4) + 1],
-            b: data[(i * 4) + 2]
-        }
+            b: data[(i * 4) + 2],
+        };
 
         if (rank[0] && colorEquality(rank[0].color, colorFromData, equalityTolerance)) {
             pixelCountOfTheTop1 += 1;
@@ -52,6 +52,6 @@ export function colorDistributionExtract(
         totalPixels,
         colorPercentageOfTheTop1: pixelCountOfTheTop1 / totalPixels,
         colorPercentageOfTheTop5: pixelCountOfTheTop5 / totalPixels,
-        colorPercentageOfTheTop10: pixelCountOfTheTop10 / totalPixels
-    }
+        colorPercentageOfTheTop10: pixelCountOfTheTop10 / totalPixels,
+    };
 }

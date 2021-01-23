@@ -1,4 +1,4 @@
-import { ColorCountExtractResult, TextSizeExtractResult } from "./factors";
+import { ColorCountExtractResult, TextSizeExtractResult } from './factors';
 import {
     AlignmentPointsExtractResult,
     AnchorElementsExtractResult,
@@ -8,8 +8,8 @@ import {
     TextElementsExtractResult,
     VibrantColorsExtractResult,
     VideoElementsExtractResult,
-    ViewportScreenshotExtractResult
-} from "./feature-extractor";
+    ViewportScreenshotExtractResult,
+} from './feature-extractor';
 
 //
 // Phases

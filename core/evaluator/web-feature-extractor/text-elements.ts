@@ -1,8 +1,8 @@
-import { BrowserInfoExtractResult, TextElementsExtractResult, TextElement } from "Core/types/feature-extractor";
+import { BrowserInfoExtractResult, TextElementsExtractResult, TextElement } from 'Core/types/feature-extractor';
 import { isVisible } from 'Core/utils/is-visible';
-import { getBackgroundColor } from "Core/utils/get-background-color";
-import { getPositionInPage } from "Core/utils/get-element-position";
-import { numberOnly } from "Core/utils/number-only";
+import { getBackgroundColor } from 'Core/utils/get-background-color';
+import { getPositionInPage } from 'Core/utils/get-element-position';
+import { numberOnly } from 'Core/utils/number-only';
 
 export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoExtractResult): TextElementsExtractResult {
     const doc = win.document;
@@ -19,17 +19,21 @@ export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoE
         let text = '';
         currentEl.childNodes.forEach((cn) => {
             if (cn.nodeType === Node.TEXT_NODE) text += cn.textContent ?? '';
-        })
+        });
         text = text.trim();
 
         if (text !== '') {
             const bound = currentEl.getBoundingClientRect();
-            const { x, y, w, h } = getPositionInPage(win, bound);
+            const {
+                x, y, w, h,
+            } = getPositionInPage(win, bound);
             const midX = Math.floor(x + (w / 2));
             const midY = Math.floor(y + (h / 2));
 
             textElements.push({
-                position: { x, y, w, h },
+                position: {
+                    x, y, w, h,
+                },
                 fontType: win.getComputedStyle(currentEl).fontFamily,
                 fontSize: win.getComputedStyle(currentEl).fontSize,
                 color: win.getComputedStyle(currentEl).color,
@@ -39,7 +43,7 @@ export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoE
                 visible: isVisible(currentEl),
                 totalCharacters: [...text].length,
                 text,
-                aspectRatio: numberOnly(w / h)
+                aspectRatio: numberOnly(w / h),
             });
         }
     }
@@ -50,11 +54,10 @@ export function textElementsExtract(win: Window, browserInfoResult: BrowserInfoE
         visibleElementCount: textElements.reduce<number>((prev, curr) => {
             if (curr.visible) {
                 return prev + 1;
-            } else {
-                return prev;
             }
+            return prev;
         }, 0),
         pageWidth,
-        pageHeight
+        pageHeight,
     };
 }

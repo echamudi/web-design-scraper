@@ -1,16 +1,16 @@
-import { Color } from "Core/types/types";
+import { Color } from 'Core/types/types';
 
 export async function imageToCanvas(imageURI: string): Promise<HTMLCanvasElement> {
     return new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas');
-    
-        const ctx = canvas.getContext('2d');
-    
-        if (ctx === null) throw new Error('CTX is null');
-    
-        const img = new Image;
 
-        img.onload = function(){
+        const ctx = canvas.getContext('2d');
+
+        if (ctx === null) throw new Error('CTX is null');
+
+        const img = new Image();
+
+        img.onload = function () {
             canvas.width = img.width;
             canvas.height = img.height;
 
@@ -18,12 +18,12 @@ export async function imageToCanvas(imageURI: string): Promise<HTMLCanvasElement
 
             resolve(canvas);
         };
-        img.onerror = function() {
+        img.onerror = function () {
             reject(new Error('Error on loading the imageURI'));
-        }
+        };
         img.src = imageURI;
     });
-};
+}
 
 export async function imageToImageData(imageURI: string): Promise<ImageData> {
     const canvas = await imageToCanvas(imageURI);
@@ -50,8 +50,8 @@ export function getPixelImageData(imageData: ImageData, x: number, y: number): C
         r: data[bufferIndex],
         g: data[bufferIndex + 1],
         b: data[bufferIndex + 2],
-        a: data[bufferIndex + 3]
-    }
+        a: data[bufferIndex + 3],
+    };
 }
 
 /**

@@ -1,16 +1,18 @@
-import { GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement, VideoElementsExtractResult } from "Core/types/feature-extractor";
+import {
+    GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement, VideoElementsExtractResult,
+} from 'Core/types/feature-extractor';
 
 /**
  * Get visible elements of major elements.
  * Currently, major elements are only text, image, and video elements.
- * @param textElements 
- * @param imageElements 
+ * @param textElements
+ * @param imageElements
  */
 export function majorElementsExtract(
     textElements: TextElementsExtractResult,
     imageElements: ImageElementsExtractResult,
-    videoElements: VideoElementsExtractResult): GenericElementsExtractResult {
-
+    videoElements: VideoElementsExtractResult,
+): GenericElementsExtractResult {
     const majorElementPosition: GenericElement[] = [];
 
     imageElements.elements.forEach((el) => {
@@ -19,9 +21,9 @@ export function majorElementsExtract(
                 position: el.position,
                 area: el.area,
                 visible: true,
-                aspectRatio: el.aspectRatio
+                aspectRatio: el.aspectRatio,
             });
-        };
+        }
     });
 
     textElements.elements.forEach((el) => {
@@ -30,9 +32,9 @@ export function majorElementsExtract(
                 position: el.position,
                 area: el.area,
                 visible: true,
-                aspectRatio: el.aspectRatio
+                aspectRatio: el.aspectRatio,
             });
-        };
+        }
     });
 
     videoElements.elements.forEach((el) => {
@@ -41,9 +43,9 @@ export function majorElementsExtract(
                 position: el.position,
                 area: el.area,
                 visible: true,
-                aspectRatio: el.aspectRatio
+                aspectRatio: el.aspectRatio,
             });
-        };
+        }
     });
 
     return {
@@ -52,5 +54,5 @@ export function majorElementsExtract(
         visibleElementCount: majorElementPosition.length,
         pageWidth: textElements.pageWidth,
         pageHeight: textElements.pageHeight,
-    }
+    };
 }

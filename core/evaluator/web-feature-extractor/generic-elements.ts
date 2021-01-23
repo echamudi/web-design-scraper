@@ -1,7 +1,7 @@
-import { GenericElementsExtractResult, GenericElement, BrowserInfoExtractResult } from "Core/types/feature-extractor";
+import { GenericElementsExtractResult, GenericElement, BrowserInfoExtractResult } from 'Core/types/feature-extractor';
 import { isVisible } from 'Core/utils/is-visible';
-import { getPositionInPage } from "Core/utils/get-element-position";
-import { numberOnly } from "Core/utils/number-only";
+import { getPositionInPage } from 'Core/utils/get-element-position';
+import { numberOnly } from 'Core/utils/number-only';
 
 /**
  * Generic Element Detection
@@ -24,7 +24,7 @@ export function genericElementsExtract(win: Window, browserInfoResult: BrowserIn
             position: getPositionInPage(win, bound),
             area: currentEl.clientWidth * currentEl.clientHeight,
             visible: isVisible(currentEl),
-            aspectRatio: numberOnly(currentEl.clientWidth / currentEl.clientHeight)
+            aspectRatio: numberOnly(currentEl.clientWidth / currentEl.clientHeight),
         });
     }
 
@@ -34,11 +34,10 @@ export function genericElementsExtract(win: Window, browserInfoResult: BrowserIn
         visibleElementCount: genericElements.reduce<number>((prev, curr) => {
             if (curr.visible) {
                 return prev + 1;
-            } else {
-                return prev;
             }
+            return prev;
         }, 0),
         pageWidth,
-        pageHeight
+        pageHeight,
     };
 }

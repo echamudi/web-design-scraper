@@ -1,11 +1,11 @@
-import { ColorSymmetryExtractResult } from "Core/types/feature-extractor";
-import { colorDiff } from "Core/utils/color";
-import { getPixelImageData, setPixelImageData } from "Core/utils/image-canvas";
-import { scaleValue } from "Core/utils/math";
+import { ColorSymmetryExtractResult } from 'Core/types/feature-extractor';
+import { colorDiff } from 'Core/utils/color';
+import { getPixelImageData, setPixelImageData } from 'Core/utils/image-canvas';
+import { scaleValue } from 'Core/utils/math';
 
 /**
  * Check image symmetry with CIEDE2000 algorithm
- * @param imageData 
+ * @param imageData
  */
 export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtractResult {
     const { width, height } = imageData;
@@ -34,7 +34,9 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
 
                 const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
 
-                setPixelImageData(visualization, x, y, {r: diffScaled, g: 0, b: 0, a: 0});
+                setPixelImageData(visualization, x, y, {
+                    r: diffScaled, g: 0, b: 0, a: 0,
+                });
             }
         }
 
@@ -44,7 +46,7 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
         return {
             visualization,
             ciede2000average,
-            totalPixelPairs
+            totalPixelPairs,
         };
     })();
 
@@ -66,7 +68,9 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
 
                 const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
 
-                setPixelImageData(visualization, x, y, {r: diffScaled, g: 0, b: 0, a: 0});
+                setPixelImageData(visualization, x, y, {
+                    r: diffScaled, g: 0, b: 0, a: 0,
+                });
             }
         }
 
@@ -76,12 +80,12 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
         return {
             visualization,
             ciede2000average,
-            totalPixelPairs
-        }
+            totalPixelPairs,
+        };
     })();
 
     return {
         horizontal,
-        vertical
+        vertical,
     };
 }

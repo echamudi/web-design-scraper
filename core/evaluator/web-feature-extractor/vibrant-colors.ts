@@ -1,4 +1,4 @@
-import Vibrant from "node-vibrant";
+import Vibrant from 'node-vibrant';
 import { VibrantColorsExtractResult, VibrantColorsPallete } from 'Core/types/feature-extractor';
 import { equalWithTolerance } from 'Core/utils/equality';
 
@@ -11,15 +11,15 @@ export async function vibrantColorsExtract(imageURI: string): Promise<VibrantCol
 
     return new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas');
-        canvas.id = "vibrantColorsExtractCanvas";
-    
-        const ctx = canvas.getContext('2d');
-    
-        if (ctx === null) throw new Error('CTX is null');
-    
-        const img = new Image;
+        canvas.id = 'vibrantColorsExtractCanvas';
 
-        img.onload = function(){
+        const ctx = canvas.getContext('2d');
+
+        if (ctx === null) throw new Error('CTX is null');
+
+        const img = new Image();
+
+        img.onload = function () {
             canvas.width = img.width;
             canvas.height = img.height;
 
@@ -34,26 +34,26 @@ export async function vibrantColorsExtract(imageURI: string): Promise<VibrantCol
 
             // Count Vibrant
             const rgb = [
-                palette.Vibrant?.getRgb() ?? [-1,-1,-1],
-                palette.Muted?.getRgb() ?? [-1,-1,-1],
-                palette.DarkVibrant?.getRgb() ?? [-1,-1,-1],
-                palette.DarkMuted?.getRgb() ?? [-1,-1,-1],
-                palette.LightVibrant?.getRgb() ?? [-1,-1,-1],
-                palette.LightMuted?.getRgb() ?? [-1,-1,-1],
+                palette.Vibrant?.getRgb() ?? [-1, -1, -1],
+                palette.Muted?.getRgb() ?? [-1, -1, -1],
+                palette.DarkVibrant?.getRgb() ?? [-1, -1, -1],
+                palette.DarkMuted?.getRgb() ?? [-1, -1, -1],
+                palette.LightVibrant?.getRgb() ?? [-1, -1, -1],
+                palette.LightMuted?.getRgb() ?? [-1, -1, -1],
             ];
 
-            const pixelCount: [number, number, number, number, number, number] = [0,0,0,0,0,0];
+            const pixelCount: [number, number, number, number, number, number] = [0, 0, 0, 0, 0, 0];
 
             for (let i = 0; i < imagePixels.length; i += 4) {
                 for (let v = 0; v < 5; v += 1) {
                     // Check with 20% tollerance
                     if (
-                        equalWithTolerance(imagePixels[i], rgb[v][0], 51) &&
-                        equalWithTolerance(imagePixels[i + 1], rgb[v][1], 51) &&
-                        equalWithTolerance(imagePixels[i + 2], rgb[v][2], 51)
+                        equalWithTolerance(imagePixels[i], rgb[v][0], 51)
+                        && equalWithTolerance(imagePixels[i + 1], rgb[v][1], 51)
+                        && equalWithTolerance(imagePixels[i + 2], rgb[v][2], 51)
                     ) {
                         pixelCount[v] += 1;
-                    };
+                    }
                 }
             }
 
@@ -65,7 +65,7 @@ export async function vibrantColorsExtract(imageURI: string): Promise<VibrantCol
                 pixelCountDarkMuted: pixelCount[3],
                 pixelCountLightVibrant: pixelCount[4],
                 pixelCountLightMuted: pixelCount[5],
-                totalPixels: area
+                totalPixels: area,
             });
         };
         img.src = imageURI;

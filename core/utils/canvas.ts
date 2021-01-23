@@ -37,18 +37,17 @@ export interface PlotterConfig {
 
 /**
  * For plotting components on canvas
- * @param components 
- * @param config 
+ * @param components
+ * @param config
  */
 export function plotter(
     canvas: HTMLCanvasElement,
     components: ElementPosition[],
     config: PlotterConfig,
 ): PlotterResult {
-
-    const pageHeight = config.pageHeight;
-    const pageWidth = config.pageWidth;
-    const tileSize = config.tileSize;
+    const { pageHeight } = config;
+    const { pageWidth } = config;
+    const { tileSize } = config;
     const blockColor = config.blockColor ?? '#000000';
     const backgroundColor = config.backgroundColor ?? false;
     const skipResizingCanvas: boolean = config.skipResizingCanvas ?? false;
@@ -147,7 +146,7 @@ export function plotter(
 
     return {
         canvas,
-        distribution
+        distribution,
     };
 }
 

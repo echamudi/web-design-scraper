@@ -13,7 +13,7 @@ function posUtil(el: HTMLElement | SVGSVGElement, win: Window) {
         position,
         area: position.w * position.h,
         aspectRatio,
-        visible: isVisible(el)
+        visible: isVisible(el),
     };
 }
 
@@ -26,32 +26,32 @@ export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfo
 
     // get imgs
     const imgs: HTMLImageElement[] = Array.from(doc.images);
-    imgs.forEach(el => {
+    imgs.forEach((el) => {
         imageElements.push({
             url: el.src,
-            ...posUtil(el, win)
-        })
+            ...posUtil(el, win),
+        });
     });
 
     // get svgs
     const svgs: SVGSVGElement[] = Array.from(doc.getElementsByTagName('svg'));
-    svgs.forEach(el => {
+    svgs.forEach((el) => {
         imageElements.push({
             url: '',
-            ...posUtil(el, win)
-        })
+            ...posUtil(el, win),
+        });
     });
 
     // get all elements with image backgrounds
-    const htmlElements = doc.body.getElementsByTagName("*");
+    const htmlElements = doc.body.getElementsByTagName('*');
 
-    Array.prototype.forEach.call(htmlElements, function (el: HTMLElement ) {
-        var style = window.getComputedStyle( el );
-        if ( style.backgroundImage != "none" ) {
+    Array.prototype.forEach.call(htmlElements, (el: HTMLElement) => {
+        const style = window.getComputedStyle(el);
+        if (style.backgroundImage != 'none') {
             imageElements.push({
-                url: style.backgroundImage.slice( 4, -1 ).replace(/['"]/g, ""),
-                ...posUtil(el, win)
-            })
+                url: style.backgroundImage.slice(4, -1).replace(/['"]/g, ''),
+                ...posUtil(el, win),
+            });
         }
     });
 
@@ -61,11 +61,10 @@ export function imageElementsExtract(win: Window, browserInfoResult: BrowserInfo
         visibleElementCount: imageElements.reduce<number>((prev, curr) => {
             if (curr.visible) {
                 return prev + 1;
-            } else {
-                return prev;
             }
+            return prev;
         }, 0),
         pageWidth,
-        pageHeight
+        pageHeight,
     };
 }

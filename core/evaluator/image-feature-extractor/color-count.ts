@@ -3,7 +3,7 @@ import { ColorCountExtractResult } from 'Core/types/factors';
 import { imageToCanvas } from 'Core/utils/image-canvas';
 
 /**
- * 
+ *
  * @param image base64 image uri
  */
 export async function colorCountExtract(imageData: ImageData): Promise<ColorCountExtractResult> {
@@ -12,7 +12,7 @@ export async function colorCountExtract(imageData: ImageData): Promise<ColorCoun
     const map: {[x: string]: number} = {};
 
     for (let i = 0; i < imagePixels.length; i += 4) {
-        const hex = rgbToHex({r: imagePixels[i], g: imagePixels[i + 1], b: imagePixels[i + 2]});
+        const hex = rgbToHex({ r: imagePixels[i], g: imagePixels[i + 1], b: imagePixels[i + 2] });
 
         if (map[hex] === undefined) {
             map[hex] = 1;
@@ -26,11 +26,11 @@ export async function colorCountExtract(imageData: ImageData): Promise<ColorCoun
     Object.keys(map).forEach((key) => {
         rank.push({
             color: hexToRgb(key),
-            pixelCount: map[key]
+            pixelCount: map[key],
         });
     });
 
-    rank.sort((a, b) => a.pixelCount > b.pixelCount ? -1 : 1);
+    rank.sort((a, b) => (a.pixelCount > b.pixelCount ? -1 : 1));
 
     // Get 20 most used colors
     rank.splice(20, Infinity);

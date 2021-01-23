@@ -1,5 +1,5 @@
-import { Palette } from "node-vibrant/lib/color";
-import { Color } from "./types";
+import { Palette } from 'node-vibrant/lib/color';
+import { Color } from './types';
 
 // factor id: symmetry
 
@@ -178,9 +178,9 @@ export interface DensityConfig {
 }
 
 export interface DensityExtractResult {
-    /** 
+    /**
      * (all pixels other than most used divided by all pixels) * 100
-     **/
+     * */
     percentage: number,
 
     visitedPixels: number,
@@ -196,4 +196,3 @@ export interface NegativeSpaceExtractResult {
 }
 
 // Legacy types:
-
