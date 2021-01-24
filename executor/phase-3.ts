@@ -4,8 +4,15 @@ import { consistencyScoreCalculate, ConsistencyScoreCalculateConfig, Consistency
 import { GenericElement, ImageElement, TextElement } from 'Core/types/feature-extractor';
 import { ElementPosition, Phase2Result } from 'Core/types/types';
 import { plotter, PlotterConfig } from 'Core/utils/canvas';
+import { filterVisibleElements, getElementPositions } from 'Core/utils/elements';
 import {
-    configCohesionImageDom, configComplexityTextDom, configDensityMajorDom, configEconomyImageDom, configEconomyTextDom, configSimplicityHorizontal, configSimplicityVertical,
+    configCohesionImageDom,
+    configComplexityTextDom,
+    configDensityMajorDom,
+    configEconomyImageDom,
+    configEconomyTextDom,
+    configSimplicityHorizontal,
+    configSimplicityVertical,
 } from './default-configs';
 
 export class Phase3 {
@@ -51,45 +58,33 @@ export class Phase3 {
 
         // Text Elements
         const textPlotCanvas: HTMLCanvasElement = doc.createElement('canvas');
-        const textElements: TextElement[] = [];
-        const textElementPositions: ElementPosition[] = [];
-        features.textElements.elements.forEach((el) => {
-            if (el.visible) {
-                textElements.push(el);
-                textElementPositions.push(el.position);
-            }
-        });
-        this.textElementDistribution = plotter(textPlotCanvas, textElementPositions, this.plotterConfig).distribution;
-        this.textElements = textElements;
-        this.textElementPositions = textElementPositions;
+        this.textElements = filterVisibleElements(features.textElements.elements);
+        this.textElementPositions = getElementPositions(this.textElements);;
+        this.textElementDistribution = plotter(
+            textPlotCanvas,
+            this.textElementPositions,
+            this.plotterConfig,
+        ).distribution;
 
         // Image Elements
         const imagePlotCanvas: HTMLCanvasElement = doc.createElement('canvas');
-        const imageElements: ImageElement[] = [];
-        const imageElementPositions: ElementPosition[] = [];
-        features.imageElements.elements.forEach((el) => {
-            if (el.visible) {
-                imageElements.push(el);
-                imageElementPositions.push(el.position);
-            }
-        });
-        this.imageElementDistribution = plotter(imagePlotCanvas, imageElementPositions, this.plotterConfig).distribution;
-        this.imageElements = imageElements;
-        this.imageElementPositions = imageElementPositions;
+        this.imageElements = filterVisibleElements(features.imageElements.elements);
+        this.imageElementPositions = getElementPositions(this.imageElements);
+        this.imageElementDistribution = plotter(
+            imagePlotCanvas,
+            this.imageElementPositions,
+            this.plotterConfig,
+        ).distribution;
 
         // Major Elements
         const majorPlotCanvas: HTMLCanvasElement = doc.createElement('canvas');
-        const majorElements: GenericElement[] = [];
-        const majorElementPositions: ElementPosition[] = [];
-        features.majorElements.elements.forEach((el) => {
-            if (el.visible) {
-                majorElements.push(el);
-                majorElementPositions.push(el.position);
-            }
-        });
-        this.majorElementDistribution = plotter(majorPlotCanvas, majorElementPositions, this.plotterConfig).distribution;
-        this.majorElements = majorElements;
-        this.majorElementPositions = majorElementPositions;
+        this.majorElements = filterVisibleElements(features.majorElements.elements);
+        this.majorElementPositions = getElementPositions(this.majorElements);
+        this.majorElementDistribution = plotter(
+            majorPlotCanvas,
+            this.majorElementPositions,
+            this.plotterConfig
+        ).distribution;
 
         // Display canvas is just for visualization view (TEMP)
 
