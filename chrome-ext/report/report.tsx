@@ -25,7 +25,7 @@ class App extends React.Component {
   constructor(props: any) {
     super(props);
 
-    navLinkGroups.forEach(group=> {
+    navLinkGroups.forEach(group => {
       group.links.forEach(link => {
         link.forceAnchor = true;
         link.onClick = () => {
@@ -83,38 +83,42 @@ class App extends React.Component {
                 <h1>
                   Overview
                 </h1>
-                <hr/>
+                <hr />
                 <p>
-                  <b>URL: </b> <a href={this.state.reportData__url} target="_blank" rel="noopener noreferrer">{this.state.reportData__url}</a><br/>
-                  <b>Date: </b> {this.state.reportData__timestamp}<br/>
+                  <b>URL: </b> <a href={this.state.reportData__url} target="_blank" rel="noopener noreferrer">{this.state.reportData__url}</a><br />
+                  <b>Date: </b> {this.state.reportData__timestamp}<br />
                 </p>
-                <img src={this.state.webPageData.viewportScreenshot.image} style={{width: 800}}/>
-                <hr/>
+                <img src={this.state.webPageData.viewportScreenshot.image} style={{ width: 800 }} />
+                <hr />
                 <table>
-                  <tr>
-                    <th style={{width: 200}}>Property</th>
-                    <th style={{width: 300}}>Value</th>
-                  </tr>
-                  <tr>
-                    <td>Viewport Height</td>
-                    <td>{this.state.webPageData.browserInfo.viewportHeight}</td>
-                  </tr>
-                  <tr>
-                    <td>Viewport Width</td>
-                    <td>{this.state.webPageData.browserInfo.viewportWidth}</td>
-                  </tr>
-                  <tr>
-                    <td>Page Height</td>
-                    <td>{this.state.webPageData.browserInfo.pageHeight}</td>
-                  </tr>
-                  <tr>
-                    <td>Page Width</td>
-                    <td>{this.state.webPageData.browserInfo.pageWidth}</td>
-                  </tr>
-                  <tr>
-                    <td>Device Pixel Ratio</td>
-                    <td>{this.state.webPageData.browserInfo.devicePixelRatio}</td>
-                  </tr>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Property</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Viewport Height</td>
+                      <td>{this.state.webPageData.browserInfo.viewportHeight}</td>
+                    </tr>
+                    <tr>
+                      <td>Viewport Width</td>
+                      <td>{this.state.webPageData.browserInfo.viewportWidth}</td>
+                    </tr>
+                    <tr>
+                      <td>Page Height</td>
+                      <td>{this.state.webPageData.browserInfo.pageHeight}</td>
+                    </tr>
+                    <tr>
+                      <td>Page Width</td>
+                      <td>{this.state.webPageData.browserInfo.pageWidth}</td>
+                    </tr>
+                    <tr>
+                      <td>Device Pixel Ratio</td>
+                      <td>{this.state.webPageData.browserInfo.devicePixelRatio}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             }
@@ -134,12 +138,11 @@ class App extends React.Component {
                 <h1>
                   Symmetry (Pixel)
                 </h1>
-                <hr/>
+                <hr />
                 <p>
                   This factor item tells the symmetry of the viewport snapshot through a vertical line.
                   The algorithm checks the ciede2000 difference of each pixel from each side.
                 </p>
-                
                 <h2>
                   Visualization
                 </h2>
@@ -148,18 +151,22 @@ class App extends React.Component {
                   Design Scraping Result
                 </h2>
                 <table>
-                  <tr>
-                    <th style={{width: 200}}>Metric</th>
-                    <th style={{width: 300}}>Value</th>
-                  </tr>
-                  <tr>
-                    <td>Horizontal Ciede Average</td>
-                    <td>{this.state.webPageData.colorSymmetry.horizontal.ciede2000average}</td>
-                  </tr>
-                  <tr>
-                    <td>Vertical Ciede Average</td>
-                    <td>{this.state.webPageData.colorSymmetry.vertical.ciede2000average}</td>
-                  </tr>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Metric</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Horizontal Ciede Average</td>
+                      <td>{this.state.webPageData.colorSymmetry.horizontal.ciede2000average}</td>
+                    </tr>
+                    <tr>
+                      <td>Vertical Ciede Average</td>
+                      <td>{this.state.webPageData.colorSymmetry.vertical.ciede2000average}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             }

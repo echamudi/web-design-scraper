@@ -76,7 +76,6 @@ class Analyzer extends React.Component {
       }),
       new Promise<ContentRes>((resolve, reject) => {
         chrome.tabs.sendMessage(tabId, { message: "extract-features" }, (response: ContentRes) => {
-          console.log(response);
           resolve(response);
         });
       }),
@@ -97,6 +96,8 @@ class Analyzer extends React.Component {
       screenshot.value
     );
 
+    console.log(phase2Result);
+
     const result: Phase2Result = phase2Result;
 
     this.setState(() => {
@@ -110,8 +111,6 @@ class Analyzer extends React.Component {
 
 
   async openQuickReport() {
-    console.log('Quick Report Clicked');
-
     const phase2Data = this.state.result;
 
     if (phase2Data === null) {
