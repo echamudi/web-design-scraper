@@ -1,7 +1,7 @@
 import imageToBase64 from 'image-to-base64';
 import path from 'path';
 import {
-    getPixelImageData, imageToCanvas, imageToImageData, setPixelImageData,
+    getPixelImageData, imageDataToImageURI, imageToCanvas, imageToImageData, setPixelImageData,
 } from 'Core/utils/image-canvas';
 
 test('imageToCanvas', async () => {
@@ -76,4 +76,19 @@ test('setPixelImageData', async () => {
     expect(getPixelImageData(imageData, 2, 1)).toStrictEqual({
         r: 11, g: 12, b: 13, a: 255,
     });
+});
+
+test('imageDataToImageURI', async () => {
+    const imgData = await new ImageData(new Uint8ClampedArray([
+        0, 0, 255, 255, // Blue
+        0, 255, 0, 255, // Green
+        255, 0, 0, 255, // Red
+        0, 0, 255, 255, // Blue
+        0, 255, 0, 255, // Green
+        255, 0, 0, 255, // Red
+    ]), 3, 2);
+
+    const string = await imageDataToImageURI(imgData);
+
+    expect(string).toEqual('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAYAAACddGYaAAAABmJLR0QA/wD/AP+gvaeTAAAAGUlEQVQImWNgYPj/n+E/w///DAz/mRiQAABxwgX9MQdoPgAAAABJRU5ErkJggg==');
 });

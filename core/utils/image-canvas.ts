@@ -34,6 +34,18 @@ export async function imageToImageData(imageURI: string): Promise<ImageData> {
     return imageData;
 }
 
+export async function imageDataToImageURI(imageData: ImageData): Promise<string> {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (ctx === null) throw new Error('CTX is null');
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    ctx.putImageData(imageData, 0, 0);
+
+    return canvas
+        .toDataURL();
+}
+
 /**
  * Get a pixel in ImageData data
  * @param x x coordinate, counted from the left
