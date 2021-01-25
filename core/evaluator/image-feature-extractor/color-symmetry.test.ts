@@ -11,55 +11,63 @@ test('colorSymmetry', async () => {
 
     const uvSymmetryCheckResult = colorSymmetryExtract(imageDataUV);
     expect(uvSymmetryCheckResult.horizontal.ciede2000average).toStrictEqual(0);
-    expect(uvSymmetryCheckResult.horizontal.visualization.height).toEqual(2);
-    expect(uvSymmetryCheckResult.horizontal.visualization.width).toEqual(8);
-    expect([...uvSymmetryCheckResult.horizontal.visualization.data])
+    const uvSymmetryCheckResultHorVis = await imageToImageData(uvSymmetryCheckResult.horizontal.visualization);
+    expect(uvSymmetryCheckResultHorVis.height).toEqual(2);
+    expect(uvSymmetryCheckResultHorVis.width).toEqual(8);
+    expect([...uvSymmetryCheckResultHorVis.data])
         .toEqual([
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255
         ]);
 
     expect(uvSymmetryCheckResult.vertical.ciede2000average).toStrictEqual(100);
-    expect(uvSymmetryCheckResult.vertical.visualization.height).toEqual(4);
-    expect(uvSymmetryCheckResult.vertical.visualization.width).toEqual(4);
-    expect([...uvSymmetryCheckResult.vertical.visualization.data])
+    const uvSymmetryCheckResultVerVis = await imageToImageData(uvSymmetryCheckResult.vertical.visualization);
+    expect(uvSymmetryCheckResultVerVis.height).toEqual(4);
+    expect(uvSymmetryCheckResultVerVis.width).toEqual(4);
+    expect([...uvSymmetryCheckResultVerVis.data])
         .toEqual([
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255
         ]);
 
     const uhSymmetryCheckResult = colorSymmetryExtract(imageDataUH);
     expect(uhSymmetryCheckResult.horizontal.ciede2000average).toStrictEqual(100);
-    expect(uhSymmetryCheckResult.horizontal.visualization.height).toEqual(2);
-    expect(uhSymmetryCheckResult.horizontal.visualization.width).toEqual(8);
-    expect([...uhSymmetryCheckResult.horizontal.visualization.data])
+    const uhSymmetryCheckResultHorVis = await imageToImageData(uhSymmetryCheckResult.horizontal.visualization);
+    expect(uhSymmetryCheckResultHorVis.height).toEqual(2);
+    expect(uhSymmetryCheckResultHorVis.width).toEqual(8);
+    expect([...uhSymmetryCheckResultHorVis.data])
         .toEqual([
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0, 254, 0, 0, 0, 254, 0, 0, 0,
-            254, 0, 0, 0,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255, 255, 1, 1, 255, 255, 1, 1, 255,
+            255, 1, 1, 255
         ]);
 
     expect(uhSymmetryCheckResult.vertical.ciede2000average).toStrictEqual(0);
-    expect(uhSymmetryCheckResult.vertical.visualization.height).toEqual(4);
-    expect(uhSymmetryCheckResult.vertical.visualization.width).toEqual(4);
-    expect([...uhSymmetryCheckResult.vertical.visualization.data])
+    const uhSymmetryCheckResultVerVis = await imageToImageData(uhSymmetryCheckResult.vertical.visualization);
+    expect(uhSymmetryCheckResultVerVis.height).toEqual(4);
+    expect(uhSymmetryCheckResultVerVis.width).toEqual(4);
+    expect([...uhSymmetryCheckResultVerVis.data])
         .toEqual([
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255, 255, 255, 255, 255, 255, 255, 255, 255,
+            255
         ]);
 });

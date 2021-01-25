@@ -1,6 +1,6 @@
 import { ColorSymmetryExtractResult } from 'Core/types/feature-extractor';
 import { colorDiff } from 'Core/utils/color';
-import { getPixelImageData, setPixelImageData } from 'Core/utils/image-canvas';
+import { getPixelImageData, imageDataToImageURI, setPixelImageData } from 'Core/utils/image-canvas';
 import { scaleValue } from 'Core/utils/math';
 
 /**
@@ -17,7 +17,7 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
 
     const horizontal: ColorSymmetryExtractResult['horizontal'] = (() => {
         const totalPixelPairs = width * halfHeight;
-        const visualization = new ImageData(width, halfHeight);
+        const visualizationImgData = new ImageData(width, halfHeight);
         let ciede2000average = 0;
 
         for (let y = 0; y < halfHeight; y++) {
@@ -34,14 +34,16 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
 
                 const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
 
-                setPixelImageData(visualization, x, y, {
-                    r: diffScaled, g: 0, b: 0, a: 0,
+                setPixelImageData(visualizationImgData, x, y, {
+                    r: 255, g: (255 - diffScaled), b: (255 - diffScaled), a: 255,
                 });
             }
         }
 
         ciede2000average /= totalPixelPairs;
         ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
+
+        const visualization = imageDataToImageURI(visualizationImgData);
 
         return {
             visualization,
@@ -52,7 +54,7 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
 
     const vertical: ColorSymmetryExtractResult['vertical'] = (() => {
         const totalPixelPairs = halfWidth * height;
-        const visualization = new ImageData(halfWidth, height);
+        const visualizationImgData = new ImageData(halfWidth, height);
         let ciede2000average = 0;
 
         for (let y = 0; y < height; y++) {
@@ -68,14 +70,16 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
 
                 const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
 
-                setPixelImageData(visualization, x, y, {
-                    r: diffScaled, g: 0, b: 0, a: 0,
+                setPixelImageData(visualizationImgData, x, y, {
+                    r: 255, g: (255 - diffScaled), b: (255 - diffScaled), a: 255,
                 });
             }
         }
 
         ciede2000average /= totalPixelPairs;
         ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
+
+        const visualization = imageDataToImageURI(visualizationImgData);
 
         return {
             visualization,

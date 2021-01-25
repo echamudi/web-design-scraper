@@ -155,7 +155,7 @@ export interface ColorSymmetryExtractResult {
         /**
          * Visualized symmetry result
          */
-        visualization: ImageData,
+        visualization: string,
         /**
          * Average of the CIEDE2000 values [0, 100]
          */
@@ -169,7 +169,7 @@ export interface ColorSymmetryExtractResult {
         /**
          * Visualized symmetry result
          */
-        visualization: ImageData,
+        visualization: string,
         /**
          * Average of the CIEDE2000 values [0, 100]
          */
