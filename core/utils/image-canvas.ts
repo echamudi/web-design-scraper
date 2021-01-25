@@ -34,7 +34,7 @@ export async function imageToImageData(imageURI: string): Promise<ImageData> {
     return imageData;
 }
 
-export async function imageDataToImageURI(imageData: ImageData): Promise<string> {
+export function imageDataToImageURI(imageData: ImageData): string {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (ctx === null) throw new Error('CTX is null');
