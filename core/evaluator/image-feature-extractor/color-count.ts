@@ -6,7 +6,7 @@ import { imageToCanvas } from 'Core/utils/image-canvas';
  *
  * @param image base64 image uri
  */
-export async function colorCountExtract(imageData: ImageData): Promise<ColorCountExtractResult> {
+export function colorCountExtract(imageData: ImageData): ColorCountExtractResult {
     const imagePixels = imageData.data;
 
     const map: {[x: string]: number} = {};
