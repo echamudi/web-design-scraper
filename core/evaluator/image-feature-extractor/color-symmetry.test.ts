@@ -9,7 +9,7 @@ test('colorSymmetry', async () => {
     const imageDataUV = await imageToImageData(`data:image/png;base64,${imgUV}`);
     const imageDataUH = await imageToImageData(`data:image/png;base64,${imgUH}`);
 
-    const uvSymmetryCheckResult = colorSymmetryExtract(imageDataUV);
+    const uvSymmetryCheckResult = await colorSymmetryExtract(imageDataUV);
     expect(uvSymmetryCheckResult.horizontal.ciede2000average).toStrictEqual(0);
     const uvSymmetryCheckResultHorVis = await imageToImageData(uvSymmetryCheckResult.horizontal.visualization);
     expect(uvSymmetryCheckResultHorVis.height).toEqual(2);
@@ -40,7 +40,7 @@ test('colorSymmetry', async () => {
             255, 1, 1, 255
         ]);
 
-    const uhSymmetryCheckResult = colorSymmetryExtract(imageDataUH);
+    const uhSymmetryCheckResult = await colorSymmetryExtract(imageDataUH);
     expect(uhSymmetryCheckResult.horizontal.ciede2000average).toStrictEqual(100);
     const uhSymmetryCheckResultHorVis = await imageToImageData(uhSymmetryCheckResult.horizontal.visualization);
     expect(uhSymmetryCheckResultHorVis.height).toEqual(2);

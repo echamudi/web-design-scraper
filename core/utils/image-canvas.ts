@@ -1,8 +1,13 @@
 import { Color } from 'Core/types/types';
 
-export async function imageToCanvas(imageURI: string): Promise<HTMLCanvasElement> {
+export async function imageToCanvas(imageURI: string): Promise<HTMLCanvasElement | OffscreenCanvas> {
     return new Promise((resolve, reject) => {
-        const canvas = document.createElement('canvas');
+        let canvas: HTMLCanvasElement | OffscreenCanvas;
+        if (self.document) {
+            canvas = document.createElement('canvas');
+        } else {
+            canvas = new OffscreenCanvas(0, 0);
+        }
 
         const ctx = canvas.getContext('2d');
 
@@ -34,16 +39,49 @@ export async function imageToImageData(imageURI: string): Promise<ImageData> {
     return imageData;
 }
 
-export function imageDataToImageURI(imageData: ImageData): string {
-    const canvas = document.createElement('canvas');
+export async function imageDataToImageURI(imageData: ImageData): Promise<string> {
+    let canvas: HTMLCanvasElement | OffscreenCanvas;
+    if (self.document) {
+        canvas = document.createElement('canvas');
+    } else {
+        canvas = new OffscreenCanvas(0, 0);
+    }
+
     const ctx = canvas.getContext('2d');
-    if (ctx === null) throw new Error('CTX is null');
+    if (ctx === null) return Promise.reject('CTX is null');
     canvas.width = imageData.width;
     canvas.height = imageData.height;
     ctx.putImageData(imageData, 0, 0);
 
-    return canvas
-        .toDataURL();
+    let blob: Blob | null = null;
+    if (canvas instanceof HTMLCanvasElement) {
+        const canv = canvas;
+        await new Promise((res, rej) => {
+            canv.toBlob((blobResult) => {
+                blob = blobResult;
+                res(true);
+            })
+        });
+    } else {
+        blob = await canvas.convertToBlob();
+    }
+
+    if (blob === null) return Promise.reject('cant get Blob');
+
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+
+    return new Promise((resolve, reject) => {
+        reader.onloadend = function() {
+            var base64data = reader.result;
+
+            if (typeof base64data === 'string') {
+                resolve(base64data);
+            } else {
+                reject('base64data is not a string');
+            }
+        }
+    })
 }
 
 /**

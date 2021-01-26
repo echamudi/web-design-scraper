@@ -7,7 +7,7 @@ import { scaleValue } from 'Core/utils/math';
  * Check image symmetry with CIEDE2000 algorithm
  * @param imageData
  */
-export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtractResult {
+export async function colorSymmetryExtract(imageData: ImageData): Promise<ColorSymmetryExtractResult> {
     const { width, height } = imageData;
     const halfWidth = Math.floor(width / 2);
     const halfHeight = Math.floor(height / 2);
@@ -15,7 +15,7 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
     const diffScale: [number, number] = [0, 100];
     const byteScale: [number, number] = [0, 255];
 
-    const horizontal: ColorSymmetryExtractResult['horizontal'] = (() => {
+    const horizontal: ColorSymmetryExtractResult['horizontal'] = await (async () => {
         const totalPixelPairs = width * halfHeight;
         const visualizationImgData = new ImageData(width, halfHeight);
         let ciede2000average = 0;
@@ -43,7 +43,7 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
         ciede2000average /= totalPixelPairs;
         ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
 
-        const visualization = imageDataToImageURI(visualizationImgData);
+        const visualization = await imageDataToImageURI(visualizationImgData);
 
         return {
             visualization,
@@ -52,7 +52,7 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
         };
     })();
 
-    const vertical: ColorSymmetryExtractResult['vertical'] = (() => {
+    const vertical: ColorSymmetryExtractResult['vertical'] = await (async () => {
         const totalPixelPairs = halfWidth * height;
         const visualizationImgData = new ImageData(halfWidth, height);
         let ciede2000average = 0;
@@ -79,7 +79,7 @@ export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtract
         ciede2000average /= totalPixelPairs;
         ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
 
-        const visualization = imageDataToImageURI(visualizationImgData);
+        const visualization = await imageDataToImageURI(visualizationImgData);
 
         return {
             visualization,

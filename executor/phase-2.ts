@@ -29,7 +29,7 @@ export async function executePhase2(
 
     const phase1FeatureExtractorResult = phase1Result;
     const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
-    const colorSymmetryResult = colorSymmetryExtract(screenshotImageData);
+    const colorSymmetryResult = await colorSymmetryExtract(screenshotImageData);
     const colorCountResult = colorCountExtract(screenshotImageData);
 
     const screenshotImageArea = screenshotImageData.width * screenshotImageData.height;

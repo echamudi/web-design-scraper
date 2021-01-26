@@ -88,7 +88,7 @@ test('imageDataToImageURI', async () => {
         255, 0, 0, 255, // Red
     ]), 3, 2);
 
-    const string = imageDataToImageURI(imgData);
+    const string = await imageDataToImageURI(imgData);
 
     expect(string).toEqual('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAYAAACddGYaAAAABmJLR0QA/wD/AP+gvaeTAAAAGUlEQVQImWNgYPj/n+E/w///DAz/mRiQAABxwgX9MQdoPgAAAABJRU5ErkJggg==');
 });
