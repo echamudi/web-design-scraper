@@ -91,24 +91,38 @@ class Analyzer extends React.Component {
       return;
     }
 
-    const phase2Result = await executePhase2(
-      contentRes.value.phase1Result,
-      screenshot.value
-    );
+    // chrome.windows.create({
+    //   url: yourUrl, focused:false, state:"minimized"}, function(hiddenWindow){
+    //   //do whatever with hidden window
+    // });
+  
+    // const phase2Result = await executePhase2(
+    //   contentRes.value.phase1Result,
+    //   screenshot.value
+    // );
 
-    console.log(phase2Result);
+    // console.log(phase2Result);
 
-    const result: Phase2Result = phase2Result;
+    // const result: Phase2Result = phase2Result;
 
-    this.setState(() => {
-      const x: Partial<AppState> = {
-        analyzingStatus: 'Done!',
-        result
-      };
-      return x;
+    const analyzeHandlerThis = this;
+
+    chrome.runtime.sendMessage({
+      message: 'executePhase2',
+      phase1Result: contentRes.value.phase1Result,
+      screenshot: screenshot.value
+    }, function(response: { phase2Result: Phase2Result }) {
+      const result = response.phase2Result;
+
+      analyzeHandlerThis.setState(() => {
+        const x: Partial<AppState> = {
+          analyzingStatus: 'Done!',
+          result
+        };
+        return x;
+      });
     });
   };
-
 
   async openQuickReport() {
     const phase2Data = this.state.result;
