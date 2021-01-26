@@ -3,6 +3,7 @@
 const { Image, ImageData } = require('canvas');
 
 const JSDOMEnvironment = require('jest-environment-jsdom');
+const Worker = require('web-worker');
 
 class CustomEnvironment extends JSDOMEnvironment {
   constructor(config, context) {
@@ -13,15 +14,12 @@ class CustomEnvironment extends JSDOMEnvironment {
 
   async setup() {
     await super.setup();
-    this.temp.Image = this.global.Image;
-    this.temp.ImageData = this.global.ImageData;
     this.global.Image = Image;
     this.global.ImageData = ImageData;
+    this.global.Worker = Worker;
   }
 
   async teardown() {
-    this.global.Image = this.temp.Image;
-    this.global.ImageData = this.temp.ImageData;
     await super.teardown();
   }
   /**
