@@ -1,11 +1,12 @@
 // import { WebPageData } from "Core/types/types";
 import * as React from 'react';
 import { render } from "react-dom";
-import { initializeIcons } from 'office-ui-fabric-react';
+import { initializeIcons, Spinner, SpinnerSize } from 'office-ui-fabric-react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import * as moment from 'moment';
 import { navLinkGroups } from './nav-link-groups';
 import { Phase2Result } from 'Core/types/types';
+import { Phase3 } from 'Executor/phases';
 
 initializeIcons();
 
@@ -13,7 +14,9 @@ interface ReportState {
   currentPage: string,
   webPageData: Phase2Result | null,
   reportData__timestamp?: string,
-  reportData__url?: string
+  reportData__url?: string,
+  complexityTextDomCanvas?: React.RefObject<HTMLCanvasElement>,
+  phase3?: Phase3
 }
 
 class App extends React.Component {
@@ -29,21 +32,28 @@ class App extends React.Component {
       group.links.forEach(link => {
         link.forceAnchor = true;
         link.onClick = () => {
-          this.setState((prevStates) => ({
+          this.setState((prevStates: Readonly<ReportState>): ReportState => ({
             ...prevStates,
-            currentPage: link.key ?? ''
+            currentPage: link.key ?? '',
           }));
         }
       })
     });
 
     chrome.storage.local.get(['webPageData'], (items) => {
-      this.setState((prevStates: Readonly<ReportState>): ReportState => ({
-        ...prevStates,
-        webPageData: items['webPageData']
-      }));
+      this.setState((prevStates: Readonly<ReportState>): ReportState => {
+        const webPageData: Phase2Result = items['webPageData'];
+        const phase3 = new Phase3(document, webPageData);
 
-      this.prepareReport();
+        return {
+          ...prevStates,
+          webPageData,
+          complexityTextDomCanvas: React.createRef(),
+          phase3
+        };
+      }, () => {
+        this.prepareReport();
+      });
     });
   }
 
@@ -62,15 +72,26 @@ class App extends React.Component {
   render() {
     if (this.state.webPageData === null) {
       return (
-        <div></div>
+        <div style={{
+          height: '100vh',
+          width: '100vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <Spinner label="Loading Result..." labelPosition="right" size={SpinnerSize.large} />
+        </div>
       )
     }
+
+    const miniVw = this.state.webPageData.browserInfo.viewportWidth / 2;
+    const miniVh = this.state.webPageData.browserInfo.viewportHeight / 2;
 
     return (
       <div className="report">
         <div className="report-navbar">
           <div className="report-navbar-title">
-            Smart Web Design Scraper
+            Web Design Scraper
           </div>
         </div>
         <div className="report-content">
@@ -122,31 +143,20 @@ class App extends React.Component {
                 </table>
               </div>
             }
-            {/* {this.state.currentPage === 'meta-detection-visualization' &&
-              <div className="report-details-container">
-                <h1>
-                  Detection Visualization
-                </h1>
-                <hr/>
-                <p>
-                  Here are the detected el
-                </p>
-              </div>
-            } */}
             {this.state.currentPage === 'symmetry-pixel' &&
               <div className="report-details-container">
                 <h1>
                   Symmetry (Pixel)
                 </h1>
                 <hr />
+
                 <p>
-                  This factor item tells the symmetry of the viewport snapshot through a vertical line.
+                  This factor item tells the symmetry of the viewport snapshot through a horizontal line and vertical line.
                   The algorithm checks the ciede2000 difference of each pixel from each side.
                 </p>
-                <h2>
-                  Visualization
-                </h2>
-                <p>Hover the cursor over the image to see the unsymmetrical pixel (marked with red colour)</p>
+                <p><b>Detection Scope : </b> Viewport</p>
+                <hr />
+
                 <h2>
                   Design Scraping Result
                 </h2>
@@ -168,14 +178,59 @@ class App extends React.Component {
                     </tr>
                   </tbody>
                 </table>
+                <hr />
+                <h2>
+                  Visualization
+                </h2>
+                <p>In the following visualization, the red parts are the Asymmetrical parts,
+                while the white parts are the symmetrical parts.
+                </p>
+                <p><b>Asymmetrical portion (horizontal line)</b></p>
+                <img style={{ width: this.state.webPageData.browserInfo.viewportWidth / 2 }} src={this.state.webPageData.colorSymmetry.horizontal.visualization} alt="" />
+                <p><b>Asymmetrical portion (vertical line)</b></p>
+                <img style={{ height: this.state.webPageData.browserInfo.viewportHeight / 2 }} src={this.state.webPageData.colorSymmetry.vertical.visualization} alt="" />
+              </div>
+            }
+            {
+              this.state.currentPage === 'complexity-text-dom' &&
+              <div className="report-details-container">
+                <h1>
+                  Complexity (Text DOM)
+                </h1>
+                <hr />
+                <canvas ref={this.state.complexityTextDomCanvas} style={{ width: miniVw, border: 'red solid 2px' }}/>
               </div>
             }
           </div>
         </div>
+        <>
+          {}
+        </>
       </div>
     )
+  }
+
+  componentDidUpdate() {
+    if (this.state.complexityTextDomCanvas?.current && this.state.phase3?.complexityTextDomViz) {
+      copyCanvasContent(
+        this.state.phase3.complexityTextDomViz,
+        this.state.complexityTextDomCanvas.current,
+      );
+    }
   }
 }
 
 const rootElement = document.getElementById("root");
 render(<App />, rootElement);
+
+// TODO: Move to utils
+function copyCanvasContent(source: HTMLCanvasElement, dest: HTMLCanvasElement) {
+  dest.width = source.width;
+  dest.height = source.height;
+
+  var destCtx = dest.getContext('2d');
+
+  if (!destCtx) return;
+
+  destCtx.drawImage(source, 0, 0);
+}
