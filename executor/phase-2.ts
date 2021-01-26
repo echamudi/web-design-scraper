@@ -30,17 +30,7 @@ export async function executePhase2(
     const phase1FeatureExtractorResult = phase1Result;
     const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
     const colorSymmetryResult = colorSymmetryExtract(screenshotImageData);
-
-    const [colorCountResult] = await Promise.allSettled([
-        new Promise<ColorCountExtractResult>(async (resolve, reject) => {
-            const result = await colorCountExtract(screenshotImageData);
-            resolve(result);
-        }),
-    ]);
-
-    if (colorCountResult.status === 'rejected') {
-        throw new Error('failed to do colorCountResult');
-    }
+    const colorCountResult = colorCountExtract(screenshotImageData);
 
     const screenshotImageArea = screenshotImageData.width * screenshotImageData.height;
     const viewportArea = phase1FeatureExtractorResult.browserInfo.viewportWidth
@@ -65,7 +55,7 @@ export async function executePhase2(
     const featureExtractorResult: Phase2Result = {
         ...phase1FeatureExtractorResult,
         vibrantColors: vibrantColorsExtractResult,
-        colorCount: colorCountResult.value,
+        colorCount: colorCountResult,
         colorSymmetry: colorSymmetryResult,
         viewportScreenshot,
         timestamp: Date.now(),
