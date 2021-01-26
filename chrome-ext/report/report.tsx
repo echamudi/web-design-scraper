@@ -43,6 +43,8 @@ class App extends React.Component {
         webPageData: items['webPageData']
       }));
 
+      console.log('webPageData', items['webPageData']);
+
       this.prepareReport();
     });
   }

@@ -15,6 +15,7 @@ const chromeExt = {
     content: './chrome-ext/content/content.ts',
     background: './chrome-ext/background/background.ts',
     popup: './chrome-ext/popup/popup.tsx',
+    worker: './chrome-ext/popup/worker.ts',
     preferences: './chrome-ext/preferences/preferences.tsx',
     report: './chrome-ext/report/report.tsx',
     style: './chrome-ext/style/style.scss'
@@ -92,7 +93,7 @@ module.exports = (env, argv) => {
 
   if (argv.mode === 'development') {
     chromeExt.mode = 'development';
-    chromeExt.devtool = 'inline-source-map';
+    chromeExt.devtool = false;
   } else {
     chromeExt.mode = 'production';
   }

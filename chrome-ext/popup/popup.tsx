@@ -91,19 +91,37 @@ class Analyzer extends React.Component {
       return;
     }
 
-    const phase2Result = await executePhase2(
-      contentRes.value.phase1Result,
-      screenshot.value
-    );
+    const myWorker = new Worker('./worker.js');
 
-    console.log(phase2Result);
+    if (myWorker === null) {
+      console.log('failed to create worker');
+      return;
+    }
 
-    const result: Phase2Result = phase2Result;
+    myWorker.postMessage({
+      phase1Result: contentRes.value.phase1Result,
+      screenshot: screenshot.value,
+    });
+
+    myWorker.onmessage = (ev) => {
+      console.log('Got message from worker!');
+      console.log('Worker message', ev);
+      myWorker.terminate();
+    };
+
+    // const phase2Result = await executePhase2(
+    //   contentRes.value.phase1Result,
+    //   screenshot.value
+    // );
+
+    // console.log(phase2Result);
+
+    // const result: Phase2Result = phase2Result;
 
     this.setState(() => {
       const x: Partial<AppState> = {
         analyzingStatus: 'Done!',
-        result
+        // result
       };
       return x;
     });
