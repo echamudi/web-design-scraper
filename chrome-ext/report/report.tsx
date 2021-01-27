@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { navLinkGroups } from './nav-link-groups';
 import { Phase2Result } from 'Core/types/types';
 import { Phase3 } from 'Executor/phases';
+import { copyCanvasContent } from 'Core/utils/canvas';
 
 initializeIcons();
 
@@ -222,15 +223,3 @@ class App extends React.Component {
 
 const rootElement = document.getElementById("root");
 render(<App />, rootElement);
-
-// TODO: Move to utils
-function copyCanvasContent(source: HTMLCanvasElement, dest: HTMLCanvasElement) {
-  dest.width = source.width;
-  dest.height = source.height;
-
-  var destCtx = dest.getContext('2d');
-
-  if (!destCtx) return;
-
-  destCtx.drawImage(source, 0, 0);
-}

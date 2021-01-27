@@ -150,4 +150,15 @@ export function plotter(
     };
 }
 
+export function copyCanvasContent(source: HTMLCanvasElement, dest: HTMLCanvasElement) {
+    dest.width = source.width;
+    dest.height = source.height;
+
+    var destCtx = dest.getContext('2d');
+
+    if (!destCtx) return;
+
+    destCtx.drawImage(source, 0, 0);
+}
+
 // TODO: Create grid draw utils
