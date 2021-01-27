@@ -47,6 +47,8 @@ export class Phase3 {
     public displayCanvas: HTMLCanvasElement | undefined;
     public complexityTextDomViz: HTMLCanvasElement | undefined;
     public densityMajorDomViz: HTMLCanvasElement | undefined;
+    public simplicityHorizontalViz: HTMLCanvasElement | undefined;
+    public simplicityVerticalViz: HTMLCanvasElement | undefined;
 
     constructor(doc: Document, features: Phase2Result) {
         // Save features to the object
@@ -95,7 +97,7 @@ export class Phase3 {
         this.displayCanvas = doc.createElement('canvas');
         plotter(this.displayCanvas, this.imageElementPositions, { ...this.plotterConfig, backgroundColor: '#FFFFFF', blockColor: 'rgba(242, 120, 75, 0.7)' });
         plotter(this.displayCanvas, this.textElementPositions, { ...this.plotterConfig, blockColor: 'rgba(25, 181, 254, 0.7)', skipResizingCanvas: true });
-        
+
         this.complexityTextDomVizDraw();
         this.densityMajorDomVizDraw();
     }
@@ -291,97 +293,103 @@ export class Phase3 {
         }
     }
 
-    // drawSimplicityHorizontalCanvas(): false {
-    //     const canvas = this.simplicityHorizontalCanvas?.nativeElement as HTMLCanvasElement;
+    public simplicityHorizontalVizDraw() {
+        this.simplicityHorizontalViz = document.createElement('canvas');
+        const canvas = this.simplicityHorizontalViz;
 
-    //     if (!canvas) { return false; }
+        if (!canvas) { return false; }
 
-    //     const browserInfo = this.p2fer.browserInfo;
+        const browserInfo = this.phase2Features.browserInfo;
 
-    //     const width = this.p2fer.browserInfo.scrollWidth;
-    //     const height = this.p2fer.browserInfo.scrollHeight;
-    //     const tileSize = this.finalScoreObj.plotterConfig.tileSize;
+        const width = this.phase2Features.browserInfo.pageWidth;
+        const height = this.phase2Features.browserInfo.pageHeight;
+        const tileSize = this.plotterConfig.tileSize;
 
-    //     canvas.width = width;
-    //     canvas.height = height;
+        canvas.width = width;
+        canvas.height = height;
 
-    //     const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
+        if (ctx === null) { console.log('CTX is null'); return; }
+        if (this.displayCanvas === undefined) { console.log('displayCanvas is undefined'); return; }
 
-    //     ctx.drawImage(this.finalScoreObj.displayCanvas, 0, 0);
-    //     ctx.strokeStyle = 'blue';
-    //     ctx.lineWidth = 6;
-    //     ctx.beginPath();
-    //     ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
-    //     ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
-    //     ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-    //     ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-    //     ctx.closePath();
-    //     ctx.stroke();
-
-
-    //     Object.keys(this.p2fer.alignmentPoints.xAlignmentPoints).forEach((axis) => {
-    //         if (this.p2fer.alignmentPoints.xAlignmentPoints[axis] > 4096) {
-    //             ctx.strokeStyle = 'rgba(255,0,0,1)';
-    //             ctx.lineWidth = 4;
-    //             ctx.beginPath();
-    //             ctx.moveTo(Number(axis), browserInfo.pageYOffset);
-    //             ctx.lineTo(Number(axis), browserInfo.pageYOffset + browserInfo.viewportHeight);
-    //             ctx.stroke();
-    //             ctx.closePath();
-    //         } else {
-    //             // ctx.strokeStyle = 'rgba(255,0,0,0.1)';
-    //             // ctx.lineWidth = 4;
-    //             // ctx.beginPath();
-    //             // ctx.moveTo(Number(axis), browserInfo.pageYOffset);
-    //             // ctx.lineTo(Number(axis), browserInfo.pageYOffset + browserInfo.viewportHeight);
-    //             // ctx.stroke();
-    //             // ctx.closePath();
-    //         }
-    //     });
-
-    //     return false;
-    // }
-
-    // drawSimplicityVerticalCanvas(): false {
-    //     const canvas = this.simplicityVerticalCanvas?.nativeElement as HTMLCanvasElement;
-
-    //     if (!canvas) { return false; }
-
-    //     const browserInfo = this.p2fer.browserInfo;
-
-    //     const width = this.p2fer.browserInfo.scrollWidth;
-    //     const height = this.p2fer.browserInfo.scrollHeight;
-    //     const tileSize = this.finalScoreObj.plotterConfig.tileSize;
-
-    //     canvas.width = width;
-    //     canvas.height = height;
-
-    //     const ctx = canvas.getContext('2d');
-
-    //     ctx.drawImage(this.finalScoreObj.displayCanvas, 0, 0);
-    //     ctx.strokeStyle = 'blue';
-    //     ctx.lineWidth = 6;
-    //     ctx.beginPath();
-    //     ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
-    //     ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
-    //     ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-    //     ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-    //     ctx.closePath();
-    //     ctx.stroke();
+        ctx.drawImage(this.displayCanvas, 0, 0);
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
+        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
+        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        ctx.closePath();
+        ctx.stroke();
 
 
-    //     Object.keys(this.p2fer.alignmentPoints.yAlignmentPoints).forEach((axis) => {
-    //         if (this.p2fer.alignmentPoints.yAlignmentPoints[axis] > 8192) {
-    //             ctx.strokeStyle = 'rgba(255,0,0,1)';
-    //             ctx.lineWidth = 4;
-    //             ctx.beginPath();
-    //             ctx.moveTo(0, Number(axis));
-    //             ctx.lineTo(browserInfo.viewportWidth, Number(axis));
-    //             ctx.stroke();
-    //             ctx.closePath();
-    //         }
-    //     });
+        Object.keys(this.phase2Features.alignmentPoints.xAlignmentPoints).forEach((axis) => {
+            if (this.phase2Features.alignmentPoints.xAlignmentPoints[Number(axis)] > 4096) {
+                ctx.strokeStyle = 'rgba(255,0,0,1)';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(Number(axis), browserInfo.pageYOffset);
+                ctx.lineTo(Number(axis), browserInfo.pageYOffset + browserInfo.viewportHeight);
+                ctx.stroke();
+                ctx.closePath();
+            } else {
+                // ctx.strokeStyle = 'rgba(255,0,0,0.1)';
+                // ctx.lineWidth = 4;
+                // ctx.beginPath();
+                // ctx.moveTo(Number(axis), browserInfo.pageYOffset);
+                // ctx.lineTo(Number(axis), browserInfo.pageYOffset + browserInfo.viewportHeight);
+                // ctx.stroke();
+                // ctx.closePath();
+            }
+        });
 
-    //     return false;
-    // }
+        return false;
+    }
+
+    public simplicityVerticalVizDraw() {
+        this.simplicityVerticalViz = document.createElement('canvas');
+        const canvas = this.simplicityVerticalViz;
+
+        if (!canvas) { return false; }
+
+        const browserInfo = this.phase2Features.browserInfo;
+
+        const width = this.phase2Features.browserInfo.pageWidth;
+        const height = this.phase2Features.browserInfo.pageHeight;
+        const tileSize = this.plotterConfig.tileSize;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        if (ctx === null) { console.log('CTX is null'); return; }
+        if (this.displayCanvas === undefined) { console.log('displayCanvas is undefined'); return; }
+
+        ctx.drawImage(this.displayCanvas, 0, 0);
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
+        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
+        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        ctx.closePath();
+        ctx.stroke();
+
+
+        Object.keys(this.phase2Features.alignmentPoints.yAlignmentPoints).forEach((axis) => {
+            if (this.phase2Features.alignmentPoints.yAlignmentPoints[Number(axis)] > 8192) {
+                ctx.strokeStyle = 'rgba(255,0,0,1)';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(0, Number(axis));
+                ctx.lineTo(browserInfo.viewportWidth, Number(axis));
+                ctx.stroke();
+                ctx.closePath();
+            }
+        });
+
+        return false;
+    }
 }
