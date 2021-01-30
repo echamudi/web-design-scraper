@@ -8,7 +8,8 @@
     "activeTab",
     "declarativeContent",
     "storage",
-    "tabs"
+    "tabs",
+    "unlimitedStorage"
   ],
   "action": {
     "default_popup": "popup.html"
