@@ -258,22 +258,22 @@ class App extends React.Component {
 
     if (this.state.densityMajorDomViz?.current && this.state.phase3?.densityMajorDomViz) {
       copyCanvasContent(
+        this.state.phase3.densityMajorDomViz,
         this.state.densityMajorDomViz.current,
-        this.state.phase3.densityMajorDomViz
       )
     }
 
     if (this.state.simplicityHorizontalViz?.current && this.state.phase3?.simplicityHorizontalViz) {
       copyCanvasContent(
+        this.state.phase3.simplicityHorizontalViz,
         this.state.simplicityHorizontalViz.current,
-        this.state.phase3.simplicityHorizontalViz
       )
     }
 
     if (this.state.simplicityVerticalViz?.current && this.state.phase3?.simplicityVerticalViz) {
       copyCanvasContent(
+        this.state.phase3.simplicityVerticalViz,
         this.state.simplicityVerticalViz.current,
-        this.state.phase3.simplicityVerticalViz
       )
     }
   }

@@ -100,6 +100,8 @@ export class Phase3 {
 
         this.complexityTextDomVizDraw();
         this.densityMajorDomVizDraw();
+        this.simplicityHorizontalVizDraw();
+        this.simplicityVerticalVizDraw();
     }
 
     public calculateComplexityTextDom(config?: BlockDensityScoreCalculateConfig) {
@@ -195,8 +197,6 @@ export class Phase3 {
     // TODO: Sepearate the codes below to its own file
 
     public complexityTextDomVizDraw() {
-        console.log('complexityTextDomVizDraw');
-
         this.complexityTextDomViz = document.createElement('canvas');
 
         const canvas = this.complexityTextDomViz;
@@ -254,10 +254,9 @@ export class Phase3 {
     // }
 
     public densityMajorDomVizDraw() {
-        console.log('drawDensityMajorDomVizDraw');
-        this.complexityTextDomViz = document.createElement('canvas');
+        this.densityMajorDomViz = document.createElement('canvas');
 
-        const dedc = this.complexityTextDomViz;
+        const dedc = this.densityMajorDomViz;
 
         if (!dedc) { return false; }
         if (!this.displayCanvas) { return false; }
