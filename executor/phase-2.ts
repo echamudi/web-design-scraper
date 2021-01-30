@@ -1,5 +1,6 @@
 import { colorCountExtract } from 'Core/evaluator/image-feature-extractor/color-count';
 import { colorSymmetryExtract } from 'Core/evaluator/image-feature-extractor/color-symmetry';
+import { colorDistributionExtract } from 'Core/evaluator/image-feature-extractor/color-distribution';
 import { vibrantColorsExtract } from 'Core/evaluator/web-feature-extractor/vibrant-colors';
 import { ColorCountExtractResult } from 'Core/types/factors';
 import {
@@ -31,6 +32,10 @@ export async function executePhase2(
     const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
     const colorSymmetryResult = colorSymmetryExtract(screenshotImageData);
     const colorCountResult = colorCountExtract(screenshotImageData);
+    const colorDistrbutionResult = colorDistributionExtract(
+        screenshotImageData,
+        colorCountResult
+    )
 
     const screenshotImageArea = screenshotImageData.width * screenshotImageData.height;
     const viewportArea = phase1FeatureExtractorResult.browserInfo.viewportWidth
@@ -57,6 +62,7 @@ export async function executePhase2(
         vibrantColors: vibrantColorsExtractResult,
         colorCount: colorCountResult,
         colorSymmetry: colorSymmetryResult,
+        colorDistribution: colorDistrbutionResult,
         viewportScreenshot,
         timestamp: Date.now(),
     };

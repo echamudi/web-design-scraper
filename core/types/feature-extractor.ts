@@ -189,12 +189,26 @@ export interface ColorDistributionExtractResult {
     /** Total traversed pixel */
     totalPixels: number,
 
-    /** percentage [0, 100] */
-    colorPercentageOfTheTop1: number,
-    /** percentage [0, 100] */
-    colorPercentageOfTheTop5: number,
-    /** percentage [0, 100] */
-    colorPercentageOfTheTop10: number
+    colorTop1: {
+        /** Base64 image */
+        visualization: string,
+        /** percentage [0, 1] */
+        percentage: number,
+    },
+
+    colorTop5: {
+        /** Base64 image */
+        visualization: string,
+        /** percentage [0, 1] */
+        percentage: number,
+    },
+
+    colorTop10: {
+        /** Base64 image */
+        visualization: string,
+        /** percentage [0, 1] */
+        percentage: number,
+    }
 }
 
 // viewport-screenshot

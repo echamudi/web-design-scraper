@@ -3,6 +3,7 @@ import {
     AlignmentPointsExtractResult,
     AnchorElementsExtractResult,
     BrowserInfoExtractResult,
+    ColorDistributionExtractResult,
     ColorSymmetryExtractResult,
     GenericElementsExtractResult,
     ImageElementsExtractResult,
@@ -33,6 +34,7 @@ export interface Phase2Result extends Phase1Result {
     vibrantColors: VibrantColorsExtractResult,
     colorCount: ColorCountExtractResult,
     colorSymmetry: ColorSymmetryExtractResult,
+    colorDistribution: ColorDistributionExtractResult,
     viewportScreenshot: ViewportScreenshotExtractResult,
     timestamp: number
 }

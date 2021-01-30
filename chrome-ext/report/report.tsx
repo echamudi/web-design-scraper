@@ -209,6 +209,16 @@ class App extends React.Component {
               </div>
             }
             {
+              this.state.currentPage === 'density-pixel' &&
+              <div className="report-details-container">
+                <h1>
+                  Density (Pixel)
+                </h1>
+                <hr />
+                <img style={{ width: this.state.webPageData.browserInfo.viewportWidth / 2 }} src={this.state.webPageData.colorDistribution.colorTop1.visualization} alt="" />
+              </div>
+            }
+            {
               this.state.currentPage === 'density-major-dom' &&
               <div className="report-details-container">
                 <h1>
