@@ -203,7 +203,7 @@ export interface ColorDistributionExtractResult {
         percentage: number,
     },
 
-    colorTop10: {
+    colorTop10?: {
         /** Base64 image */
         visualization: string,
         /** percentage [0, 1] */

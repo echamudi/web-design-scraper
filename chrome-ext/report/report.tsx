@@ -215,7 +215,10 @@ class App extends React.Component {
                   Density (Pixel)
                 </h1>
                 <hr />
+                <p><b>Top 1 color area</b></p>
                 <img style={{ width: this.state.webPageData.browserInfo.viewportWidth / 2 }} src={this.state.webPageData.colorDistribution.colorTop1.visualization} alt="" />
+                <p><b>Top 5 colors area</b></p>
+                <img style={{ width: this.state.webPageData.browserInfo.viewportWidth / 2 }} src={this.state.webPageData.colorDistribution.colorTop5.visualization} alt="" />
               </div>
             }
             {

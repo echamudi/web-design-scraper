@@ -23,7 +23,7 @@ export function colorDistributionExtract(
 
     const colorTop1Viz = new ImageData(imageData.width, imageData.height);
     const colorTop5Viz = new ImageData(imageData.width, imageData.height);
-    const colorTop10Viz = new ImageData(imageData.width, imageData.height);
+    // const colorTop10Viz = new ImageData(imageData.width, imageData.height);
 
     for (let i = 0; i < totalPixels; i++) {
         const indexR = (i * 4);
@@ -46,8 +46,8 @@ export function colorDistributionExtract(
             colorTop1Viz.data[indexA] = 255;
             colorTop5Viz.data[indexB] = 255;
             colorTop5Viz.data[indexA] = 255;
-            colorTop10Viz.data[indexB] = 255;
-            colorTop10Viz.data[indexA] = 255;
+            // colorTop10Viz.data[indexB] = 255;
+            // colorTop10Viz.data[indexA] = 255;
         }
 
         for (let x = 1; x < 5; x++) {
@@ -57,19 +57,19 @@ export function colorDistributionExtract(
 
                 colorTop5Viz.data[indexB] = 255;
                 colorTop5Viz.data[indexA] = 255;
-                colorTop10Viz.data[indexB] = 255;
-                colorTop10Viz.data[indexA] = 255;
+                // colorTop10Viz.data[indexB] = 255;
+                // colorTop10Viz.data[indexA] = 255;
             }
         }
 
-        for (let x = 5; x < 10; x++) {
-            if (rank[x] && colorEquality(rank[x].color, colorFromData, equalityTolerance)) {
-                pixelCountOfTheTop10 += 1;
+        // for (let x = 5; x < 10; x++) {
+        //     if (rank[x] && colorEquality(rank[x].color, colorFromData, equalityTolerance)) {
+        //         pixelCountOfTheTop10 += 1;
 
-                colorTop10Viz.data[indexB] = 255;
-                colorTop10Viz.data[indexA] = 255;
-            }
-        }
+        //         colorTop10Viz.data[indexB] = 255;
+        //         colorTop10Viz.data[indexA] = 255;
+        //     }
+        // }
     }
 
     return {
@@ -83,9 +83,9 @@ export function colorDistributionExtract(
             visualization: imageDataToImageURI(colorTop5Viz),
             percentage: pixelCountOfTheTop5 / totalPixels,
         },
-        colorTop10: {
-            visualization: imageDataToImageURI(colorTop10Viz),
-            percentage: pixelCountOfTheTop10 / totalPixels,
-        },
+        // colorTop10: {
+        //     visualization: imageDataToImageURI(colorTop10Viz),
+        //     percentage: pixelCountOfTheTop10 / totalPixels,
+        // },
     };
 }
