@@ -311,21 +311,24 @@ export class Phase3 {
         if (ctx === null) { console.log('CTX is null'); return; }
         if (this.displayCanvas === undefined) { console.log('displayCanvas is undefined'); return; }
 
-        ctx.drawImage(this.displayCanvas, 0, 0);
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 6;
-        ctx.beginPath();
-        ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
-        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
-        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        ctx.closePath();
-        ctx.stroke();
+        // Draw illustration in full page
 
+        ctx.drawImage(this.displayCanvas, 0, 0);
+
+        // Outer box
+        // ctx.strokeStyle = 'blue';
+        // ctx.lineWidth = 6;
+        // ctx.beginPath();
+        // ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
+        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
+        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        // ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        // ctx.closePath();
+        // ctx.stroke();
 
         Object.keys(this.phase2Features.alignmentPoints.xAlignmentPoints).forEach((axis) => {
             if (this.phase2Features.alignmentPoints.xAlignmentPoints[Number(axis)] > 4096) {
-                ctx.strokeStyle = 'rgba(255,0,0,1)';
+                ctx.strokeStyle = 'blue';
                 ctx.lineWidth = 4;
                 ctx.beginPath();
                 ctx.moveTo(Number(axis), browserInfo.pageYOffset);
@@ -343,7 +346,14 @@ export class Phase3 {
             }
         });
 
-        return false;
+        // Get the viewport part only
+
+        const viewportImageData = ctx.getImageData(browserInfo.pageXOffset, browserInfo.pageYOffset, browserInfo.viewportWidth, browserInfo.viewportHeight);
+
+        canvas.width = viewportImageData.width;
+        canvas.height = viewportImageData.height;
+
+        ctx.putImageData(viewportImageData, 0, 0);
     }
 
     public simplicityVerticalVizDraw() {
@@ -365,21 +375,24 @@ export class Phase3 {
         if (ctx === null) { console.log('CTX is null'); return; }
         if (this.displayCanvas === undefined) { console.log('displayCanvas is undefined'); return; }
 
-        ctx.drawImage(this.displayCanvas, 0, 0);
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 6;
-        ctx.beginPath();
-        ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
-        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
-        ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        ctx.closePath();
-        ctx.stroke();
+        // Draw illustration in full page
 
+        ctx.drawImage(this.displayCanvas, 0, 0);
+
+        // Outer box
+        // ctx.strokeStyle = 'blue';
+        // ctx.lineWidth = 6;
+        // ctx.beginPath();
+        // ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
+        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
+        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        // ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
+        // ctx.closePath();
+        // ctx.stroke();
 
         Object.keys(this.phase2Features.alignmentPoints.yAlignmentPoints).forEach((axis) => {
             if (this.phase2Features.alignmentPoints.yAlignmentPoints[Number(axis)] > 8192) {
-                ctx.strokeStyle = 'rgba(255,0,0,1)';
+                ctx.strokeStyle = 'blue';
                 ctx.lineWidth = 4;
                 ctx.beginPath();
                 ctx.moveTo(0, Number(axis));
@@ -389,6 +402,13 @@ export class Phase3 {
             }
         });
 
-        return false;
+        // Get the viewport part only
+
+        const viewportImageData = ctx.getImageData(browserInfo.pageXOffset, browserInfo.pageYOffset, browserInfo.viewportWidth, browserInfo.viewportHeight);
+
+        canvas.width = viewportImageData.width;
+        canvas.height = viewportImageData.height;
+
+        ctx.putImageData(viewportImageData, 0, 0);
     }
 }
