@@ -131,14 +131,21 @@ class Analyzer extends React.Component {
     });
   }
 
+  async openSaved() {
+
+  }
+
   render() {
     return (
-      <Stack tokens={{ childrenGap: 20 }}>
+      <Stack tokens={{ childrenGap: 10 }}>
+        <DefaultButton text="Open Saved Analysis Result (.json)" onClick={this.openSaved} />
         <PrimaryButton text="Analyze" onClick={this.analyzeHandler} />
         {
           this.state.analyzingStatus === 'processing' &&
           <div>
-            <Spinner label="Analyzing Page..." labelPosition="right" size={SpinnerSize.large} />
+            <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
+            <div>Analyzing page...</div>
+            <div>This process might take up to one minute.</div>
           </div>
         }
         {
