@@ -126,7 +126,7 @@ class Analyzer extends React.Component {
 
     chrome.windows.create({
       url: '/report.html',
-      type: 'popup'
+      type: 'normal'
     }, function () {
     });
   }
