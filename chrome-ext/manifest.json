@@ -1,7 +1,7 @@
 {
-  "name": "Smart Web Design Scraper",
+  "name": "Web Design Scraper",
   "version": "1.0",
-  "description": "Smart Web Design Scraper",
+  "description": "Web Design Scraper",
   "manifest_version": 3,
   "permissions": [
     "tabCapture",

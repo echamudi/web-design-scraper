@@ -40,7 +40,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <Stack tokens={{ childrenGap: 10 }}>
-          <div className="ms-fontSize-32">Smart Web Design Scraper</div>
+          <div className="ms-fontSize-32">Web Design Scraper</div>
           <Analyzer />
         </Stack>
       </div>
