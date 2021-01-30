@@ -8,11 +8,12 @@ import { navLinkGroups } from './nav-link-groups';
 import { Phase2Result } from 'Core/types/types';
 import { Phase3 } from 'Executor/phases';
 import { copyCanvasContent } from 'Core/utils/canvas';
+import { SymmetryPixelReport } from './sections/symmetry-pixel';
 // import { PartialDeep } from 'type-fest';
 
 initializeIcons();
 
-interface ReportState {
+export interface ReportState {
   currentPage: string,
   webPageData: Phase2Result | null,
   reportData__timestamp?: string,
@@ -152,52 +153,10 @@ class App extends React.Component {
               </div>
             }
             {this.state.currentPage === 'symmetry-pixel' &&
-              <div className="report-details-container">
-                <h1>
-                  Symmetry (Pixel)
-                </h1>
-                <hr />
-
-                <p>
-                  This factor item tells the symmetry of the viewport snapshot through a horizontal line and vertical line.
-                  The algorithm checks the ciede2000 difference of each pixel from each side.
-                </p>
-                <p><b>Detection Scope : </b> Viewport</p>
-                <hr />
-
-                <h2>
-                  Design Scraping Result
-                </h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th style={{ width: 200 }}>Metric</th>
-                      <th style={{ width: 300 }}>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Horizontal Ciede Average</td>
-                      <td>{this.state.webPageData.colorSymmetry.horizontal.ciede2000average}</td>
-                    </tr>
-                    <tr>
-                      <td>Vertical Ciede Average</td>
-                      <td>{this.state.webPageData.colorSymmetry.vertical.ciede2000average}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr />
-                <h2>
-                  Visualization
-                </h2>
-                <p>In the following visualization, the red parts are the Asymmetrical parts,
-                while the white parts are the symmetrical parts.
-                </p>
-                <p><b>Asymmetrical portion (horizontal line)</b></p>
-                <img style={{ width: this.state.webPageData.browserInfo.viewportWidth / 2 }} src={this.state.webPageData.colorSymmetry.horizontal.visualization} alt="" />
-                <p><b>Asymmetrical portion (vertical line)</b></p>
-                <img style={{ height: this.state.webPageData.browserInfo.viewportHeight / 2 }} src={this.state.webPageData.colorSymmetry.vertical.visualization} alt="" />
-              </div>
+              <SymmetryPixelReport
+                browserInfo={this.state.webPageData.browserInfo}
+                colorSymmetry={this.state.webPageData.colorSymmetry}
+                />
             }
             {
               this.state.currentPage === 'complexity-text-dom' &&
