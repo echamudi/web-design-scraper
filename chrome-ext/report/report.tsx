@@ -16,7 +16,10 @@ interface ReportState {
   webPageData: Phase2Result | null,
   reportData__timestamp?: string,
   reportData__url?: string,
-  complexityTextDomCanvas?: React.RefObject<HTMLCanvasElement>,
+  complexityTextDomViz?: React.RefObject<HTMLCanvasElement>,
+  densityMajorDomViz?: React.RefObject<HTMLCanvasElement>,
+  simplicityHorizontalViz?: React.RefObject<HTMLCanvasElement>,
+  simplicityVerticalViz?: React.RefObject<HTMLCanvasElement>,
   phase3?: Phase3
 }
 
@@ -49,7 +52,10 @@ class App extends React.Component {
         return {
           ...prevStates,
           webPageData,
-          complexityTextDomCanvas: React.createRef(),
+          complexityTextDomViz: React.createRef(),
+          densityMajorDomViz: React.createRef(),
+          simplicityHorizontalViz: React.createRef(),
+          simplicityVerticalViz: React.createRef(),
           phase3
         };
       }, () => {
@@ -199,7 +205,37 @@ class App extends React.Component {
                   Complexity (Text DOM)
                 </h1>
                 <hr />
-                <canvas ref={this.state.complexityTextDomCanvas} style={{ width: miniVw, border: 'red solid 2px' }}/>
+                <canvas ref={this.state.complexityTextDomViz} style={{ width: miniVw, border: 'red solid 2px' }}/>
+              </div>
+            }
+            {
+              this.state.currentPage === 'density-major-dom' &&
+              <div className="report-details-container">
+                <h1>
+                  Density (DOM)
+                </h1>
+                <hr />
+                <canvas ref={this.state.densityMajorDomViz} style={{ width: miniVw, border: 'red solid 2px' }}/>
+              </div>
+            }
+            {
+              this.state.currentPage === 'simplicity-horizontal' &&
+              <div className="report-details-container">
+                <h1>
+                  Simplicity (Horizontal)
+                </h1>
+                <hr />
+                <canvas ref={this.state.simplicityHorizontalViz} style={{ width: miniVw, border: 'red solid 2px' }}/>
+              </div>
+            }
+            {
+              this.state.currentPage === 'simplicity-vertical' &&
+              <div className="report-details-container">
+                <h1>
+                  Simplicity (Vertical)
+                </h1>
+                <hr />
+                <canvas ref={this.state.simplicityVerticalViz} style={{ width: miniVw, border: 'red solid 2px' }}/>
               </div>
             }
           </div>
@@ -212,11 +248,33 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.complexityTextDomCanvas?.current && this.state.phase3?.complexityTextDomViz) {
+    // Update canvas visualization
+    if (this.state.complexityTextDomViz?.current && this.state.phase3?.complexityTextDomViz) {
       copyCanvasContent(
         this.state.phase3.complexityTextDomViz,
-        this.state.complexityTextDomCanvas.current,
+        this.state.complexityTextDomViz.current,
       );
+    }
+
+    if (this.state.densityMajorDomViz?.current && this.state.phase3?.densityMajorDomViz) {
+      copyCanvasContent(
+        this.state.densityMajorDomViz.current,
+        this.state.phase3.densityMajorDomViz
+      )
+    }
+
+    if (this.state.simplicityHorizontalViz?.current && this.state.phase3?.simplicityHorizontalViz) {
+      copyCanvasContent(
+        this.state.simplicityHorizontalViz.current,
+        this.state.phase3.simplicityHorizontalViz
+      )
+    }
+
+    if (this.state.simplicityVerticalViz?.current && this.state.phase3?.simplicityVerticalViz) {
+      copyCanvasContent(
+        this.state.simplicityVerticalViz.current,
+        this.state.phase3.simplicityVerticalViz
+      )
     }
   }
 }
