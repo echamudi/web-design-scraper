@@ -8,6 +8,7 @@ import { navLinkGroups } from './nav-link-groups';
 import { Phase2Result } from 'Core/types/types';
 import { Phase3 } from 'Executor/phases';
 import { copyCanvasContent } from 'Core/utils/canvas';
+import { OverviewReport } from './sections/overview';
 import { SymmetryPixelReport } from './sections/symmetry-pixel';
 // import { PartialDeep } from 'type-fest';
 
@@ -109,48 +110,7 @@ class App extends React.Component {
           </div>
           <div className="report-details">
             {this.state.currentPage === 'meta-overview' &&
-              <div className="report-details-container">
-                <h1>
-                  Overview
-                </h1>
-                <hr />
-                <p>
-                  <b>URL: </b> <a href={this.state.reportData__url} target="_blank" rel="noopener noreferrer">{this.state.reportData__url}</a><br />
-                  <b>Date: </b> {this.state.reportData__timestamp}<br />
-                </p>
-                <img src={this.state.webPageData.viewportScreenshot.image} style={{ width: 800 }} />
-                <hr />
-                <table>
-                  <thead>
-                    <tr>
-                      <th style={{ width: 200 }}>Property</th>
-                      <th style={{ width: 300 }}>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Viewport Height</td>
-                      <td>{this.state.webPageData.browserInfo.viewportHeight}</td>
-                    </tr>
-                    <tr>
-                      <td>Viewport Width</td>
-                      <td>{this.state.webPageData.browserInfo.viewportWidth}</td>
-                    </tr>
-                    <tr>
-                      <td>Page Height</td>
-                      <td>{this.state.webPageData.browserInfo.pageHeight}</td>
-                    </tr>
-                    <tr>
-                      <td>Page Width</td>
-                      <td>{this.state.webPageData.browserInfo.pageWidth}</td>
-                    </tr>
-                    <tr>
-                      <td>Device Pixel Ratio</td>
-                      <td>{this.state.webPageData.browserInfo.devicePixelRatio}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <OverviewReport reportState={this.state}/>
             }
             {this.state.currentPage === 'symmetry-pixel' &&
               <SymmetryPixelReport
