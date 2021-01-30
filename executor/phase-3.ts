@@ -95,8 +95,23 @@ export class Phase3 {
         // Draw display canvases
         // TODO: Seperate these functionalities out of Phase3
         this.displayCanvas = doc.createElement('canvas');
-        plotter(this.displayCanvas, this.imageElementPositions, { ...this.plotterConfig, backgroundColor: '#FFFFFF', blockColor: 'rgba(242, 120, 75, 0.7)' });
-        plotter(this.displayCanvas, this.textElementPositions, { ...this.plotterConfig, blockColor: 'rgba(25, 181, 254, 0.7)', skipResizingCanvas: true });
+        plotter(
+            this.displayCanvas,
+            this.imageElementPositions,
+            {
+                ...this.plotterConfig,
+                backgroundColor: '#FFFFFF',
+                blockColor: 'rgba(242, 120, 75, 0.7)',
+            }
+        );
+        plotter(
+            this.displayCanvas,
+            this.textElementPositions,
+            {
+                ...this.plotterConfig,
+                blockColor: 'rgba(25, 181, 254, 0.7)',
+                skipResizingCanvas: true
+            });
 
         this.complexityTextDomVizDraw();
         this.densityMajorDomVizDraw();
@@ -172,7 +187,7 @@ export class Phase3 {
     }
 
     public getAllScores() {
-        // TODO: implements -99
+        // TODO: implement -99
         return {
             symmetryPixelVertical: -99,
             symmetryPixelHorizontal: -99,
@@ -196,7 +211,22 @@ export class Phase3 {
     // TEMP: Codes below this line are temporary canvas drawing functionalities to visualize the result
     // TODO: Sepearate the codes below to its own file
 
-    public complexityTextDomVizDraw() {
+    // drawDomElementDetectionCanvas(): false {
+    //     const dedc = document.createElement('canvas');
+
+    //     if (!dedc) { return false; }
+    //     if (!this.displayCanvas) { return false; }
+
+    //     dedc.width = this.phase2Features.browserInfo.pageWidth;
+    //     dedc.height = this.phase2Features.browserInfo.pageHeight;
+
+    //     const destCtx = dedc.getContext('2d');
+    //     destCtx.drawImage(this.finalScoreObj.displayCanvas, 0, 0);
+
+    //     return false;
+    // }
+
+    public complexityTextDomVizDraw(): void {
         this.complexityTextDomViz = document.createElement('canvas');
 
         const canvas = this.complexityTextDomViz;
@@ -234,32 +264,15 @@ export class Phase3 {
             ctx.lineTo(width, i);
             ctx.stroke();
         }
-
-        return;
     }
 
-    // drawDomElementDetectionCanvas(): false {
-    //     const dedc = document.createElement('canvas');
-
-    //     if (!dedc) { return false; }
-    //     if (!this.displayCanvas) { return false; }
-
-    //     dedc.width = this.phase2Features.browserInfo.pageWidth;
-    //     dedc.height = this.phase2Features.browserInfo.pageHeight;
-
-    //     const destCtx = dedc.getContext('2d');
-    //     destCtx.drawImage(this.finalScoreObj.displayCanvas, 0, 0);
-
-    //     return false;
-    // }
-
-    public densityMajorDomVizDraw() {
+    public densityMajorDomVizDraw(): void {
         this.densityMajorDomViz = document.createElement('canvas');
 
         const dedc = this.densityMajorDomViz;
 
-        if (!dedc) { return false; }
-        if (!this.displayCanvas) { return false; }
+        if (!dedc) { return; }
+        if (!this.displayCanvas) { return; }
 
         const width = this.phase2Features.browserInfo.pageWidth;
         const height = this.phase2Features.browserInfo.pageHeight;
@@ -292,11 +305,11 @@ export class Phase3 {
         }
     }
 
-    public simplicityHorizontalVizDraw() {
+    public simplicityHorizontalVizDraw(): void {
         this.simplicityHorizontalViz = document.createElement('canvas');
         const canvas = this.simplicityHorizontalViz;
 
-        if (!canvas) { return false; }
+        if (!canvas) return;
 
         const browserInfo = this.phase2Features.browserInfo;
 
@@ -356,11 +369,11 @@ export class Phase3 {
         ctx.putImageData(viewportImageData, 0, 0);
     }
 
-    public simplicityVerticalVizDraw() {
+    public simplicityVerticalVizDraw(): void {
         this.simplicityVerticalViz = document.createElement('canvas');
         const canvas = this.simplicityVerticalViz;
 
-        if (!canvas) { return false; }
+        if (!canvas) { return; }
 
         const browserInfo = this.phase2Features.browserInfo;
 
@@ -378,17 +391,6 @@ export class Phase3 {
         // Draw illustration in full page
 
         ctx.drawImage(this.displayCanvas, 0, 0);
-
-        // Outer box
-        // ctx.strokeStyle = 'blue';
-        // ctx.lineWidth = 6;
-        // ctx.beginPath();
-        // ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
-        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
-        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        // ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        // ctx.closePath();
-        // ctx.stroke();
 
         Object.keys(this.phase2Features.alignmentPoints.yAlignmentPoints).forEach((axis) => {
             if (this.phase2Features.alignmentPoints.yAlignmentPoints[Number(axis)] > 8192) {
