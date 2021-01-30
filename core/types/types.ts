@@ -1,54 +1,82 @@
-import { TextSizeConfig, TextSizeExtractResult, SymmetryExtractResult, DominantColorsConfig, PicturesConfig, SymmetryConfig, ColorCountExtractResult, DensityExtractResult, DensityConfig, NegativeSpaceExtractResult, VideosExtractResult } from "./factors";
-import { TextFontTypeExtractResult } from "./factors";
-import { PicturesExtractResult } from "./factors";
-import { DominantColorsExtractResult } from "./factors";
-import { ElementCountExtractResult } from "./factors";
-import { ImageElementsExtractResult, TextElementsExtractResult, BrowserInfoExtractResult, FeatureExtractorResultPhase2 } from './feature-extractor';
-import { FinalScore } from "Core/evaluator/score-calculator/final";
+import { ColorCountExtractResult, TextSizeExtractResult } from './factors';
+import {
+    AlignmentPointsExtractResult,
+    AnchorElementsExtractResult,
+    BrowserInfoExtractResult,
+    ColorDistributionExtractResult,
+    ColorSymmetryExtractResult,
+    GenericElementsExtractResult,
+    ImageElementsExtractResult,
+    TextElementsExtractResult,
+    VibrantColorsExtractResult,
+    VideoElementsExtractResult,
+    ViewportScreenshotExtractResult,
+} from './feature-extractor';
 
-export interface AnalysisConfig {
-    textSize: TextSizeConfig,
-    dominantColors: DominantColorsConfig,
-    pictures: PicturesConfig,
-    symmetry: SymmetryConfig,
-    density: DensityConfig
+//
+// Phases
+//
+
+// Phase 1 happens only in the content-side
+export interface Phase1Result {
+    browserInfo: BrowserInfoExtractResult,
+    textElements: TextElementsExtractResult,
+    imageElements: ImageElementsExtractResult,
+    videoElements: VideoElementsExtractResult,
+    anchorElements: AnchorElementsExtractResult,
+    majorElements: GenericElementsExtractResult,
+    alignmentPoints: AlignmentPointsExtractResult,
+    textSize: TextSizeExtractResult
 }
 
-export interface AnalysisResult {
-    html: string,
-    analysisConfig: AnalysisConfig,
-
-    screenshot: string,
-    textSizeResult: TextSizeExtractResult,
-    textFontTypeResult: TextFontTypeExtractResult,
-    picturesResult: PicturesExtractResult,
-    dominantColorsResult: DominantColorsExtractResult,
-    elementCountResult: ElementCountExtractResult,
-    browserInfoResult: BrowserInfoExtractResult,
-    symmetryResult: SymmetryExtractResult,
-    colorCountResult: ColorCountExtractResult,
-    densityResult: DensityExtractResult,
-    negativeSpaceResult: NegativeSpaceExtractResult,
-    videosResult: VideosExtractResult,
-    imageElementsResult: ImageElementsExtractResult,
-    textElementsResult: TextElementsExtractResult
+// Phase 2 is the "phase 1 result" + "results from the extension side"
+export interface Phase2Result extends Phase1Result {
+    vibrantColors: VibrantColorsExtractResult,
+    colorCount: ColorCountExtractResult,
+    colorSymmetry: ColorSymmetryExtractResult,
+    colorDistribution: ColorDistributionExtractResult,
+    viewportScreenshot: ViewportScreenshotExtractResult,
+    timestamp: number
 }
+
+//
+// React
+//
 
 export interface AppState {
     analyzingStatus: string,
-    result?: Partial<FeatureExtractorResultPhase2>,
-    finalScore?: Partial<FinalScore>,
-
-    /**
-     * viewport snapshot
-     */
-    snapshot: string | null,
+    result: Phase2Result | null,
 }
 
-// Helpers
+//
+// Others
+//
+
 export interface ElementPosition {
     x: number,
     y: number,
     w: number,
     h: number
+}
+
+export interface Color {
+    /**
+     * 0-255
+     */
+    r: number,
+
+    /**
+     * 0-255
+     */
+    g: number,
+
+    /**
+     * 0-255
+     */
+    b: number,
+
+    /**
+     * 0-255
+     */
+    a?: number
 }

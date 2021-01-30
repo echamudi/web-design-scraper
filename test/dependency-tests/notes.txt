@@ -1,0 +1,2 @@
+This folders are meant to contain tests toward node modules.
+This is done to make sure that our dependencies work as expected, even after version upgrades.

@@ -1,5 +1,5 @@
-import { scaleValue } from "Core/utils/math";
-import { AlignmentPointWeights } from "Core/types/feature-extractor";
+import { scaleValue } from 'Core/utils/math';
+import { AlignmentPointWeights } from 'Core/types/feature-extractor';
 
 export interface AlignmentPointsScoreCalculateResult {
     data: {
@@ -36,25 +36,25 @@ export interface AlignmentPointsScoreCalculateConfig {
 
 export function alignmentPointsScoreCalculate(
     alignmentPointWeights: AlignmentPointWeights,
-    config?: AlignmentPointsScoreCalculateConfig): AlignmentPointsScoreCalculateResult {
-
+    config?: AlignmentPointsScoreCalculateConfig,
+): AlignmentPointsScoreCalculateResult {
     // Load configurations
     const minimumArea = config?.minimumArea ?? 10000;
     const passThreshold = config?.failThreshold ?? 8;
     const failThreshold = config?.failThreshold ?? 64;
     const transformer = config?.transformer ?? ((val: number) => val);
 
-    const totalInitialAP =  Object.keys(alignmentPointWeights).length;
+    const totalInitialAP = Object.keys(alignmentPointWeights).length;
 
     // Guard
     if (passThreshold >= failThreshold || totalInitialAP === 0) {
         return {
             data: {
                 totalSignificantAPs: undefined,
-                transformedAPs: undefined
+                transformedAPs: undefined,
             },
-            score: undefined
-        }
+            score: undefined,
+        };
     }
 
     // Transform alignment points
@@ -70,7 +70,6 @@ export function alignmentPointsScoreCalculate(
             transformedAPs[transformedAlignmentPoint] += area;
         }
     });
-
 
     // Filter based on the weights
     Object.keys(transformedAPs).forEach((key) => {
@@ -88,8 +87,8 @@ export function alignmentPointsScoreCalculate(
     return {
         data: {
             totalSignificantAPs,
-            transformedAPs
+            transformedAPs,
         },
-        score
+        score,
     };
 }

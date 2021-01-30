@@ -1,27 +1,10 @@
-// Feature EXTRACTOR
+import { Palette } from 'node-vibrant/lib/color';
+import { Color, ElementPosition } from './types';
+import { TextSizeExtractResult, ColorCountExtractResult } from './factors';
 
-import { ElementPosition } from "./types";
-import { Palette } from "node-vibrant/lib/color";
-import { TextSizeExtractResult, DominantColorsExtractResult, ColorCountExtractResult } from "./factors";
-
-// All Results
-
-// Phase 1 happens only in the content-side
-export interface FeatureExtractorResultPhase1 {
-    browserInfo: BrowserInfoExtractResult,
-    textElements: TextElementsExtractResult,
-    imageElements: ImageElementsExtractResult,
-    videoElements: VideoElementsExtractResult,
-    anchorElements: AnchorElementsExtractResult,
-    alignmentPoints: AlignmentPointsExtractResult,
-    textSize: TextSizeExtractResult
-}
-
-// Phase 2 is the phase 1 result + results from the extension side
-export interface FeatureExtractorResultPhase2 extends FeatureExtractorResultPhase1 {
-    vibrantColors: VibrantColorsExtractResult,
-    colorCount: ColorCountExtractResult
-}
+//
+// Web page features
+//
 
 // browser-info
 
@@ -30,20 +13,45 @@ export interface BrowserInfoExtractResult {
     userAgent: string,
     viewportWidth: number,
     viewportHeight: number,
-    scrollHeight: number,
-    scrollWidth: number,
+    /**
+     * The height of the entire page.
+     * Taken from window.scrollHeight
+     */
+    pageHeight: number,
+    /**
+     * The width of the entire page.
+     * Taken from window.scrollWidth
+     */
+    pageWidth: number,
+    /**
+     * How much is the page scrolled from the top
+     */
     pageYOffset: number,
-    pageXOffset: number
+    /**
+     * How much is the page scrolled from the left
+     */
+    pageXOffset: number,
+    /**
+     * Taken from window.devicePixelRatio
+     */
+    devicePixelRatio: number
 }
 
-// element-detection
+// generic-elements
 
 export interface GenericElement {
     position: ElementPosition,
 
+    /**
+     * Logical area
+     */
     area: number, // width x height
     visible: boolean,
-};
+    /**
+     * Aspect ratio is undefined if DIV/0
+     */
+    aspectRatio: number | undefined
+}
 
 export interface GenericElementsExtractResult {
     elements: GenericElement[],
@@ -55,118 +63,57 @@ export interface GenericElementsExtractResult {
      * Number of elements in the page (visible only)
      */
     visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
 }
 
-// text-detection
+// text-elements
 
-export interface TextElement {
-    position: ElementPosition,
-
+export interface TextElement extends GenericElement {
     fontType: string,
     fontSize: string,
     color: string,
     backgroundColor: string | undefined,
     fontWeight: string,
-    visible: boolean,
     totalCharacters: number,
     text: string,
-    area: number
 }
 
-export interface TextElementsExtractResult {
+export interface TextElementsExtractResult extends GenericElementsExtractResult {
     elements: TextElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
 }
 
-// image-detection
+// image-elements
 
-export interface ImageElement {
-    position: ElementPosition,
-
+export interface ImageElement extends GenericElement {
     url: string,
     tagName: string,
-    area: number, // width x height
-
-    /**
-     * Aspect ratio is undefined if DIV/0
-     */
-    aspectRatio: number | undefined,
-    visible: boolean,
 }
 
-export interface ImageElementsExtractResult {
+export interface ImageElementsExtractResult extends GenericElementsExtractResult {
     elements: ImageElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
 }
 
-// video-detection
+// video-elements
 
-export interface VideoElement {
-    position: ElementPosition,
-
+export interface VideoElement extends GenericElement {
     url: string,
     tagName: string,
-    area: number, // width x height
-    visible: boolean,
 }
 
-export interface VideoElementsExtractResult {
+export interface VideoElementsExtractResult extends GenericElementsExtractResult {
     elements: VideoElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
 }
 
-// anchor-detection
+// anchor-elements
 
-export interface AnchorElement {
-    position: ElementPosition,
-
+export interface AnchorElement extends GenericElement {
     href: string | null,
-    text: string,
-    area: number, // width x height
-    visible: boolean,
+    text: string
 }
 
-export interface AnchorElementsExtractResult {
-    elements: AnchorElement[],
-    /**
-     * Number of elements in the page (visible + invisible)
-     */
-    elementCount: number,
-    /**
-     * Number of elements in the page (visible only)
-     */
-    visibleElementCount: number,
-    scrollWidth: number,
-    scrollHeight: number,
+export interface AnchorElementsExtractResult extends GenericElementsExtractResult {
+    elements: AnchorElement[]
 }
 
 // vibrant-colors
@@ -199,4 +146,105 @@ export interface AlignmentPointsExtractResult {
     totalAlignmentPoints: number,
     totalXAlignmentPoints: number,
     totalYAlignmentPoints: number
+}
+
+// color-symmetry
+
+export interface ColorSymmetryExtractResult {
+    horizontal: {
+        /**
+         * Visualized symmetry result
+         */
+        visualization: string,
+        /**
+         * Average of the CIEDE2000 values [0, 100]
+         */
+        ciede2000average: number,
+        /**
+         * Total traversed pixel pairs, usually around half the size of the image resolution
+         */
+        totalPixelPairs: number
+    },
+    vertical: {
+        /**
+         * Visualized symmetry result
+         */
+        visualization: string,
+        /**
+         * Average of the CIEDE2000 values [0, 100]
+         */
+        ciede2000average: number,
+        /**
+         * Total traversed pixel pairs, usually around half the size of the image resolution
+         */
+        totalPixelPairs: number
+    }
+}
+
+// color-distribution
+
+export interface ColorDistributionExtractResult {
+    mostUsedColor: Color,
+
+    /** Total traversed pixel */
+    totalPixels: number,
+
+    colorTop1: {
+        /** Base64 image */
+        visualization: string,
+        /** percentage [0, 1] */
+        percentage: number,
+    },
+
+    colorTop5?: {
+        /** Base64 image */
+        visualization: string,
+        /** percentage [0, 1] */
+        percentage: number,
+    },
+
+    colorTop10?: {
+        /** Base64 image */
+        visualization: string,
+        /** percentage [0, 1] */
+        percentage: number,
+    }
+}
+
+// viewport-screenshot
+
+/**
+ * Screenshot of the viewport only
+ */
+export interface ViewportScreenshotExtractResult {
+    image: string,
+    imageWidth: number,
+    imageHeight: number,
+    imageArea: number,
+    viewportWidth: number,
+    viewportHeight: number,
+    viewportArea: number,
+    /**
+     * (imageArea / viewportArea) / 2
+     */
+    pixelRatio: number
+}
+
+// page-screenshot
+
+/**
+ * Screenshot of the entire page
+ */
+export interface PageScreenshotExtractResult {
+    image: string,
+    imageWidth: number,
+    imageHeight: number,
+    imageArea: number,
+    pageWidth: number,
+    pageHeight: number,
+    pageArea: number,
+    /**
+     * (imageArea / viewportArea) / 2
+     */
+    pixelRatio: number
 }

@@ -1,16 +1,66 @@
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+// Variables and mixins
+@import '../../node_modules/office-ui-fabric-core/dist/sass/References';
 
-body {
-    min-width: 300px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    // font-family: "Source Sans Pro";
-    // background: #dfe6ff;
-    // font-size: 14px;
+// Partials that output CSS
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Animation';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/BrandIcon';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color.Background';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color.Border';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Color.Font';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Depth';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Font';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Font.Definitions';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Grid';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Icon';
+// @import '../../node_modules/office-ui-fabric-core/dist/sass/Icon.Definitions';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Responsive';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Utility';
+@import '../../node_modules/office-ui-fabric-core/dist/sass/Wrapper';
+
+// Report
+
+.report {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-// .main-button {
-//     width: 100%;
-//     height: 40px;
-//     font-size: 16px;
-// }
+.report-navbar {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    padding: 0 20px;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 0 6px 0 rgb(0 0 0 / 0.4);
+
+    &-title {
+        font-size: 28px;
+    }
+}
+
+.report-content {
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+    display: flex;
+}
+
+.report-details {
+    flex: 1;
+    padding: 0 20px;
+    overflow-y: scroll;
+}
+
+.report-sidebar {
+    overflow-y: scroll;
+    border-right: 1px solid #e8e8e8;
+    width: 300px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #dbdbdb;
+}

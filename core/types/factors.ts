@@ -1,4 +1,5 @@
-import { Palette } from "node-vibrant/lib/color";
+import { Palette } from 'node-vibrant/lib/color';
+import { Color } from './types';
 
 // factor id: symmetry
 
@@ -165,7 +166,7 @@ export interface ElementCountExtractResult {
 // factor id: color-count
 
 export interface ColorCountExtractResult {
-    rank: Array<{color: string, pixelCount: number}>,
+    rank: Array<{color: Color, pixelCount: number}>,
 }
 
 // factor id: density
@@ -177,9 +178,9 @@ export interface DensityConfig {
 }
 
 export interface DensityExtractResult {
-    /** 
+    /**
      * (all pixels other than most used divided by all pixels) * 100
-     **/
+     * */
     percentage: number,
 
     visitedPixels: number,
@@ -188,11 +189,10 @@ export interface DensityExtractResult {
 
 // factor id: negative space
 export interface NegativeSpaceExtractResult {
-    scrollWidth: number,
-    scrollHeight: number,
+    pageWidth: number,
+    pageHeight: number,
     textElementCount: number,
     components: {x: number, y: number, w: number, h: number}[],
 }
 
 // Legacy types:
-

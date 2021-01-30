@@ -1,4 +1,4 @@
-import { scaleValue } from "Core/utils/math";
+import { scaleValue } from 'Core/utils/math';
 
 export interface ConsistencyScoreCalculateResult {
     data: {
@@ -30,15 +30,17 @@ export function consistencyScoreCalculate(members: number[], config?: Consistenc
     const failThreshold = config?.failThreshold ?? 10;
     const transformer = config?.transformer ?? ((val: number) => val);
 
-    if (members.length === 0) return {
-        data: {
-            totalMembers: undefined,
-            transformedMembers: undefined,
-            totalUniqueTransformedMembers: undefined,
-            uniqueTransformedMembers: undefined
-        },
-        score: undefined
-    };
+    if (members.length === 0) {
+        return {
+            data: {
+                totalMembers: undefined,
+                transformedMembers: undefined,
+                totalUniqueTransformedMembers: undefined,
+                uniqueTransformedMembers: undefined,
+            },
+            score: undefined,
+        };
+    }
 
     // Rounding to 1 decimal place
     const transformedMembers = members.map(transformer);
@@ -54,8 +56,8 @@ export function consistencyScoreCalculate(members: number[], config?: Consistenc
             totalMembers,
             transformedMembers,
             totalUniqueTransformedMembers,
-            uniqueTransformedMembers
+            uniqueTransformedMembers,
         },
-        score
-    }
+        score,
+    };
 }

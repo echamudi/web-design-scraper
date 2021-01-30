@@ -12,7 +12,7 @@ export function clamp(val: number, lowerLimit: number, upperLimit: number): numb
     if (val <= lowerLimit) return 0;
     if (val >= upperLimit) return 1;
 
-    const final = ((val - lowerLimit)/ delta);
+    const final = ((val - lowerLimit) / delta);
 
     return final;
 }

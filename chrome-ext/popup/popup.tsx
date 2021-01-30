@@ -1,15 +1,13 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppState, AnalysisConfig, AnalysisResult } from 'Core/types/types';
-import { FeatureExtractorResultPhase1, FeatureExtractorResultPhase2 } from 'Core/types/feature-extractor';
-import { FinalScore } from 'Core/evaluator/score-calculator/final';
-import { vibrantColorsExtract } from 'Core/evaluator/feature-extractor/vibrant-colors';
-import { DominantColorsExtractResult, ColorCountExtractResult } from 'Core/types/factors';
-// import { dominantColorsExtract } from '../evaluator-legacy/dominant-colors';
-import { colorCountExtract } from '../evaluator-legacy/color-count';
+import { AppState } from 'Core/types/types';
+import { Phase1Result, Phase2Result } from 'Core/types/types';
+import { DefaultButton, PrimaryButton, Stack, IStackTokens } from 'office-ui-fabric-react';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { executePhase2 } from 'Executor/phases';
 
 type ContentRes = {
-  featureExtractorResultPhase1: FeatureExtractorResultPhase1
+  phase1Result: Phase1Result
 };
 
 // Returns tabId number
@@ -31,11 +29,6 @@ async function init(): Promise<number> {
 //   console.log(image);
 // });
 
-// chrome.windows.create({
-//   url: '/report.html',
-//   type: 'popup'
-// }, function (window) { });
-
 class App extends React.Component {
   public state = {};
 
@@ -46,7 +39,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Analyzer />
+        <Stack tokens={{ childrenGap: 10 }}>
+          <div className="ms-fontSize-32">Web Design Scraper</div>
+          <Analyzer />
+        </Stack>
       </div>
     )
   }
@@ -55,8 +51,7 @@ class App extends React.Component {
 class Analyzer extends React.Component {
   public state: AppState = {
     analyzingStatus: '',
-    result: {},
-    snapshot: null
+    result: null
   };
 
   constructor(props: any) {
@@ -70,111 +65,94 @@ class Analyzer extends React.Component {
     this.setState(() => ({ analyzingStatus: 'processing', lastReceiptId: undefined }));
 
     // Get screenshots
-    const image: string = await new Promise<string>((resolve, reject) => {
-      chrome.tabs.captureVisibleTab({}, async (image) => {
-        resolve(image);
-      });
-    });
-
-    // Calculate all async values
     const [
-      contentRes,
-      vibrantColorsExtractSettledResult
+      screenshot,
+      contentRes
     ] = await Promise.allSettled([
+      new Promise<string>((resolve, reject) => {
+        chrome.tabs.captureVisibleTab({}, async (image) => {
+          resolve(image);
+        });
+      }),
       new Promise<ContentRes>((resolve, reject) => {
         chrome.tabs.sendMessage(tabId, { message: "extract-features" }, (response: ContentRes) => {
-          console.log(response);
           resolve(response);
         });
       }),
-      vibrantColorsExtract(image)
     ]);
+
+    if (screenshot.status === 'rejected') {
+      console.log('screenshot.status rejected');
+      return;
+    }
 
     if (contentRes.status === 'rejected') {
-      console.log('failed to do content script');
-      this.setState(() => ({ analyzingStatus: 'Done!' }));
+      console.log('contentRes.status rejected');
       return;
     }
 
-    if (vibrantColorsExtractSettledResult.status === 'rejected') {
-      console.log('failed to do vibrantColorsExtract');
-      this.setState(() => ({ analyzingStatus: 'Done!' }));
-      return;
-    }
+    const phase2Result = await executePhase2(
+      contentRes.value.phase1Result,
+      screenshot.value
+    );
 
-    const phase1FeatureExtractorResult = contentRes.value.featureExtractorResultPhase1;
-    const vibrantColorsExtractResult = vibrantColorsExtractSettledResult.value;
+    console.log(phase2Result);
 
-
-    // Calculate all async values
-    let [colorCountResult] = await Promise.allSettled([
-      new Promise<ColorCountExtractResult>(async (resolve, reject) => {
-        const result = await colorCountExtract(image);
-        resolve(result);
-      }),
-    ]);
-
-    if (colorCountResult.status === 'rejected') {
-      console.log('failed to do colorCountExtract');
-      this.setState(() => ({ analyzingStatus: 'Done!' }));
-      return;
-    }
-
-
-    // Combine contentside result with extension side result
-    const phase2FeatureExtractorResult: FeatureExtractorResultPhase2 = {
-      ...phase1FeatureExtractorResult,
-      vibrantColors: vibrantColorsExtractResult,
-      colorCount: colorCountResult.value
-    }
-
-    console.log('phase1FeatureExtractorResult', phase1FeatureExtractorResult);
-    console.log('phase2FeatureExtractorResult', phase2FeatureExtractorResult);
-
-    const finalScore = new FinalScore(document, phase2FeatureExtractorResult);
-
-    console.log('finalScore', finalScore.getAllScores());
+    const result: Phase2Result = phase2Result;
 
     this.setState(() => {
-      const x: Partial<AppState> = { 
+      const x: Partial<AppState> = {
         analyzingStatus: 'Done!',
-        result: phase2FeatureExtractorResult,
-        snapshot: image };
+        result
+      };
       return x;
     });
   };
 
 
-  openQuickReport() {
-    console.log('Quick Report Clicked');
+  async openQuickReport() {
+    const phase2Data = this.state.result;
+
+    if (phase2Data === null) {
+      console.log('somehow phase2Data is null, please try again');
+      return;
+    }
+
+    await new Promise(resolve => {
+      chrome.storage.local.set({ webPageData: phase2Data }, function () {
+        resolve(true);
+      });
+    });
+
+    chrome.windows.create({
+      url: '/report.html',
+      type: 'normal'
+    }, function () {
+    });
+  }
+
+  async openSaved() {
+
   }
 
   render() {
-    return ( 
-      <div>
-        <div className="card">
-          <div className="card-header">
-            Analyze
+    return (
+      <Stack tokens={{ childrenGap: 10 }}>
+        <DefaultButton text="Open Saved Analysis Result (.json)" onClick={this.openSaved} />
+        <PrimaryButton text="Analyze" onClick={this.analyzeHandler} />
+        {
+          this.state.analyzingStatus === 'processing' &&
+          <div>
+            <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
+            <div>Analyzing page...</div>
+            <div>This process might take up to one minute.</div>
           </div>
-          <div className="card-body">
-            <button type="button" className="btn btn-primary" onClick={this.analyzeHandler}>Analyze</button>
-          </div>
-        </div>
-
-        <div className="card" style={{marginTop: '20px'}}>
-          <div className="card-body">
-            {
-              this.state.analyzingStatus === 'processing' &&
-              <div className="spinner-border text-primary" role="status">
-              </div>
-            }
-            {
-              this.state.analyzingStatus === 'Done!' &&
-              <button type="button" className="btn btn-primary" onClick={this.openQuickReport}>Open Report</button>
-            }
-          </div>
-          </div>
-      </div>
+        }
+        {
+          this.state.analyzingStatus === 'Done!' &&
+          <DefaultButton text="Open Report" onClick={this.openQuickReport} />
+        }
+      </Stack>
     )
   }
 }

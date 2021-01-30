@@ -49,23 +49,23 @@ const chromeExt = {
     new HtmlWebpackPlugin({
       filename: 'popup.html',
       template: './chrome-ext/popup/popup.html',
-      chunks: ['popup']
+      chunks: ['popup','style']
     }),
     new HtmlWebpackPlugin({
       filename: 'preferences.html',
       template: './chrome-ext/preferences/preferences.html',
-      chunks: ['preferences']
+      chunks: ['preferences', 'style']
     }),
     new HtmlWebpackPlugin({
       filename: 'report.html',
       template: './chrome-ext/report/report.html',
-      chunks: ['report']
+      chunks: ['report', 'style']
     }),
     // @ts-ignore
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      // filename: '[name].css',
+      filename: '[name].css',
       // chunkFilename: '[id].css',
     }),
     // @ts-ignore
@@ -78,7 +78,8 @@ const chromeExt = {
     extensions: [ '.tsx', '.ts', '.js' ],
     alias: {
       "Core": path.resolve(__dirname, './core'),
-      "ChromeExt": path.resolve(__dirname, './chrome-ext/lib')
+      "ChromeExt": path.resolve(__dirname, './chrome-ext/lib'),
+      "Executor": path.resolve(__dirname, './executor'),
     }
   },
   output: {

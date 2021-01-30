@@ -2,6 +2,9 @@ import { ElementPosition } from 'Core/types/types';
 
 export interface PlotterResult {
     canvas: HTMLCanvasElement,
+    /**
+     * Percentage of area in each grid
+     */
     distribution: number[][]
 }
 
@@ -34,28 +37,27 @@ export interface PlotterConfig {
 
 /**
  * For plotting components on canvas
- * @param components 
- * @param config 
+ * @param components
+ * @param config
  */
 export function plotter(
     canvas: HTMLCanvasElement,
     components: ElementPosition[],
-    config: PlotterConfig)
-    : PlotterResult {
-
-    const pageHeight = config.pageHeight;
-    const pageWidth = config.pageWidth;
-    const tileSize = config.tileSize;
+    config: PlotterConfig,
+): PlotterResult {
+    const { pageHeight } = config;
+    const { pageWidth } = config;
+    const { tileSize } = config;
     const blockColor = config.blockColor ?? '#000000';
-    const backgroundColor = config.blockColor ?? false;
+    const backgroundColor = config.backgroundColor ?? false;
     const skipResizingCanvas: boolean = config.skipResizingCanvas ?? false;
 
     const totalColumns = Math.floor(pageWidth / tileSize);
     const totalRows = Math.floor(pageHeight / tileSize);
 
     // Center shift if the width & height are not multiples of tileSize
-    const colShift = Math.floor((pageWidth - (totalColumns * tileSize))/2);
-    const rowShift = Math.floor((pageHeight - (totalRows * tileSize))/2);
+    const colShift = Math.floor((pageWidth - (totalColumns * tileSize)) / 2);
+    const rowShift = Math.floor((pageHeight - (totalRows * tileSize)) / 2);
 
     if (skipResizingCanvas === false) {
         canvas.width = pageWidth;
@@ -67,13 +69,13 @@ export function plotter(
     if (ctx === null) throw new Error('Fail to getContext ctx');
 
     // Fill bg
-    if (typeof config.backgroundColor === 'string') {
-        ctx.fillStyle = config.backgroundColor;
+    if (typeof backgroundColor === 'string') {
+        ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, pageWidth, pageHeight);
     }
 
     // Add blocks
-    ctx.fillStyle = config.blockColor ?? '#000000';
+    ctx.fillStyle = blockColor;
     components.forEach((rect) => {
         ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
     });
@@ -87,7 +89,12 @@ export function plotter(
         for (let col = 0; col < totalColumns; col++) {
             // console.log(col * tileSize, row * tileSize, tileSize, tileSize);
 
-            const imageData = ctx.getImageData(colShift + (col * tileSize), rowShift + (row * tileSize), tileSize, tileSize);
+            const imageData = ctx.getImageData(
+                colShift + (col * tileSize),
+                rowShift + (row * tileSize),
+                tileSize,
+                tileSize,
+            );
             const imagePixels = imageData.data;
 
             let filledPixels = 0;
@@ -99,7 +106,7 @@ export function plotter(
                 const A = imagePixels[i + 3];
 
                 if (
-                    // R === 0 && G === 0 && B === 0 && 
+                    // R === 0 && G === 0 && B === 0 &&
                     A === 255
                 ) {
                     filledPixels += 1;
@@ -139,8 +146,19 @@ export function plotter(
 
     return {
         canvas,
-        distribution
+        distribution,
     };
+}
+
+export function copyCanvasContent(source: HTMLCanvasElement, dest: HTMLCanvasElement) {
+    dest.width = source.width;
+    dest.height = source.height;
+
+    var destCtx = dest.getContext('2d');
+
+    if (!destCtx) return;
+
+    destCtx.drawImage(source, 0, 0);
 }
 
 // TODO: Create grid draw utils

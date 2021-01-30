@@ -1,21 +1,17 @@
 {
-  "name": "Smart Web Design Scraper",
+  "name": "Web Design Scraper",
   "version": "1.0",
-  "description": "Smart Web Design Scraper",
-  "manifest_version": 2,
+  "description": "Web Design Scraper",
+  "manifest_version": 3,
   "permissions": [
     "tabCapture",
     "activeTab",
     "declarativeContent",
     "storage",
-    "captureVisibleTab",
-    "tabs"
+    "tabs",
+    "unlimitedStorage"
   ],
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
-  "page_action": {
+  "action": {
     "default_popup": "popup.html"
   },
   "options_page": "preferences.html"
