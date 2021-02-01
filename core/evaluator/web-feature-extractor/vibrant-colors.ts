@@ -1,6 +1,8 @@
 import Vibrant from 'node-vibrant';
 import { VibrantColorsExtractResult, VibrantColorsPallete } from 'Core/types/feature-extractor';
 import { equalWithTolerance } from 'Core/utils/equality';
+import { colorEquality } from 'Core/utils/color';
+import { Color } from 'Core/types/types';
 
 /**
  * Get vibrant color from an image (using node-vibrant library)
@@ -45,12 +47,18 @@ export async function vibrantColorsExtract(imageURI: string): Promise<VibrantCol
             const pixelCount: [number, number, number, number, number, number] = [0, 0, 0, 0, 0, 0];
 
             for (let i = 0; i < imagePixels.length; i += 4) {
-                for (let v = 0; v < 5; v += 1) {
+                const currentImagePixel: Color = {r: imagePixels[i], g: imagePixels[i + 1], b: imagePixels[i + 2]};
+                for (let v = 0; v < 6; v += 1) {
                     // Check with 20% tollerance
                     if (
-                        equalWithTolerance(imagePixels[i], rgb[v][0], 51)
-                        && equalWithTolerance(imagePixels[i + 1], rgb[v][1], 51)
-                        && equalWithTolerance(imagePixels[i + 2], rgb[v][2], 51)
+                        // colorEquality(
+                        //     currentImagePixel,
+                        //     {r: rgb[v][0], g: rgb[v][1], b: rgb[v][2]},
+                        //     3
+                        // )
+                        equalWithTolerance(currentImagePixel.r, rgb[v][0], 51)
+                        && equalWithTolerance(currentImagePixel.g, rgb[v][1], 51)
+                        && equalWithTolerance(currentImagePixel.b, rgb[v][2], 51)
                     ) {
                         pixelCount[v] += 1;
                     }
@@ -58,13 +66,24 @@ export async function vibrantColorsExtract(imageURI: string): Promise<VibrantCol
             }
 
             resolve({
-                vibrantPalette: palette,
-                pixelCountVibrant: pixelCount[0],
-                pixelCountMuted: pixelCount[1],
-                pixelCountDarkVibrant: pixelCount[2],
-                pixelCountDarkMuted: pixelCount[3],
-                pixelCountLightVibrant: pixelCount[4],
-                pixelCountLightMuted: pixelCount[5],
+                vibrantHex: palette.Vibrant?.getHex() ?? '',
+                vibrantPixelCount: pixelCount[0],
+                vibrantPixelPercentage: pixelCount[0] / area,
+                mutedHex: palette.Muted?.getHex() ?? '',
+                mutedPixelCount: pixelCount[1],
+                mutedPixelPercentage: pixelCount[1] / area,
+                darkVibrantHex: palette.DarkVibrant?.getHex() ?? '',
+                darkVibrantPixelCount: pixelCount[2],
+                darkVibrantPixelPercentage: pixelCount[2] / area,
+                darkMutedHex: palette.DarkMuted?.getHex() ?? '',
+                darkMutedPixelCount: pixelCount[3],
+                darkMutedPixelPercentage: pixelCount[3] / area,
+                lightVibrantHex: palette.LightVibrant?.getHex() ?? '',
+                lightVibrantPixelCount: pixelCount[4],
+                lightVibrantPixelPercentage: pixelCount[4] / area,
+                lightMutedHex: palette.LightMuted?.getHex() ?? '',
+                lightMutedPixelCount: pixelCount[5],
+                lightMutedPixelPercentage: pixelCount[5] / area,
                 totalPixels: area,
             });
         };

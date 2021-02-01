@@ -119,13 +119,33 @@ export interface AnchorElementsExtractResult extends GenericElementsExtractResul
 // vibrant-colors
 
 export interface VibrantColorsExtractResult {
-    vibrantPalette: Palette | undefined,
-    pixelCountVibrant: number,
-    pixelCountMuted: number,
-    pixelCountDarkVibrant: number,
-    pixelCountDarkMuted: number,
-    pixelCountLightVibrant: number,
-    pixelCountLightMuted: number,
+    /** #abcdef */
+    vibrantHex: string,
+    /** total pixels that's within vibrant range [0, Infinity]*/
+    vibrantPixelCount: number,
+    /** vibrant pixels over all pixels [0, 1] */
+    vibrantPixelPercentage: number,
+
+    mutedHex: string,
+    mutedPixelCount: number,
+    mutedPixelPercentage: number,
+
+    darkVibrantHex: string,
+    darkVibrantPixelCount: number,
+    darkVibrantPixelPercentage: number,
+
+    darkMutedHex: string,
+    darkMutedPixelCount: number,
+    darkMutedPixelPercentage: number,
+
+    lightVibrantHex: string,
+    lightVibrantPixelCount: number,
+    lightVibrantPixelPercentage: number,
+
+    lightMutedHex: string,
+    lightMutedPixelCount: number,
+    lightMutedPixelPercentage: number,
+
     totalPixels: number
 }
 

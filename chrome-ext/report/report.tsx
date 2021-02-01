@@ -10,6 +10,7 @@ import { Phase3 } from 'Executor/phases';
 import { copyCanvasContent } from 'Core/utils/canvas';
 import { OverviewReport } from './sections/overview';
 import { SymmetryPixelReport } from './sections/symmetry-pixel';
+import { DominantColorsReport } from './sections/dominant-colors';
 // import { PartialDeep } from 'type-fest';
 
 initializeIcons();
@@ -469,6 +470,10 @@ class App extends React.Component {
                   <h2>Visualization</h2>
                   <canvas ref={this.state.simplicityVerticalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
                 </div>
+            }
+            {
+              this.state.currentPage === 'dominant-colors' &&
+              <DominantColorsReport reportState={this.state}/>
             }
 
           </div>
