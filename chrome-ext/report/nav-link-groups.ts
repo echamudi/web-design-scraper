@@ -116,16 +116,16 @@ const navLinkGroups: INavLinkGroup[] = [
             },
         ],
     },
-    {
-        name: 'Structure',
-        links: [
-            {
-                name: 'Negative Space (Text)',
-                key: 'negative-space-text',
-                url: '',
-            },
-        ],
-    },
+    // {
+    //     name: 'Structure',
+    //     links: [
+    //         {
+    //             name: 'Negative Space (Text)',
+    //             key: 'negative-space-text',
+    //             url: '',
+    //         },
+    //     ],
+    // },
 ];
 
 export { navLinkGroups };

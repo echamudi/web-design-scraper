@@ -33,16 +33,19 @@ export class SymmetryPixelReport extends React.Component<Props> {
           <thead>
             <tr>
               <th style={{ width: 200 }}>Metric</th>
+              <th style={{ width: 50 }}>Scale</th>
               <th style={{ width: 300 }}>Value</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Horizontal Ciede Average</td>
+              <td>[0,100]</td>
               <td>{this.props.colorSymmetry.horizontal.ciede2000average}</td>
             </tr>
             <tr>
               <td>Vertical Ciede Average</td>
+              <td>[0,100]</td>
               <td>{this.props.colorSymmetry.vertical.ciede2000average}</td>
             </tr>
           </tbody>
