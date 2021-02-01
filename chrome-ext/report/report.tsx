@@ -149,22 +149,22 @@ class App extends React.Component {
                   <tbody>
                     <tr>
                       <td>Score</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.score}</td>
                     </tr>
                     <tr>
                       <td>Maximum Grid Complexity</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.data.maxDensity}</td>
                     </tr>
                     <tr>
                       <td>Minimum Grid Complexity Score</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.data.minDensity}</td>
                     </tr>
                     <tr>
                       <td>Average</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.data.average}</td>
                     </tr>
                   </tbody>
@@ -202,22 +202,22 @@ class App extends React.Component {
                   <tbody>
                     <tr>
                       <td>Score</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.score}</td>
                     </tr>
                     <tr>
                       <td>Maximum Grid Complexity</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.data.maxDensity}</td>
                     </tr>
                     <tr>
                       <td>Minimum Grid Complexity Score</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.data.minDensity}</td>
                     </tr>
                     <tr>
                       <td>Average</td>
-                      <td>[0,1]</td>
+                      <td>[0, 1]</td>
                       <td>{this.state.phase3?.complexityTextDom?.data.average}</td>
                     </tr>
                   </tbody>
@@ -320,27 +320,157 @@ class App extends React.Component {
                 [VIZ]
               </div>
             }
-
             {
-              this.state.currentPage === 'simplicity-horizontal' &&
+              this.state.currentPage === 'economy-image-dom' &&
               <div className="report-details-container">
                 <h1>
-                  Simplicity (Horizontal)
+                  Economy (Image DOM)
                 </h1>
                 <hr />
-                <canvas ref={this.state.simplicityHorizontalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
+
+                <p>
+                  The economy-images algorithm checks the consistency of image elements area.
+                </p>
+                <p><b>Detection Scope : </b> Entire Page</p>
+                <hr />
+
+                <h2>
+                  Design Scraping Result
+                </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Metric</th>
+                      <th style={{ width: 50 }}>Scale</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Score</td>
+                      <td>[0, 1]</td>
+                      <td>{phase3.economyImageDom?.score ?? 'N/A'}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr />
+                <h2>Visualization</h2>
+                [VIZ]
               </div>
+            }
+            {
+              this.state.currentPage === 'economy-text-dom' &&
+                <div className="report-details-container">
+                  <h1>
+                    Economy (Text)
+                  </h1>
+                  <hr />
+
+                  <p>
+                    The economy-text algorithm checks the consistency of text elements area.
+                  </p>
+                  <p><b>Detection Scope : </b> Entire Page</p>
+                  <hr />
+
+                  <h2>
+                    Design Scraping Result
+                  </h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style={{ width: 200 }}>Metric</th>
+                        <th style={{ width: 50 }}>Scale</th>
+                        <th style={{ width: 300 }}>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Score</td>
+                        <td>[0, 1]</td>
+                        <td>{phase3.economyTextDom?.score}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr />
+                  <h2>Visualization</h2>
+                  [VIZ]
+                </div>
+            }
+            {
+              this.state.currentPage === 'simplicity-horizontal' &&
+                <div className="report-details-container">
+                  <h1>
+                    Simplicity (Horizontal)
+                  </h1>
+                  <hr />
+
+                  <p>
+                    The simplicity-horizontal algorithm checks total number of alignment points in x-axis.                  </p>
+                  <p><b>Detection Scope : </b> Visible Viewport Area</p>
+                  <hr />
+
+                  <h2>
+                    Design Scraping Result
+                  </h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style={{ width: 200 }}>Metric</th>
+                        <th style={{ width: 50 }}>Scale</th>
+                        <th style={{ width: 300 }}>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Score</td>
+                        <td>[0, 1]</td>
+                        <td>{phase3.simplicityHorizontal?.score}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr />
+                  <h2>Visualization</h2>
+                  <canvas ref={this.state.simplicityHorizontalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
+                </div>
             }
             {
               this.state.currentPage === 'simplicity-vertical' &&
-              <div className="report-details-container">
-                <h1>
-                  Simplicity (Vertical)
-                </h1>
-                <hr />
-                <canvas ref={this.state.simplicityVerticalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
-              </div>
+                <div className="report-details-container">
+                  <h1>
+                    Simplicity (Vertical)
+                  </h1>
+                  <hr />
+
+                  <p>
+                    The simplicity-vertical algorithm checks total number of alignment points in y-axis.                  </p>
+                  <p><b>Detection Scope : </b> Visible Viewport Area</p>
+                  <hr />
+
+                  <h2>
+                    Design Scraping Result
+                  </h2>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style={{ width: 200 }}>Metric</th>
+                        <th style={{ width: 50 }}>Scale</th>
+                        <th style={{ width: 300 }}>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Score</td>
+                        <td>[0, 1]</td>
+                        <td>{phase3.simplicityVertical?.score}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr />
+                  <h2>Visualization</h2>
+                  <canvas ref={this.state.simplicityVerticalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
+                </div>
             }
+
           </div>
         </div>
         <>
