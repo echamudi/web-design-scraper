@@ -80,7 +80,7 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.webPageData === null) {
+    if (this.state.webPageData === null || this.state.phase3 === undefined) {
       return (
         <div style={{
           height: '100vh',
@@ -94,8 +94,11 @@ class App extends React.Component {
       )
     }
 
-    const miniVw = this.state.webPageData.browserInfo.viewportWidth / 2;
-    const miniVh = this.state.webPageData.browserInfo.viewportHeight / 2;
+    const phase3 = this.state.phase3;
+    const webPageData = this.state.webPageData;
+
+    const miniVw = webPageData.browserInfo.viewportWidth / 2;
+    const miniVh = webPageData.browserInfo.viewportHeight / 2;
 
     return (
       <div className="report">
@@ -178,6 +181,50 @@ class App extends React.Component {
                   Density (Pixel)
                 </h1>
                 <hr />
+
+                <p>In pixel-based density, the algorithm checks the most used color and compare the number with total pixels.
+                Low density value will output higher score.
+                </p>
+                <p><b>Detection Scope : </b> Visible Viewport Area</p>
+                <hr />
+
+                <h2>
+                  Design Scraping Result
+                </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Metric</th>
+                      <th style={{ width: 50 }}>Scale</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Score</td>
+                      <td>[0,1]</td>
+                      <td>{this.state.phase3?.complexityTextDom?.score}</td>
+                    </tr>
+                    <tr>
+                      <td>Maximum Grid Complexity</td>
+                      <td>[0,1]</td>
+                      <td>{this.state.phase3?.complexityTextDom?.data.maxDensity}</td>
+                    </tr>
+                    <tr>
+                      <td>Minimum Grid Complexity Score</td>
+                      <td>[0,1]</td>
+                      <td>{this.state.phase3?.complexityTextDom?.data.minDensity}</td>
+                    </tr>
+                    <tr>
+                      <td>Average</td>
+                      <td>[0,1]</td>
+                      <td>{this.state.phase3?.complexityTextDom?.data.average}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr />
+
+                <h2>Visualization</h2>
                 <p><b>Most used color area</b></p>
                 <img style={{ width: this.state.webPageData.browserInfo.viewportWidth / 2 }} src={this.state.webPageData.colorDistribution.colorTop1.visualization} alt="" />
               </div>
@@ -187,11 +234,93 @@ class App extends React.Component {
               <div className="report-details-container">
                 <h1>
                   Density (DOM)
-                </h1>
+              </h1>
                 <hr />
+
+                <p>
+                  In DOM based density, we compared the major elements towards empty area.
+              </p>
+                <p><b>Detection Scope : </b> Entire Page</p>
+                <hr />
+
+                <h2>
+                  Design Scraping Result
+              </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Metric</th>
+                      <th style={{ width: 50 }}>Scale</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Score</td>
+                      <td>[0, 1]</td>
+                      <td>{phase3.densityMajorDom?.score}</td>
+                    </tr>
+                    <tr>
+                      <td>Maximum Grid Density</td>
+                      <td>[0, 1]</td>
+                      <td>{phase3.densityMajorDom?.data.maxDensity}</td>
+                    </tr>
+                    <tr>
+                      <td>Minimum Grid Density</td>
+                      <td>[0, 1]</td>
+                      <td>{phase3.densityMajorDom?.data.minDensity}</td>
+                    </tr>
+                    <tr>
+                      <td>Average Density</td>
+                      <td>[0, 1]</td>
+                      <td>{phase3.densityMajorDom?.data.average}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr />
+                <h2>Visualization</h2>
                 <canvas ref={this.state.densityMajorDomViz} style={{ width: miniVw, border: 'red solid 2px' }} />
               </div>
             }
+            {
+              this.state.currentPage === 'cohesion-image-dom' &&
+              <div className="report-details-container">
+                <h1>
+                  Cohesion (Image DOM)
+                </h1>
+                <hr />
+
+                <p>
+                The cohesion algorithm checks the consistency of image aspect ratio.
+                </p>
+                <p><b>Detection Scope : </b> Entire Page</p>
+                <hr />
+
+                <h2>
+                  Design Scraping Result
+                </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Metric</th>
+                      <th style={{ width: 50 }}>Scale</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Score</td>
+                      <td>[0, 1]</td>
+                      <td>{phase3.cohesionImageDom?.score}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr />
+                <h2>Visualization</h2>
+                [VIZ]
+              </div>
+            }
+
             {
               this.state.currentPage === 'simplicity-horizontal' &&
               <div className="report-details-container">
