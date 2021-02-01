@@ -138,7 +138,7 @@ class Analyzer extends React.Component {
   render() {
     return (
       <Stack tokens={{ childrenGap: 10 }}>
-        <DefaultButton text="Open Saved Analysis Result (.json)" onClick={this.openSaved} />
+        {/* <DefaultButton text="Open Saved Analysis Result (.json)" onClick={this.openSaved} /> */}
         <PrimaryButton text="Analyze" onClick={this.analyzeHandler} />
         {
           this.state.analyzingStatus === 'processing' &&
