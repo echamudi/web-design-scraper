@@ -51,6 +51,8 @@ export interface GenericElement {
      * Aspect ratio is undefined if DIV/0
      */
     aspectRatio: number | undefined
+
+    // TODO: Add property to show within viewport or not.
 }
 
 export interface GenericElementsExtractResult {
