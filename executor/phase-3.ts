@@ -42,6 +42,7 @@ export class Phase3 {
     public economyTextDom: ConsistencyScoreCalculateResult | undefined;
     public simplicityHorizontal: AlignmentPointsScoreCalculateResult | undefined;
     public simplicityVertical: AlignmentPointsScoreCalculateResult | undefined;
+    public graphicPictures: GraphicPicturesScoreCalculateResult | undefined;
 
     // Display Canvas
     public displayCanvas: HTMLCanvasElement | undefined;
@@ -49,6 +50,7 @@ export class Phase3 {
     public densityMajorDomViz: HTMLCanvasElement | undefined;
     public simplicityHorizontalViz: HTMLCanvasElement | undefined;
     public simplicityVerticalViz: HTMLCanvasElement | undefined;
+    public graphicPicturesViz: HTMLCanvasElement | undefined;
 
     constructor(doc: Document, features: Phase2Result) {
         // Save features to the object
@@ -90,8 +92,6 @@ export class Phase3 {
             this.plotterConfig
         ).distribution;
 
-        this.calculateAllScores();
-
         // Draw display canvases
         // TODO: Seperate these functionalities out of Phase3
         this.displayCanvas = doc.createElement('canvas');
@@ -117,6 +117,10 @@ export class Phase3 {
         this.densityMajorDomVizDraw();
         this.simplicityHorizontalVizDraw();
         this.simplicityVerticalVizDraw();
+        this.graphicPicturesVizDraw();
+
+        // Calculate all scores
+        this.calculateAllScores();
     }
 
     public calculateComplexityTextDom(config?: BlockDensityScoreCalculateConfig) {
@@ -173,6 +177,38 @@ export class Phase3 {
         );
     }
 
+    public calculateGraphicPictures() {
+        if (this.graphicPicturesViz === undefined) {
+            console.log('this.graphicPicturesViz not found');
+            return;
+        }
+        const ctx = this.graphicPicturesViz.getContext('2d');
+        const imgData = ctx?.getImageData(0, 0, this.graphicPicturesViz.width, this.graphicPicturesViz.height);
+        if (imgData === undefined) {
+            console.log('imgData not found');
+            return;
+        }
+
+        const imgDataData = imgData.data;
+        let imageArea = 0;
+
+        for (let i = 0; i < imgDataData.length; i += 4) {
+            if (imgDataData[i] === 242) {
+                imageArea += 1;
+            }
+        }
+
+        const pageArea = this.phase2Features.browserInfo.pageWidth * this.phase2Features.browserInfo.pageHeight;
+
+        const imagePercentage = imageArea / pageArea;
+
+        this.graphicPictures = {
+            imageArea,
+            pageArea,
+            imagePercentage,
+        }
+    }
+
     /**
      * Calculate all scores using the default config
      */
@@ -184,6 +220,7 @@ export class Phase3 {
         this.calculateEconomyTextDom();
         this.calculateSimplicityHorizontal();
         this.calculateSimplicityVertical();
+        this.calculateGraphicPictures();
     }
 
     public getAllScores() {
@@ -412,5 +449,14 @@ export class Phase3 {
         canvas.height = viewportImageData.height;
 
         ctx.putImageData(viewportImageData, 0, 0);
+    }
+
+    public graphicPicturesVizDraw(): void {
+        this.graphicPicturesViz = document.createElement('canvas');
+        const canvas = this.graphicPicturesViz;
+
+        if (!canvas) { console.log('no canvas graphicPicturesVizDraw'); return; }
+
+        plotter(canvas, this.imageElementPositions, { ...this.plotterConfig, backgroundColor: '#FFFFFF', blockColor: 'rgb(242, 120, 75)' });
     }
 }

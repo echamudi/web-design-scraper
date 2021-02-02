@@ -24,6 +24,7 @@ export interface ReportState {
   densityMajorDomViz?: React.RefObject<HTMLCanvasElement>,
   simplicityHorizontalViz?: React.RefObject<HTMLCanvasElement>,
   simplicityVerticalViz?: React.RefObject<HTMLCanvasElement>,
+  graphicPicturesViz?: React.RefObject<HTMLCanvasElement>,
   phase3?: Phase3
 }
 
@@ -60,6 +61,7 @@ class App extends React.Component {
           densityMajorDomViz: React.createRef(),
           simplicityHorizontalViz: React.createRef(),
           simplicityVerticalViz: React.createRef(),
+          graphicPicturesViz: React.createRef(),
           phase3
         };
       }, () => {
@@ -475,7 +477,54 @@ class App extends React.Component {
               this.state.currentPage === 'dominant-colors' &&
               <DominantColorsReport reportState={this.state}/>
             }
+            {
+              this.state.currentPage === 'graphic-pictures' &&
+              <div className="report-details-container">
+                <h1>
+                  Use of Pictures
+                </h1>
+                <hr />
 
+                <p>
+                  Checks the area of the page that is covered by pictures
+                </p>
+                <p><b>Detection Scope : </b> Entire Page</p>
+                <hr />
+
+                <h2>
+                  Design Scraping Result
+                </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Metric</th>
+                      <th style={{ width: 50 }}>Scale</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                      <td>Total Image Area</td>
+                      <td>[0, Inf]</td>
+                      <td>{this.state.phase3.graphicPictures?.imageArea}</td>
+                    </tr>
+                    <tr>
+                      <td>Page Area</td>
+                      <td>[0, Inf]</td>
+                      <td>{this.state.phase3.graphicPictures?.pageArea}</td>
+                    </tr>
+                    <tr>
+                      <td>Image Area Percentage</td>
+                      <td>[0, 1]</td>
+                      <td>{this.state.phase3.graphicPictures?.imagePercentage}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr />
+                <h2>Visualization</h2>
+                <canvas ref={this.state.graphicPicturesViz} style={{ width: miniVw, border: 'red solid 2px' }} />
+              </div>
+            }
           </div>
         </div>
         <>
@@ -512,6 +561,13 @@ class App extends React.Component {
       copyCanvasContent(
         this.state.phase3.simplicityVerticalViz,
         this.state.simplicityVerticalViz.current,
+      )
+    }
+
+    if (this.state.graphicPicturesViz?.current && this.state.phase3?.graphicPicturesViz) {
+      copyCanvasContent(
+        this.state.phase3.graphicPicturesViz,
+        this.state.graphicPicturesViz.current,
       )
     }
   }

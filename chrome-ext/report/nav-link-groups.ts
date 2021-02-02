@@ -94,11 +94,11 @@ const navLinkGroups: INavLinkGroup[] = [
                 key: 'graphic-pictures',
                 url: '',
             },
-            {
-                name: 'Use of Videos',
-                key: 'graphic-videos',
-                url: '',
-            },
+            // {
+            //     name: 'Use of Videos',
+            //     key: 'graphic-videos',
+            //     url: '',
+            // },
         ],
     },
     {
