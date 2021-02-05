@@ -17,12 +17,12 @@ export const configCohesionImageDom: ConsistencyScoreCalculateConfig = {
 
 export const configEconomyImageDom: ConsistencyScoreCalculateConfig = {
     failThreshold: 30,
-    transformer: ((val) => Math.round(val / 10000)),
+    transformer: ((val) => Math.floor(val / 10000)),
 };
 
 export const configEconomyTextDom: ConsistencyScoreCalculateConfig = {
     failThreshold: 30,
-    transformer: ((val) => Math.round(val / 10000)),
+    transformer: ((val) => Math.floor(val / 10000)),
 };
 
 export const configSimplicityHorizontal: AlignmentPointsScoreCalculateConfig = {
