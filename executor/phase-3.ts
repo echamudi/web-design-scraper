@@ -252,31 +252,16 @@ export class Phase3 {
             simplicityHorizontal: this.simplicityHorizontal,
             simplicityVertical: this.simplicityVertical,
             colorDominant: -99,
-            graphicPictures: -99,
+            graphicPictures: this.graphicPictures,
             graphicVideos: -99,
             textSize: -99,
             textTotalFonts: -99,
-            textFontType: -99,
+            textFontType: this.textFontType,
         };
     }
 
     // TEMP: Codes below this line are temporary canvas drawing functionalities to visualize the result
     // TODO: Sepearate the codes below to its own file
-
-    // drawDomElementDetectionCanvas(): false {
-    //     const dedc = document.createElement('canvas');
-
-    //     if (!dedc) { return false; }
-    //     if (!this.displayCanvas) { return false; }
-
-    //     dedc.width = this.phase2Features.browserInfo.pageWidth;
-    //     dedc.height = this.phase2Features.browserInfo.pageHeight;
-
-    //     const destCtx = dedc.getContext('2d');
-    //     destCtx.drawImage(this.finalScoreObj.displayCanvas, 0, 0);
-
-    //     return false;
-    // }
 
     public complexityTextDomVizDraw(): void {
         this.complexityTextDomViz = document.createElement('canvas');
@@ -379,17 +364,6 @@ export class Phase3 {
         // Draw illustration in full page
 
         ctx.drawImage(this.displayCanvas, 0, 0);
-
-        // Outer box
-        // ctx.strokeStyle = 'blue';
-        // ctx.lineWidth = 6;
-        // ctx.beginPath();
-        // ctx.moveTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset);
-        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset);
-        // ctx.lineTo(browserInfo.pageXOffset + browserInfo.viewportWidth - 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        // ctx.lineTo(browserInfo.pageXOffset + 5, browserInfo.pageYOffset + browserInfo.viewportHeight);
-        // ctx.closePath();
-        // ctx.stroke();
 
         Object.keys(this.phase2Features.alignmentPoints.xAlignmentPoints).forEach((axis) => {
             if (this.phase2Features.alignmentPoints.xAlignmentPoints[Number(axis)] > 4096) {
