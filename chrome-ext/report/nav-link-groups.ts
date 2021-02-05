@@ -111,7 +111,7 @@ const navLinkGroups: INavLinkGroup[] = [
             },
             {
                 name: 'Type of Font',
-                key: 'text-total-fonts',
+                key: 'text-font-type',
                 url: '',
             },
         ],

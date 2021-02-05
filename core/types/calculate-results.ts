@@ -12,3 +12,10 @@ interface GraphicPicturesScoreCalculateResult {
      */
     imagePercentage: number;
 }
+
+interface TextFontTypeScoreCalculateResult {
+    /**
+     * How many number of characters for each font stack
+     */
+    fontStacks: Record<string, number>;
+}

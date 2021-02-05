@@ -411,7 +411,8 @@ class App extends React.Component {
                   <hr />
 
                   <p>
-                    The simplicity-horizontal algorithm checks total number of alignment points in x-axis.                  </p>
+                    The simplicity-horizontal algorithm checks total number of alignment points in x-axis.
+                  </p>
                   <p><b>Detection Scope : </b> Visible Viewport Area</p>
                   <hr />
 
@@ -448,7 +449,8 @@ class App extends React.Component {
                   <hr />
 
                   <p>
-                    The simplicity-vertical algorithm checks total number of alignment points in y-axis.                  </p>
+                    The simplicity-vertical algorithm checks total number of alignment points in y-axis.
+                  </p>
                   <p><b>Detection Scope : </b> Visible Viewport Area</p>
                   <hr />
 
@@ -531,6 +533,47 @@ class App extends React.Component {
             {
               this.state.currentPage === 'text-size' &&
               <TextSizeReport textSize={webPageData.textSize}/>
+            }
+            {
+              this.state.currentPage === 'text-font-type' &&
+              <div className="report-details-container">
+                <h1>
+                  Font Type
+                </h1>
+                <hr />
+          
+                <p>
+                  List of font stacks used in the webpage
+                </p>
+                <p><b>Detection Scope : </b> Entire Page</p>
+                <hr />
+          
+                <h2>
+                  Design Scraping Result
+                </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 350 }}>Font Stack</th>
+                      <th style={{ width: 100 }}>Number of characters</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      Object
+                        .keys(phase3.textFontType?.fontStacks ?? {})
+                        .map((fontStack) => <tr>
+                          <td>{fontStack}</td>
+                          <td>{phase3.textFontType?.fontStacks[fontStack]}</td>
+                        </tr>)
+                    }
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             }
           </div>
         </div>

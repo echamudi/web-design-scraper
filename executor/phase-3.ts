@@ -43,6 +43,7 @@ export class Phase3 {
     public simplicityHorizontal: AlignmentPointsScoreCalculateResult | undefined;
     public simplicityVertical: AlignmentPointsScoreCalculateResult | undefined;
     public graphicPictures: GraphicPicturesScoreCalculateResult | undefined;
+    public textFontType: TextFontTypeScoreCalculateResult | undefined;
 
     // Display Canvas
     public displayCanvas: HTMLCanvasElement | undefined;
@@ -209,6 +210,19 @@ export class Phase3 {
         }
     }
 
+    public calculateTextFontType() {
+        const record: Record<string, number> = {};
+        this.phase2Features.textElements.elements.forEach((el) => {
+            if (record[el.fontType] === undefined) record[el.fontType] = 0;
+    
+            record[el.fontType] += el.totalCharacters;
+        });
+
+        this.textFontType = {
+            fontStacks: record
+        };
+    }
+
     /**
      * Calculate all scores using the default config
      */
@@ -221,6 +235,7 @@ export class Phase3 {
         this.calculateSimplicityHorizontal();
         this.calculateSimplicityVertical();
         this.calculateGraphicPictures();
+        this.calculateTextFontType();
     }
 
     public getAllScores() {
