@@ -562,7 +562,7 @@ class App extends React.Component {
                     {
                       Object
                         .keys(phase3.textFontType?.fontStacks ?? {})
-                        .map((fontStack) => <tr>
+                        .map((fontStack, index) => <tr key={fontStack}>
                           <td>{fontStack}</td>
                           <td>{phase3.textFontType?.fontStacks[fontStack]}</td>
                         </tr>)
