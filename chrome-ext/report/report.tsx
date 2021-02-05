@@ -11,6 +11,7 @@ import { copyCanvasContent } from 'Core/utils/canvas';
 import { OverviewReport } from './sections/overview';
 import { SymmetryPixelReport } from './sections/symmetry-pixel';
 import { DominantColorsReport } from './sections/dominant-colors';
+import { TextSizeReport } from './sections/text-size';
 // import { PartialDeep } from 'type-fest';
 
 initializeIcons();
@@ -72,6 +73,8 @@ class App extends React.Component {
 
   prepareReport() {
     if (this.state.webPageData === null) return;
+
+    console.log(this.state.webPageData);
 
     const timestamp = moment.unix(this.state.webPageData.timestamp / 1000).format('LLLL');
 
@@ -525,11 +528,12 @@ class App extends React.Component {
                 <canvas ref={this.state.graphicPicturesViz} style={{ width: miniVw, border: 'red solid 2px' }} />
               </div>
             }
+            {
+              this.state.currentPage === 'text-size' &&
+              <TextSizeReport textSize={webPageData.textSize}/>
+            }
           </div>
         </div>
-        <>
-          {}
-        </>
       </div>
     )
   }
