@@ -58,7 +58,7 @@ export class TextSizeReport extends React.Component<{ textSize: TextSizeExtractR
           </thead>
           <tbody>
             {textSizes.map((textSize, index) => {
-              return <tr key={index}>
+              return <tr key={textSize}>
                 <td>{textSize}px</td>
                 <td>{this.props.textSize.textSizeMap[Number(textSize)]}</td>
               </tr>;
