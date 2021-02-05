@@ -13,6 +13,7 @@ import { SymmetryPixelReport } from './sections/symmetry-pixel';
 import { DominantColorsReport } from './sections/dominant-colors';
 import { TextSizeReport } from './sections/text-size';
 import { DensityPixelReport } from './sections/density-pixel';
+import { ConsistencyScoreReport } from './sections/consistency-score';
 // import { PartialDeep } from 'type-fest';
 
 initializeIcons();
@@ -243,117 +244,30 @@ class App extends React.Component {
             }
             {
               this.state.currentPage === 'cohesion-image-dom' &&
-              <div className="report-details-container">
-                <h1>
-                  Cohesion (Image DOM)
-                </h1>
-                <hr />
-
-                <p>
-                The cohesion algorithm checks the consistency of image aspect ratio.
-                </p>
-                <p><b>Detection Scope : </b> Entire Page</p>
-                <hr />
-
-                <h2>
-                  Design Scraping Result
-                </h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th style={{ width: 200 }}>Metric</th>
-                      <th style={{ width: 50 }}>Scale</th>
-                      <th style={{ width: 300 }}>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Score</td>
-                      <td>[0, 1]</td>
-                      <td>{phase3.cohesionImageDom?.score}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr />
-                <h2>Visualization</h2>
-                [VIZ]
-              </div>
+              <ConsistencyScoreReport
+                consistencyResult={phase3.cohesionImageDom}
+                title="Cohesion (Image DOM)"
+                description={<p>The cohesion algorithm checks the consistency of image aspect ratio.</p>}
+                visualizationDescription={<>Test</>}
+                />
             }
             {
               this.state.currentPage === 'economy-image-dom' &&
-              <div className="report-details-container">
-                <h1>
-                  Economy (Image DOM)
-                </h1>
-                <hr />
-
-                <p>
-                  The economy-images algorithm checks the consistency of image elements area.
-                </p>
-                <p><b>Detection Scope : </b> Entire Page</p>
-                <hr />
-
-                <h2>
-                  Design Scraping Result
-                </h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th style={{ width: 200 }}>Metric</th>
-                      <th style={{ width: 50 }}>Scale</th>
-                      <th style={{ width: 300 }}>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Score</td>
-                      <td>[0, 1]</td>
-                      <td>{phase3.economyImageDom?.score ?? 'N/A'}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr />
-                <h2>Visualization</h2>
-                [VIZ]
-              </div>
+              <ConsistencyScoreReport
+                consistencyResult={phase3.economyImageDom}
+                title="Economy (Image DOM)"
+                description={<p>The economy-images algorithm checks the consistency of image elements area.</p>}
+                visualizationDescription={<>Test</>}
+                />
             }
             {
               this.state.currentPage === 'economy-text-dom' &&
-                <div className="report-details-container">
-                  <h1>
-                    Economy (Text)
-                  </h1>
-                  <hr />
-
-                  <p>
-                    The economy-text algorithm checks the consistency of text elements area.
-                  </p>
-                  <p><b>Detection Scope : </b> Entire Page</p>
-                  <hr />
-
-                  <h2>
-                    Design Scraping Result
-                  </h2>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th style={{ width: 200 }}>Metric</th>
-                        <th style={{ width: 50 }}>Scale</th>
-                        <th style={{ width: 300 }}>Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Score</td>
-                        <td>[0, 1]</td>
-                        <td>{phase3.economyTextDom?.score}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <hr />
-                  <h2>Visualization</h2>
-                  [VIZ]
-                </div>
+              <ConsistencyScoreReport
+                consistencyResult={phase3.economyTextDom}
+                title="Economy (Text)"
+                description={<p>The economy-text algorithm checks the consistency of text elements area.</p>}
+                visualizationDescription={<>Test</>}
+                />
             }
             {
               this.state.currentPage === 'simplicity-horizontal' &&
