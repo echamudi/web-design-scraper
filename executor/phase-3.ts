@@ -239,23 +239,23 @@ export class Phase3 {
     }
 
     public getAllScores() {
-        // TODO: implement -99
+        // TODO: implement undefined
         return {
-            symmetryPixelVertical: -99,
-            symmetryPixelHorizontal: -99,
+            symmetryPixelVertical: undefined,
+            symmetryPixelHorizontal: undefined,
             complexityTextDom: this.complexityTextDom,
-            densityPixel: -99,
+            densityPixel: undefined,
             densityMajorDom: this.densityMajorDom,
             cohesionImageDom: this.cohesionImageDom,
             economyImageDom: this.economyImageDom,
             economyTextDom: this.economyTextDom,
             simplicityHorizontal: this.simplicityHorizontal,
             simplicityVertical: this.simplicityVertical,
-            colorDominant: -99,
+            colorDominant: undefined,
             graphicPictures: this.graphicPictures,
-            graphicVideos: -99,
-            textSize: -99,
-            textTotalFonts: -99,
+            graphicVideos: undefined,
+            textSize: undefined,
+            textTotalFonts: undefined,
             textFontType: this.textFontType,
         };
     }
