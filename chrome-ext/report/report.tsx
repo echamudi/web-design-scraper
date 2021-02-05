@@ -12,6 +12,7 @@ import { OverviewReport } from './sections/overview';
 import { SymmetryPixelReport } from './sections/symmetry-pixel';
 import { DominantColorsReport } from './sections/dominant-colors';
 import { TextSizeReport } from './sections/text-size';
+import { DensityPixelReport } from './sections/density-pixel';
 // import { PartialDeep } from 'type-fest';
 
 initializeIcons();
@@ -182,58 +183,10 @@ class App extends React.Component {
             }
             {
               this.state.currentPage === 'density-pixel' &&
-              <div className="report-details-container">
-                <h1>
-                  Density (Pixel)
-                </h1>
-                <hr />
-
-                <p>In pixel-based density, the algorithm checks the most used color and compare the number with total pixels.
-                Low density value will output higher score.
-                </p>
-                <p><b>Detection Scope : </b> Visible Viewport Area</p>
-                <hr />
-
-                <h2>
-                  Design Scraping Result
-                </h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th style={{ width: 200 }}>Metric</th>
-                      <th style={{ width: 50 }}>Scale</th>
-                      <th style={{ width: 300 }}>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Score</td>
-                      <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.score}</td>
-                    </tr>
-                    <tr>
-                      <td>Maximum Grid Complexity</td>
-                      <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.data.maxDensity}</td>
-                    </tr>
-                    <tr>
-                      <td>Minimum Grid Complexity Score</td>
-                      <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.data.minDensity}</td>
-                    </tr>
-                    <tr>
-                      <td>Average</td>
-                      <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.data.average}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr />
-
-                <h2>Visualization</h2>
-                <p><b>Most used color area</b></p>
-                <img style={{ width: this.state.webPageData.browserInfo.viewportWidth / 2 }} src={this.state.webPageData.colorDistribution.colorTop1.visualization} alt="" />
-              </div>
+              <DensityPixelReport
+                browserInfo={this.state.webPageData.browserInfo}
+                colorCount={this.state.webPageData.colorCount}
+                colorDistribution={this.state.webPageData.colorDistribution}/>
             }
             {
               this.state.currentPage === 'density-major-dom' &&
