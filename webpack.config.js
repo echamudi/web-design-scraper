@@ -71,8 +71,9 @@ const chromeExt = {
     // @ts-ignore
     new CopyWebpackPlugin({
       patterns: [
-      { from: './chrome-ext/manifest.json', to: './manifest.json' },
-    ]})
+        { from: './chrome-ext/manifest.json', to: './manifest.json' },
+        { from: './assets/**/*.*', to: './' },
+      ]})
   ],
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],

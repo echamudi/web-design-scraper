@@ -137,7 +137,8 @@ class App extends React.Component {
     return (
       <div className="report">
         <div className="report-navbar">
-          <div className="report-navbar-title">
+          <img src="./assets/logo-small.svg" height="40"/>
+          <div className="report-navbar-title" style={{margin: '0 10px'}}>
             Web Design Scraper
           </div>
         </div>

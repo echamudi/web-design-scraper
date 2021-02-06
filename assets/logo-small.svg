@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="127px" height="127px" viewBox="0 0 127 127" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo-small</title>
+    <g id="logo-small" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(14.000000, 20.000000)" stroke="#0F283A" stroke-width="3">
+            <rect id="Combined-Shape" fill="#FFFFFF" x="0" y="11" width="100" height="77" rx="4"></rect>
+            <g id="Group-2" transform="translate(25.000000, 25.000000)" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M0,50 L50,50 L50,0 L0,50 Z M39,39 L25,39 L39,25 L39,39 Z" id="Shape" fill="#B7DFFF" fill-rule="nonzero" transform="translate(25.000000, 25.000000) scale(-1, 1) translate(-25.000000, -25.000000) "></path>
+                <line x1="0" y1="8" x2="3" y2="8" id="Path" transform="translate(1.500000, 8.000000) scale(-1, 1) translate(-1.500000, -8.000000) "></line>
+                <line x1="0" y1="14" x2="5" y2="14" id="Path" transform="translate(2.500000, 14.000000) scale(-1, 1) translate(-2.500000, -14.000000) "></line>
+                <line x1="0" y1="20" x2="3" y2="20" id="Path" transform="translate(1.500000, 20.000000) scale(-1, 1) translate(-1.500000, -20.000000) "></line>
+                <line x1="0" y1="26" x2="5" y2="26" id="Path" transform="translate(2.500000, 26.000000) scale(-1, 1) translate(-2.500000, -26.000000) "></line>
+                <line x1="0" y1="32" x2="3" y2="32" id="Path" transform="translate(1.500000, 32.000000) scale(-1, 1) translate(-1.500000, -32.000000) "></line>
+                <line x1="0" y1="38" x2="5" y2="38" id="Path" transform="translate(2.500000, 38.000000) scale(-1, 1) translate(-2.500000, -38.000000) "></line>
+                <line x1="0" y1="44" x2="3" y2="44" id="Path" transform="translate(1.500000, 44.000000) scale(-1, 1) translate(-1.500000, -44.000000) "></line>
+            </g>
+            <path d="M8,0 L47,0 C49.209139,-4.05812251e-16 51,1.790861 51,4 L51,11 L51,11 L4,11 L4,4 C4,1.790861 5.790861,4.05812251e-16 8,0 Z" id="Rectangle" fill="#B7DFFF"></path>
+        </g>
+    </g>
+</svg>

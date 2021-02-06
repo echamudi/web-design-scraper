@@ -40,7 +40,6 @@ class App extends React.Component {
     return (
       <div className="container">
         <Stack tokens={{ childrenGap: 10 }}>
-          <div className="ms-fontSize-32">Web Design Scraper</div>
           <Analyzer />
         </Stack>
       </div>
@@ -138,8 +137,8 @@ class Analyzer extends React.Component {
   render() {
     return (
       <Stack tokens={{ childrenGap: 10 }}>
-        {/* <DefaultButton text="Open Saved Analysis Result (.json)" onClick={this.openSaved} /> */}
-        <PrimaryButton text="Analyze" onClick={this.analyzeHandler} />
+        <img src="./assets/logo.svg" />
+        <PrimaryButton text="Analyze Current Page" onClick={this.analyzeHandler} />
         {
           this.state.analyzingStatus === 'processing' &&
           <div>
@@ -152,6 +151,9 @@ class Analyzer extends React.Component {
           this.state.analyzingStatus === 'Done!' &&
           <DefaultButton text="Open Report" onClick={this.openQuickReport} />
         }
+        <DefaultButton 
+          text="Learn More About Web Design Scraping" 
+          onClick={()=> window.open("https://github.com/echamudi/web-design-scraper", "_blank")} />
       </Stack>
     )
   }
