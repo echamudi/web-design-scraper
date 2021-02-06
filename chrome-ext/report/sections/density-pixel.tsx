@@ -27,7 +27,6 @@ export class DensityPixelReport extends React.Component<Props> {
 
         <p>
           In pixel-based density, the algorithm checks the most used color and compare the number with total pixels.
-          Low density value will output higher score.
         </p>
         <p>
           <b>Detection Scope : </b>
@@ -56,7 +55,7 @@ export class DensityPixelReport extends React.Component<Props> {
                   display: 'inline-block', width: 50, height: 20, backgroundColor: topColorHex,
                 }}
                 />
-                &nbsp;
+                {' '}
                 {topColorHex}
               </td>
             </tr>
@@ -70,7 +69,7 @@ export class DensityPixelReport extends React.Component<Props> {
         <hr />
 
         <h2>Visualization</h2>
-        <p><b>Most used color area</b></p>
+        <p>The blue area is the part of the screenshot that uses the most used color ({topColorHex}).</p>
         <img style={{ width: this.props.browserInfo.viewportWidth / 2 }} src={this.props.colorDistribution.colorTop1.visualization} alt="" />
       </div>
     );

@@ -15,7 +15,7 @@ export function ComplexityTextDomReport(props: {
 
       <p>
         Complexity is defined by the amount of information in each section of the web page.
-        We calculate the complexity by checking the Text area for each grid.
+        We calculate the complexity by checking the percentage of text area for each grid.
       </p>
       <p>
         <b>Detection Scope : </b>
@@ -37,11 +37,6 @@ export function ComplexityTextDomReport(props: {
         </thead>
         <tbody>
           <tr>
-            <td>Score</td>
-            <td>[0, 1]</td>
-            <td>{props.phase3?.complexityTextDom?.score}</td>
-          </tr>
-          <tr>
             <td>Maximum Grid Complexity</td>
             <td>[0, 1]</td>
             <td>{props.phase3?.complexityTextDom?.data.maxDensity}</td>
@@ -55,6 +50,11 @@ export function ComplexityTextDomReport(props: {
             <td>Average</td>
             <td>[0, 1]</td>
             <td>{props.phase3?.complexityTextDom?.data.average}</td>
+          </tr>
+          <tr>
+            <td>Score</td>
+            <td>[0, 1]</td>
+            <td>{props.phase3?.complexityTextDom?.score}</td>
           </tr>
         </tbody>
       </table>

@@ -14,7 +14,7 @@ export function DensityMajorDomReport(props: {
       <hr />
 
       <p>
-        In DOM based density, we compared the major elements towards empty area.
+        In DOM-based density, we compare the major elements area towards empty area.
       </p>
       <p>
         <b>Detection Scope : </b>
@@ -36,11 +36,6 @@ export function DensityMajorDomReport(props: {
         </thead>
         <tbody>
           <tr>
-            <td>Score</td>
-            <td>[0, 1]</td>
-            <td>{props.phase3.densityMajorDom?.score}</td>
-          </tr>
-          <tr>
             <td>Maximum Grid Density</td>
             <td>[0, 1]</td>
             <td>{props.phase3.densityMajorDom?.data.maxDensity}</td>
@@ -55,10 +50,16 @@ export function DensityMajorDomReport(props: {
             <td>[0, 1]</td>
             <td>{props.phase3.densityMajorDom?.data.average}</td>
           </tr>
+          <tr>
+            <td>Score</td>
+            <td>[0, 1]</td>
+            <td>{props.phase3.densityMajorDom?.score}</td>
+          </tr>
         </tbody>
       </table>
       <hr />
       <h2>Visualization</h2>
+      <p>The blue area is text DOM, and the orange area is image based DOM.</p>
       <canvas ref={props.densityMajorDomViz} style={{ width: props.miniVw, border: 'red solid 2px' }} />
     </div>
   );

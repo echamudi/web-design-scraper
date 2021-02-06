@@ -78,8 +78,6 @@ class App extends React.Component {
   prepareReport() {
     if (this.state.webPageData === null) return;
 
-    console.log(this.state.webPageData);
-
     const timestamp = moment.unix(this.state.webPageData.timestamp / 1000).format('LLLL');
 
     this.setState((prevStates: Readonly<ReportState>): ReportState => ({
@@ -87,6 +85,32 @@ class App extends React.Component {
       reportData__timestamp: timestamp,
       reportData__url: this.state.webPageData?.browserInfo.url,
     }));
+  }
+
+  downloadJSON(rs: ReportState) {
+    if (rs.webPageData === null) return;
+
+    const data = {
+      phase2: rs.webPageData,
+      phase3: rs.phase3?.getAllScores(),
+    };
+
+    const text = JSON.stringify(data, undefined, 2);
+    const fileType = 'text/json';
+    const time = moment.unix(rs.webPageData.timestamp / 1000).format('YYYY-MM-DD HH-MM');
+    const fileName = `Web Design Scraping ${time}.json`;
+
+    const blob = new Blob([text], { type: 'text/json' });
+    
+    const a = document.createElement('a');
+    a.download = fileName;
+    a.href = URL.createObjectURL(blob);
+    a.dataset.downloadurl = [fileType, a.download, a.href].join(':');
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function() { URL.revokeObjectURL(a.href); }, 1500);
   }
 
   render() {
@@ -123,7 +147,12 @@ class App extends React.Component {
           </div>
           <div className="report-details">
             {this.state.currentPage === 'meta-overview'
-              && <OverviewReport reportState={this.state} />}
+              && (
+                <OverviewReport 
+                  reportState={this.state}
+                  downloadJSON={() => {this.downloadJSON(this.state)}}
+                />
+              )}
             {this.state.currentPage === 'symmetry-pixel'
               && (
                 <SymmetryPixelReport
@@ -167,8 +196,11 @@ class App extends React.Component {
                 <ConsistencyScoreReport
                   consistencyResult={phase3.cohesionImageDom}
                   title="Cohesion (Image DOM)"
-                  description={<p>The cohesion algorithm checks the consistency of image aspect ratio.</p>}
-                  visualizationDescription={<>Test</>}
+                  description={<p>
+                    The cohesion algorithm checks the consistency of image aspect ratio.
+                    The aspect ratio is width divided by height.
+                  </p>}
+                  visualizationDescription={<></>}
                 />
               )
             }
@@ -178,8 +210,17 @@ class App extends React.Component {
                 <ConsistencyScoreReport
                   consistencyResult={phase3.economyImageDom}
                   title="Economy (Image DOM)"
-                  description={<p>The economy-images algorithm checks the consistency of image elements area.</p>}
-                  visualizationDescription={<>Test</>}
+                  description={<p>
+                    The economy-images algorithm checks the consistency of image elements area.
+                    The areas are rounded to the multiplication of 100x100 sizes.
+                  </p>}
+                  visualizationDescription={<>
+                    <p>
+                      0 means area between 0 and 10000 pxsq,<br/>
+                      1 means area between 10,000 and 20,000 pxsq,<br/>
+                      2 means area between 20,000 and 30,000 pxsq, etc.
+                    </p>
+                  </>}
                 />
               )
             }
@@ -189,8 +230,17 @@ class App extends React.Component {
                 <ConsistencyScoreReport
                   consistencyResult={phase3.economyTextDom}
                   title="Economy (Text)"
-                  description={<p>The economy-text algorithm checks the consistency of text elements area.</p>}
-                  visualizationDescription={<>Test</>}
+                  description={<p>
+                    The economy-text algorithm checks the consistency of text elements area.
+                    The areas are rounded to the multiplication of 100x100 sizes.
+                  </p>}
+                  visualizationDescription={<>
+                    <p>
+                      0 means area between 0 and 10000 pxsq,<br/>
+                      1 means area between 10,000 and 20,000 pxsq,<br/>
+                      2 means area between 20,000 and 30,000 pxsq, etc.
+                    </p>
+                  </>}
                 />
               )
             }
@@ -204,7 +254,8 @@ class App extends React.Component {
                   <hr />
 
                   <p>
-                    The simplicity-horizontal algorithm checks total number of alignment points in x-axis.
+                    The simplicity-horizontal algorithm checks total number of alignment points of elements in x-axis.
+                    Only elements larger than the threshold size are included in the calculation.
                   </p>
                   <p>
                     <b>Detection Scope : </b>
@@ -225,6 +276,11 @@ class App extends React.Component {
                       </tr>
                     </thead>
                     <tbody>
+                      <tr>
+                        <td>Total Alignment Points</td>
+                        <td>[0, 1]</td>
+                        <td>{phase3.simplicityHorizontal?.data.totalSignificantAPs}</td>
+                      </tr>
                       <tr>
                         <td>Score</td>
                         <td>[0, 1]</td>
@@ -248,7 +304,8 @@ class App extends React.Component {
                   <hr />
 
                   <p>
-                    The simplicity-vertical algorithm checks total number of alignment points in y-axis.
+                    The simplicity-vertical algorithm checks total number of alignment points of elements in y-axis.
+                    Only elements larger than the threshold size are included in the calculation.
                   </p>
                   <p>
                     <b>Detection Scope : </b>
@@ -269,6 +326,11 @@ class App extends React.Component {
                       </tr>
                     </thead>
                     <tbody>
+                      <tr>
+                        <td>Total Alignment Points</td>
+                        <td>[0, 1]</td>
+                        <td>{phase3.simplicityVertical?.data.totalSignificantAPs}</td>
+                      </tr>
                       <tr>
                         <td>Score</td>
                         <td>[0, 1]</td>
@@ -296,7 +358,7 @@ class App extends React.Component {
                   <hr />
 
                   <p>
-                    Checks the area of the page that is covered by pictures
+                    This factor item checks the area of the page that is covered by pictures.
                   </p>
                   <p>
                     <b>Detection Scope : </b>
@@ -321,11 +383,6 @@ class App extends React.Component {
                         <td>Total Image Area</td>
                         <td>[0, Inf]</td>
                         <td>{this.state.phase3.graphicPictures?.imageArea}</td>
-                      </tr>
-                      <tr>
-                        <td>Page Area</td>
-                        <td>[0, Inf]</td>
-                        <td>{this.state.phase3.graphicPictures?.pageArea}</td>
                       </tr>
                       <tr>
                         <td>Image Area Percentage</td>
@@ -354,7 +411,7 @@ class App extends React.Component {
                   <hr />
 
                   <p>
-                    List of font stacks used in the webpage
+                    This factor item extracts all used font stacks in the page.
                   </p>
                   <p>
                     <b>Detection Scope : </b>

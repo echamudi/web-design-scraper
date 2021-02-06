@@ -40,7 +40,7 @@ export class TextSizeReport extends React.Component<{ textSize: TextSizeExtractR
         <hr />
 
         <p>
-          In text size detection, all text sizes in the page are checked, and we count how many characters have that text size.
+          In this text size detection, all text sizes in the page are checked, and we count how many characters for each text size.
         </p>
         <p>
           <b>Detection Scope : </b>

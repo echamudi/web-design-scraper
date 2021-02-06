@@ -59,12 +59,12 @@ export class SymmetryPixelReport extends React.Component<Props> {
           Visualization
         </h2>
         <p>
-          In the following visualization, the red parts are the Asymmetrical parts,
+          In the following visualization, the red parts are the asymmetrical parts,
           while the white parts are the symmetrical parts.
         </p>
-        <p><b>Asymmetrical portion (horizontal line)</b></p>
+        <p><b>Asymmetrical portion (horizontal symmetry)</b></p>
         <img style={{ width: this.props.browserInfo.viewportWidth / 2 }} src={this.props.colorSymmetry.horizontal.visualization} alt="" />
-        <p><b>Asymmetrical portion (vertical line)</b></p>
+        <p><b>Asymmetrical portion (vertical symmetry)</b></p>
         <img style={{ height: this.props.browserInfo.viewportHeight / 2 }} src={this.props.colorSymmetry.vertical.visualization} alt="" />
       </div>
     );
