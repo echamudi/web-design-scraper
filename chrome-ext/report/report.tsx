@@ -14,6 +14,8 @@ import { DominantColorsReport } from './sections/dominant-colors';
 import { TextSizeReport } from './sections/text-size';
 import { DensityPixelReport } from './sections/density-pixel';
 import { ConsistencyScoreReport } from './sections/consistency-score';
+import { DensityMajorDomReport } from './sections/density-major-dom';
+import { ComplexityTextDomReport } from './sections/complexity-text-dom';
 // import { PartialDeep } from 'type-fest';
 
 initializeIcons();
@@ -131,16 +133,105 @@ class App extends React.Component {
             }
             {
               this.state.currentPage === 'complexity-text-dom' &&
+              <ComplexityTextDomReport
+                complexityTextDomViz={this.state.complexityTextDomViz}
+                miniVw={miniVw}
+                phase3={phase3}
+              />
+            }
+            {
+              this.state.currentPage === 'density-pixel' &&
+              <DensityPixelReport
+                browserInfo={this.state.webPageData.browserInfo}
+                colorCount={this.state.webPageData.colorCount}
+                colorDistribution={this.state.webPageData.colorDistribution}
+              />
+            }
+            {
+              this.state.currentPage === 'density-major-dom' &&
+              <DensityMajorDomReport
+                densityMajorDomViz={this.state.densityMajorDomViz}
+                miniVw={miniVw}
+                phase3={phase3}
+              />
+            }
+            {
+              this.state.currentPage === 'cohesion-image-dom' &&
+              <ConsistencyScoreReport
+                consistencyResult={phase3.cohesionImageDom}
+                title="Cohesion (Image DOM)"
+                description={<p>The cohesion algorithm checks the consistency of image aspect ratio.</p>}
+                visualizationDescription={<>Test</>}
+              />
+            }
+            {
+              this.state.currentPage === 'economy-image-dom' &&
+              <ConsistencyScoreReport
+                consistencyResult={phase3.economyImageDom}
+                title="Economy (Image DOM)"
+                description={<p>The economy-images algorithm checks the consistency of image elements area.</p>}
+                visualizationDescription={<>Test</>}
+              />
+            }
+            {
+              this.state.currentPage === 'economy-text-dom' &&
+              <ConsistencyScoreReport
+                consistencyResult={phase3.economyTextDom}
+                title="Economy (Text)"
+                description={<p>The economy-text algorithm checks the consistency of text elements area.</p>}
+                visualizationDescription={<>Test</>}
+              />
+            }
+            {
+              this.state.currentPage === 'simplicity-horizontal' &&
               <div className="report-details-container">
                 <h1>
-                  Complexity (Text DOM)
+                  Simplicity (Horizontal)
+                  </h1>
+                <hr />
+
+                <p>
+                  The simplicity-horizontal algorithm checks total number of alignment points in x-axis.
+                </p>
+                <p><b>Detection Scope : </b> Visible Viewport Area</p>
+                <hr />
+
+                <h2>
+                  Design Scraping Result
+                  </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th style={{ width: 200 }}>Metric</th>
+                      <th style={{ width: 50 }}>Scale</th>
+                      <th style={{ width: 300 }}>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Score</td>
+                      <td>[0, 1]</td>
+                      <td>{phase3.simplicityHorizontal?.score}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr />
+                <h2>Visualization</h2>
+                <canvas ref={this.state.simplicityHorizontalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
+              </div>
+            }
+            {
+              this.state.currentPage === 'simplicity-vertical' &&
+              <div className="report-details-container">
+                <h1>
+                  Simplicity (Vertical)
                 </h1>
                 <hr />
 
                 <p>
-                  Complexity is defined by the amount of information in each section of the web page. We calculate the complexity by checking the Text area for each grid.
+                  The simplicity-vertical algorithm checks total number of alignment points in y-axis.
                 </p>
-                <p><b>Detection Scope : </b> Entire Page</p>
+                <p><b>Detection Scope : </b> Visible Viewport Area</p>
                 <hr />
 
                 <h2>
@@ -158,196 +249,18 @@ class App extends React.Component {
                     <tr>
                       <td>Score</td>
                       <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.score}</td>
-                    </tr>
-                    <tr>
-                      <td>Maximum Grid Complexity</td>
-                      <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.data.maxDensity}</td>
-                    </tr>
-                    <tr>
-                      <td>Minimum Grid Complexity Score</td>
-                      <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.data.minDensity}</td>
-                    </tr>
-                    <tr>
-                      <td>Average</td>
-                      <td>[0, 1]</td>
-                      <td>{this.state.phase3?.complexityTextDom?.data.average}</td>
+                      <td>{phase3.simplicityVertical?.score}</td>
                     </tr>
                   </tbody>
                 </table>
                 <hr />
                 <h2>Visualization</h2>
-                <canvas ref={this.state.complexityTextDomViz} style={{ width: miniVw, border: 'red solid 2px' }} />
+                <canvas ref={this.state.simplicityVerticalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
               </div>
-            }
-            {
-              this.state.currentPage === 'density-pixel' &&
-              <DensityPixelReport
-                browserInfo={this.state.webPageData.browserInfo}
-                colorCount={this.state.webPageData.colorCount}
-                colorDistribution={this.state.webPageData.colorDistribution}/>
-            }
-            {
-              this.state.currentPage === 'density-major-dom' &&
-              <div className="report-details-container">
-                <h1>
-                  Density (DOM)
-              </h1>
-                <hr />
-
-                <p>
-                  In DOM based density, we compared the major elements towards empty area.
-              </p>
-                <p><b>Detection Scope : </b> Entire Page</p>
-                <hr />
-
-                <h2>
-                  Design Scraping Result
-              </h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th style={{ width: 200 }}>Metric</th>
-                      <th style={{ width: 50 }}>Scale</th>
-                      <th style={{ width: 300 }}>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Score</td>
-                      <td>[0, 1]</td>
-                      <td>{phase3.densityMajorDom?.score}</td>
-                    </tr>
-                    <tr>
-                      <td>Maximum Grid Density</td>
-                      <td>[0, 1]</td>
-                      <td>{phase3.densityMajorDom?.data.maxDensity}</td>
-                    </tr>
-                    <tr>
-                      <td>Minimum Grid Density</td>
-                      <td>[0, 1]</td>
-                      <td>{phase3.densityMajorDom?.data.minDensity}</td>
-                    </tr>
-                    <tr>
-                      <td>Average Density</td>
-                      <td>[0, 1]</td>
-                      <td>{phase3.densityMajorDom?.data.average}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr />
-                <h2>Visualization</h2>
-                <canvas ref={this.state.densityMajorDomViz} style={{ width: miniVw, border: 'red solid 2px' }} />
-              </div>
-            }
-            {
-              this.state.currentPage === 'cohesion-image-dom' &&
-              <ConsistencyScoreReport
-                consistencyResult={phase3.cohesionImageDom}
-                title="Cohesion (Image DOM)"
-                description={<p>The cohesion algorithm checks the consistency of image aspect ratio.</p>}
-                visualizationDescription={<>Test</>}
-                />
-            }
-            {
-              this.state.currentPage === 'economy-image-dom' &&
-              <ConsistencyScoreReport
-                consistencyResult={phase3.economyImageDom}
-                title="Economy (Image DOM)"
-                description={<p>The economy-images algorithm checks the consistency of image elements area.</p>}
-                visualizationDescription={<>Test</>}
-                />
-            }
-            {
-              this.state.currentPage === 'economy-text-dom' &&
-              <ConsistencyScoreReport
-                consistencyResult={phase3.economyTextDom}
-                title="Economy (Text)"
-                description={<p>The economy-text algorithm checks the consistency of text elements area.</p>}
-                visualizationDescription={<>Test</>}
-                />
-            }
-            {
-              this.state.currentPage === 'simplicity-horizontal' &&
-                <div className="report-details-container">
-                  <h1>
-                    Simplicity (Horizontal)
-                  </h1>
-                  <hr />
-
-                  <p>
-                    The simplicity-horizontal algorithm checks total number of alignment points in x-axis.
-                  </p>
-                  <p><b>Detection Scope : </b> Visible Viewport Area</p>
-                  <hr />
-
-                  <h2>
-                    Design Scraping Result
-                  </h2>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th style={{ width: 200 }}>Metric</th>
-                        <th style={{ width: 50 }}>Scale</th>
-                        <th style={{ width: 300 }}>Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Score</td>
-                        <td>[0, 1]</td>
-                        <td>{phase3.simplicityHorizontal?.score}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <hr />
-                  <h2>Visualization</h2>
-                  <canvas ref={this.state.simplicityHorizontalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
-                </div>
-            }
-            {
-              this.state.currentPage === 'simplicity-vertical' &&
-                <div className="report-details-container">
-                  <h1>
-                    Simplicity (Vertical)
-                  </h1>
-                  <hr />
-
-                  <p>
-                    The simplicity-vertical algorithm checks total number of alignment points in y-axis.
-                  </p>
-                  <p><b>Detection Scope : </b> Visible Viewport Area</p>
-                  <hr />
-
-                  <h2>
-                    Design Scraping Result
-                  </h2>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th style={{ width: 200 }}>Metric</th>
-                        <th style={{ width: 50 }}>Scale</th>
-                        <th style={{ width: 300 }}>Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Score</td>
-                        <td>[0, 1]</td>
-                        <td>{phase3.simplicityVertical?.score}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <hr />
-                  <h2>Visualization</h2>
-                  <canvas ref={this.state.simplicityVerticalViz} style={{ width: miniVw, border: 'red solid 2px' }} />
-                </div>
             }
             {
               this.state.currentPage === 'dominant-colors' &&
-              <DominantColorsReport reportState={this.state}/>
+              <DominantColorsReport reportState={this.state} />
             }
             {
               this.state.currentPage === 'graphic-pictures' &&
@@ -375,7 +288,7 @@ class App extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                    <tr>
                       <td>Total Image Area</td>
                       <td>[0, Inf]</td>
                       <td>{this.state.phase3.graphicPictures?.imageArea}</td>
@@ -399,7 +312,7 @@ class App extends React.Component {
             }
             {
               this.state.currentPage === 'text-size' &&
-              <TextSizeReport textSize={webPageData.textSize}/>
+              <TextSizeReport textSize={webPageData.textSize} />
             }
             {
               this.state.currentPage === 'text-font-type' &&
@@ -408,13 +321,13 @@ class App extends React.Component {
                   Font Type
                 </h1>
                 <hr />
-          
+
                 <p>
                   List of font stacks used in the webpage
                 </p>
                 <p><b>Detection Scope : </b> Entire Page</p>
                 <hr />
-          
+
                 <h2>
                   Design Scraping Result
                 </h2>
