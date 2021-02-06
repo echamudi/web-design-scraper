@@ -1,6 +1,6 @@
 # Web Design Scraper
 
-<!-- TODO Add logo -->
+<img src="./assets/logo.svg"/>
 
 Web Design Scraper is a tool to extract web design metrics from a web page. This repo contains the early implementation of the web design scraping concept that we coined in [our research paper](https://ieeexplore.ieee.org/abstract/document/9271770).
 
