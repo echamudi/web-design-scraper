@@ -8,7 +8,7 @@ export class OverviewReport extends React.Component<{ reportState: ReportState }
 
   render() {
     const rs = this.props.reportState;
-    if (rs.webPageData === null) return <div></div>;
+    if (rs.webPageData === null) return <div />;
 
     return (
       <div className="report-details-container">
@@ -17,8 +17,14 @@ export class OverviewReport extends React.Component<{ reportState: ReportState }
         </h1>
         <hr />
         <p>
-          <b>URL: </b> <a href={rs.reportData__url} target="_blank" rel="noopener noreferrer">{rs.reportData__url}</a><br />
-          <b>Date: </b> {rs.reportData__timestamp}<br />
+          <b>URL: </b>
+          {' '}
+          <a href={rs.reportData__url} target="_blank" rel="noopener noreferrer">{rs.reportData__url}</a>
+          <br />
+          <b>Date: </b>
+          {' '}
+          {rs.reportData__timestamp}
+          <br />
         </p>
         <img src={rs.webPageData.viewportScreenshot.image} style={{ width: 800 }} />
         <hr />

@@ -9,7 +9,7 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
 
   render() {
     const rs = this.props.reportState;
-    if (rs.webPageData === null) return <div></div>;
+    if (rs.webPageData === null) return <div />;
 
     return (
       <div className="report-details-container">
@@ -19,9 +19,17 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
         <hr />
 
         <p>
-          Extracted dominant colors by using <a href="https://github.com/Vibrant-Colors/node-vibrant" rel="noopener">Vibrant</a> library.
+          Extracted dominant colors by using
+          {' '}
+          <a href="https://github.com/Vibrant-Colors/node-vibrant" rel="noopener">Vibrant</a>
+          {' '}
+          library.
         </p>
-        <p><b>Detection Scope : </b> Visible Viewport Area</p>
+        <p>
+          <b>Detection Scope : </b>
+          {' '}
+          Visible Viewport Area
+        </p>
         <hr />
         <h2>
           Design Scraping Result
@@ -42,8 +50,11 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
               <td>Vibrant Hex</td>
               <td>-</td>
               <td>
-                <span style={{ display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.vibrantHex }}>
-                </span>&nbsp;
+                <span style={{
+                  display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.vibrantHex,
+                }}
+                />
+                &nbsp;
                 {rs.webPageData.vibrantColors.vibrantHex}
               </td>
             </tr>
@@ -57,8 +68,11 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
               <td>Muted Hex</td>
               <td>-</td>
               <td>
-                <span style={{ display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.mutedHex }}>
-                </span>&nbsp;
+                <span style={{
+                  display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.mutedHex,
+                }}
+                />
+                &nbsp;
                 {rs.webPageData.vibrantColors.mutedHex}
               </td>
             </tr>
@@ -72,8 +86,11 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
               <td>Dark Vibrant Hex</td>
               <td>-</td>
               <td>
-                <span style={{ display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.darkVibrantHex }}>
-                </span>&nbsp;
+                <span style={{
+                  display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.darkVibrantHex,
+                }}
+                />
+                &nbsp;
                 {rs.webPageData.vibrantColors.darkVibrantHex}
               </td>
             </tr>
@@ -87,8 +104,11 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
               <td>Dark Muted Hex</td>
               <td>-</td>
               <td>
-                <span style={{ display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.darkMutedHex }}>
-                </span>&nbsp;
+                <span style={{
+                  display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.darkMutedHex,
+                }}
+                />
+                &nbsp;
                 {rs.webPageData.vibrantColors.darkMutedHex}
               </td>
             </tr>
@@ -102,8 +122,11 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
               <td>Light Vibrant Hex</td>
               <td>-</td>
               <td>
-                <span style={{ display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.lightVibrantHex }}>
-                </span>&nbsp;
+                <span style={{
+                  display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.lightVibrantHex,
+                }}
+                />
+                &nbsp;
                 {rs.webPageData.vibrantColors.lightVibrantHex}
               </td>
             </tr>
@@ -117,8 +140,11 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
               <td>Light Muted Hex</td>
               <td>-</td>
               <td>
-                <span style={{ display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.lightMutedHex }}>
-                </span>&nbsp;
+                <span style={{
+                  display: 'inline-block', width: 50, height: 20, backgroundColor: rs.webPageData.vibrantColors.lightMutedHex,
+                }}
+                />
+                &nbsp;
                 {rs.webPageData.vibrantColors.lightMutedHex}
               </td>
             </tr>

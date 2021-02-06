@@ -1,24 +1,23 @@
 import * as React from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import { BrowserInfoExtractResult, ColorSymmetryExtractResult } from 'Core/types/feature-extractor';
-import { ReportState } from '../report';
 import { TextSizeExtractResult } from 'Core/types/factors';
 import { Chart } from 'react-charts';
+import { ReportState } from '../report';
 
 export class TextSizeReport extends React.Component<{ textSize: TextSizeExtractResult }> {
-
   constructor(props: any) {
     super(props);
   }
 
   render() {
     const series = {
-      type: "bar"
+      type: 'bar',
     };
 
     const axes = [
-      { primary: true, type: "ordinal", position: "left" },
-      { position: "bottom", type: "linear", stacked: false }
+      { primary: true, type: 'ordinal', position: 'left' },
+      { position: 'bottom', type: 'linear', stacked: false },
     ];
 
     const textSizes = Object.keys(this.props.textSize.textSizeMap);
@@ -27,10 +26,10 @@ export class TextSizeReport extends React.Component<{ textSize: TextSizeExtractR
       {
         label: 'Total Character',
         data: textSizes.map((textSize) => ({
-          primary: textSize + 'px',
-          secondary: this.props.textSize.textSizeMap[Number(textSize)]
-        }))
-      }
+          primary: `${textSize}px`,
+          secondary: this.props.textSize.textSizeMap[Number(textSize)],
+        })),
+      },
     ];
 
     return (
@@ -43,7 +42,11 @@ export class TextSizeReport extends React.Component<{ textSize: TextSizeExtractR
         <p>
           In text size detection, all text sizes in the page are checked, and we count how many characters have that text size.
         </p>
-        <p><b>Detection Scope : </b> Entire Page</p>
+        <p>
+          <b>Detection Scope : </b>
+          {' '}
+          Entire Page
+        </p>
         <hr />
 
         <h2>
@@ -57,12 +60,15 @@ export class TextSizeReport extends React.Component<{ textSize: TextSizeExtractR
             </tr>
           </thead>
           <tbody>
-            {textSizes.map((textSize, index) => {
-              return <tr key={textSize}>
-                <td>{textSize}px</td>
+            {textSizes.map((textSize, index) => (
+              <tr key={textSize}>
+                <td>
+                  {textSize}
+                  px
+                </td>
                 <td>{this.props.textSize.textSizeMap[Number(textSize)]}</td>
-              </tr>;
-            })}
+              </tr>
+            ))}
           </tbody>
         </table>
         <hr />

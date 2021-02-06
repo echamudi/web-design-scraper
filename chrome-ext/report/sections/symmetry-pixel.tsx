@@ -23,7 +23,11 @@ export class SymmetryPixelReport extends React.Component<Props> {
           This factor item tells the symmetry of the viewport snapshot through a horizontal line and vertical line.
           The algorithm checks the ciede2000 difference of each pixel from each side.
         </p>
-        <p><b>Detection Scope : </b> Viewport</p>
+        <p>
+          <b>Detection Scope : </b>
+          {' '}
+          Viewport
+        </p>
         <hr />
 
         <h2>
@@ -54,8 +58,9 @@ export class SymmetryPixelReport extends React.Component<Props> {
         <h2>
           Visualization
         </h2>
-        <p>In the following visualization, the red parts are the Asymmetrical parts,
-        while the white parts are the symmetrical parts.
+        <p>
+          In the following visualization, the red parts are the Asymmetrical parts,
+          while the white parts are the symmetrical parts.
         </p>
         <p><b>Asymmetrical portion (horizontal line)</b></p>
         <img style={{ width: this.props.browserInfo.viewportWidth / 2 }} src={this.props.colorSymmetry.horizontal.visualization} alt="" />

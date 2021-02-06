@@ -1,11 +1,11 @@
 import * as React from 'react';
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import { BrowserInfoExtractResult, ColorSymmetryExtractResult } from 'Core/types/feature-extractor';
-import { ReportState } from '../report';
 import { TextSizeExtractResult } from 'Core/types/factors';
 import { Chart } from 'react-charts';
 import { ConsistencyScoreCalculateResult } from 'Core/evaluator/score-calculator/consistency';
 import { utilArrayToChartData } from 'Core/utils/math';
+import { ReportState } from '../report';
 
 interface Props {
   consistencyResult: ConsistencyScoreCalculateResult | undefined,
@@ -15,21 +15,22 @@ interface Props {
 }
 
 export class ConsistencyScoreReport extends React.Component<Props> {
-
   constructor(props: any) {
     super(props);
   }
 
   render() {
-    if (this.props.consistencyResult === undefined) return <div></div>;
+    if (this.props.consistencyResult === undefined) return <div />;
 
     const series = {
-      type: "bar"
+      type: 'bar',
     };
 
     const axes = [
-      { primary: true, type: "ordinal", position: "left" },
-      { position: "bottom", type: "linear", stacked: false, base: 0 }
+      { primary: true, type: 'ordinal', position: 'left' },
+      {
+        position: 'bottom', type: 'linear', stacked: false, base: 0,
+      },
     ];
 
     const textSizes = utilArrayToChartData(this.props.consistencyResult.data.transformedMembers ?? []);
@@ -37,19 +38,23 @@ export class ConsistencyScoreReport extends React.Component<Props> {
     const chartData = [
       {
         label: 'Total Elements',
-        data: textSizes
-      }
+        data: textSizes,
+      },
     ];
 
     return (
-        <div className="report-details-container">
+      <div className="report-details-container">
         <h1>
           {this.props.title}
         </h1>
         <hr />
 
         {this.props.description}
-        <p><b>Detection Scope : </b> Entire Page</p>
+        <p>
+          <b>Detection Scope : </b>
+          {' '}
+          Entire Page
+        </p>
         <hr />
 
         <h2>
@@ -75,10 +80,9 @@ export class ConsistencyScoreReport extends React.Component<Props> {
         <h2>Visualization</h2>
         {this.props.visualizationDescription}
         <div style={{ height: 500, width: 800 }}>
-            <Chart data={chartData} series={series} axes={axes} tooltip />
+          <Chart data={chartData} series={series} axes={axes} tooltip />
         </div>
       </div>
     );
   }
 }
-

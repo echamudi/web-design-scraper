@@ -16,7 +16,7 @@ export class DensityPixelReport extends React.Component<Props> {
 
   render() {
     const topColor = this.props.colorCount.rank[0]?.color ?? { r: 255, g: 255, b: 255 };
-    const topColorHex = '#' + rgbToHex(topColor);
+    const topColorHex = `#${rgbToHex(topColor)}`;
 
     return (
       <div className="report-details-container">
@@ -25,10 +25,15 @@ export class DensityPixelReport extends React.Component<Props> {
         </h1>
         <hr />
 
-        <p>In pixel-based density, the algorithm checks the most used color and compare the number with total pixels.
-        Low density value will output higher score.
+        <p>
+          In pixel-based density, the algorithm checks the most used color and compare the number with total pixels.
+          Low density value will output higher score.
         </p>
-        <p><b>Detection Scope : </b> Visible Viewport Area</p>
+        <p>
+          <b>Detection Scope : </b>
+          {' '}
+          Visible Viewport Area
+        </p>
         <hr />
 
         <h2>
@@ -45,10 +50,13 @@ export class DensityPixelReport extends React.Component<Props> {
           <tbody>
             <tr>
               <td>Most Used Color</td>
-              <td></td>
+              <td />
               <td>
-                <span style={{ display: 'inline-block', width: 50, height: 20, backgroundColor: topColorHex }}>
-                </span>&nbsp;
+                <span style={{
+                  display: 'inline-block', width: 50, height: 20, backgroundColor: topColorHex,
+                }}
+                />
+                &nbsp;
                 {topColorHex}
               </td>
             </tr>
