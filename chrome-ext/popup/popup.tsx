@@ -108,6 +108,8 @@ class Analyzer extends React.Component {
           result,
         };
         return x;
+      }, () => {
+        this.openQuickReport();
       });
     } catch (e) {
       console.error(e);
@@ -141,10 +143,6 @@ class Analyzer extends React.Component {
     });
   }
 
-  async openSaved() {
-
-  }
-
   render() {
     return (
       <div>
@@ -168,19 +166,9 @@ class Analyzer extends React.Component {
           </p>
           <PrimaryButton text="Analyze Current Page" onClick={this.analyzeHandler} />
           {
-            this.state.analyzingStatus === 'processing'
-            && (
-              <div className="loader-box">
-                <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
-                <div className="standard-text">Analyzing page...</div>
-                <div className="standard-text">This process might take up to one minute. 🙏</div>
-              </div>
-            )
-          }
-          {
             this.state.analyzingStatus === 'Error!'
             && (
-              <div className="loader-box">
+              <div className="message">
                 <div className="standard-text">
                   An error has occured. 😢
                   <br/>
@@ -198,6 +186,18 @@ class Analyzer extends React.Component {
             </>
           }
         </Stack>
+        {
+          this.state.analyzingStatus === 'processing'
+          && (
+            <div className="loader-hider">
+              <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
+              <p className="standard-text">
+                Please keep this popup open.<br />
+                This process might take up to one minute.<br />
+              </p>
+            </div>
+          )
+        }
       </div>
     );
   }
