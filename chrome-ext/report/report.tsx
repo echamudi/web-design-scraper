@@ -1,7 +1,7 @@
 // import { WebPageData } from "Core/types/types";
-import * as React from 'react';
+import React, { Component, RefObject, createRef } from 'react';
 import { render } from 'react-dom';
-import { DefaultButton, initializeIcons, Spinner, SpinnerSize } from 'office-ui-fabric-react';
+import { DefaultButton, Spinner, SpinnerSize } from 'office-ui-fabric-react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import * as moment from 'moment';
 import { Phase2Result } from 'Core/types/types';
@@ -18,22 +18,20 @@ import { DensityMajorDomReport } from './sections/density-major-dom';
 import { ComplexityTextDomReport } from './sections/complexity-text-dom';
 // import { PartialDeep } from 'type-fest';
 
-initializeIcons();
-
 export interface ReportState {
   currentPage: string,
   webPageData: Phase2Result | null,
   reportData__timestamp?: string,
   reportData__url?: string,
-  complexityTextDomViz?: React.RefObject<HTMLCanvasElement>,
-  densityMajorDomViz?: React.RefObject<HTMLCanvasElement>,
-  simplicityHorizontalViz?: React.RefObject<HTMLCanvasElement>,
-  simplicityVerticalViz?: React.RefObject<HTMLCanvasElement>,
-  graphicPicturesViz?: React.RefObject<HTMLCanvasElement>,
+  complexityTextDomViz?: RefObject<HTMLCanvasElement>,
+  densityMajorDomViz?: RefObject<HTMLCanvasElement>,
+  simplicityHorizontalViz?: RefObject<HTMLCanvasElement>,
+  simplicityVerticalViz?: RefObject<HTMLCanvasElement>,
+  graphicPicturesViz?: RefObject<HTMLCanvasElement>,
   phase3?: Phase3
 }
 
-class App extends React.Component {
+class App extends Component {
   public state: ReportState = {
     currentPage: 'overview',
     webPageData: null,
@@ -67,11 +65,11 @@ class App extends React.Component {
         return {
           ...prevStates,
           webPageData,
-          complexityTextDomViz: React.createRef(),
-          densityMajorDomViz: React.createRef(),
-          simplicityHorizontalViz: React.createRef(),
-          simplicityVerticalViz: React.createRef(),
-          graphicPicturesViz: React.createRef(),
+          complexityTextDomViz: createRef(),
+          densityMajorDomViz: createRef(),
+          simplicityHorizontalViz: createRef(),
+          simplicityVerticalViz: createRef(),
+          graphicPicturesViz: createRef(),
           phase3,
         };
       }, () => {

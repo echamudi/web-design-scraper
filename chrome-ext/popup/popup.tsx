@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { AppState, Phase1Result, Phase2Result } from 'Core/types/types';
 
@@ -31,7 +31,7 @@ async function init(): Promise<number> {
 //   console.log(image);
 // });
 
-class App extends React.Component {
+class App extends Component {
   public state = {};
 
   constructor(props: any) {
@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 }
 
-class Analyzer extends React.Component {
+class Analyzer extends Component {
   public state: AppState = {
     analyzingStatus: '',
     result: null,
