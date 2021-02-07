@@ -8,88 +8,88 @@ import { scaleValue } from 'Core/utils/math';
  * @param imageData
  */
 export function colorSymmetryExtract(imageData: ImageData): ColorSymmetryExtractResult {
-    const { width, height } = imageData;
-    const halfWidth = Math.floor(width / 2);
-    const halfHeight = Math.floor(height / 2);
+  const { width, height } = imageData;
+  const halfWidth = Math.floor(width / 2);
+  const halfHeight = Math.floor(height / 2);
 
-    const diffScale: [number, number] = [0, 100];
-    const byteScale: [number, number] = [0, 255];
+  const diffScale: [number, number] = [0, 100];
+  const byteScale: [number, number] = [0, 255];
 
-    const horizontal: ColorSymmetryExtractResult['horizontal'] = (() => {
-        const totalPixelPairs = width * halfHeight;
-        const visualizationImgData = new ImageData(width, halfHeight);
-        let ciede2000average = 0;
+  const horizontal: ColorSymmetryExtractResult['horizontal'] = (() => {
+    const totalPixelPairs = width * halfHeight;
+    const visualizationImgData = new ImageData(width, halfHeight);
+    let ciede2000average = 0;
 
-        for (let y = 0; y < halfHeight; y++) {
-            const counterY = height - y - 1;
+    for (let y = 0; y < halfHeight; y++) {
+      const counterY = height - y - 1;
 
-            for (let x = 0; x < width; x++) {
-                const colorAtTopSide = getPixelImageData(imageData, x, y);
-                const colorAtBottomSide = getPixelImageData(imageData, x, counterY);
+      for (let x = 0; x < width; x++) {
+        const colorAtTopSide = getPixelImageData(imageData, x, y);
+        const colorAtBottomSide = getPixelImageData(imageData, x, counterY);
 
-                const diff = colorDiff(colorAtTopSide, colorAtBottomSide);
-                // console.log(x, y, 'vs', x, counterY, '=', diff);
+        const diff = colorDiff(colorAtTopSide, colorAtBottomSide);
+        // console.log(x, y, 'vs', x, counterY, '=', diff);
 
-                ciede2000average += diff;
+        ciede2000average += diff;
 
-                const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
+        const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
 
-                setPixelImageData(visualizationImgData, x, y, {
-                    r: 255, g: (255 - diffScaled), b: (255 - diffScaled), a: 255,
-                });
-            }
-        }
+        setPixelImageData(visualizationImgData, x, y, {
+          r: 255, g: (255 - diffScaled), b: (255 - diffScaled), a: 255,
+        });
+      }
+    }
 
-        ciede2000average /= totalPixelPairs;
-        ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
+    ciede2000average /= totalPixelPairs;
+    ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
 
-        const visualization = imageDataToImageURI(visualizationImgData);
-
-        return {
-            visualization,
-            ciede2000average,
-            totalPixelPairs,
-        };
-    })();
-
-    const vertical: ColorSymmetryExtractResult['vertical'] = (() => {
-        const totalPixelPairs = halfWidth * height;
-        const visualizationImgData = new ImageData(halfWidth, height);
-        let ciede2000average = 0;
-
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < halfWidth; x++) {
-                const counterX = width - x - 1;
-
-                const colorAtLeftSide = getPixelImageData(imageData, x, y);
-                const colorAtRightSide = getPixelImageData(imageData, counterX, y);
-
-                const diff = colorDiff(colorAtLeftSide, colorAtRightSide);
-
-                ciede2000average += diff;
-
-                const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
-
-                setPixelImageData(visualizationImgData, x, y, {
-                    r: 255, g: (255 - diffScaled), b: (255 - diffScaled), a: 255,
-                });
-            }
-        }
-
-        ciede2000average /= totalPixelPairs;
-        ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
-
-        const visualization = imageDataToImageURI(visualizationImgData);
-
-        return {
-            visualization,
-            ciede2000average,
-            totalPixelPairs,
-        };
-    })();
+    const visualization = imageDataToImageURI(visualizationImgData);
 
     return {
-        horizontal,
-        vertical,
+      visualization,
+      ciede2000average,
+      totalPixelPairs,
     };
+  })();
+
+  const vertical: ColorSymmetryExtractResult['vertical'] = (() => {
+    const totalPixelPairs = halfWidth * height;
+    const visualizationImgData = new ImageData(halfWidth, height);
+    let ciede2000average = 0;
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < halfWidth; x++) {
+        const counterX = width - x - 1;
+
+        const colorAtLeftSide = getPixelImageData(imageData, x, y);
+        const colorAtRightSide = getPixelImageData(imageData, counterX, y);
+
+        const diff = colorDiff(colorAtLeftSide, colorAtRightSide);
+
+        ciede2000average += diff;
+
+        const diffScaled = Math.floor(scaleValue(diff, diffScale, byteScale));
+
+        setPixelImageData(visualizationImgData, x, y, {
+          r: 255, g: (255 - diffScaled), b: (255 - diffScaled), a: 255,
+        });
+      }
+    }
+
+    ciede2000average /= totalPixelPairs;
+    ciede2000average = scaleValue(ciede2000average, diffScale, diffScale);
+
+    const visualization = imageDataToImageURI(visualizationImgData);
+
+    return {
+      visualization,
+      ciede2000average,
+      totalPixelPairs,
+    };
+  })();
+
+  return {
+    horizontal,
+    vertical,
+  };
 }

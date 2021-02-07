@@ -123,7 +123,7 @@ export interface AnchorElementsExtractResult extends GenericElementsExtractResul
 export interface VibrantColorsExtractResult {
     /** #abcdef */
     vibrantHex: string,
-    /** total pixels that's within vibrant range [0, Infinity]*/
+    /** total pixels that's within vibrant range [0, Infinity] */
     vibrantPixelCount: number,
     /** vibrant pixels over all pixels [0, 1] */
     vibrantPixelPercentage: number,

@@ -33,70 +33,70 @@
  * @returns {array}   array of unique properties, or if verbose is true, array of all elements with their properties
  */
 export function styleInPage(win: Window, css: string, verbose: Boolean) {
-    // polyfill getComputedStyle
-    if (typeof getComputedStyle === 'undefined') {
-        (win.getComputedStyle) = function (elem: any) {
-            return elem.currentStyle;
-        };
-    }
+  // polyfill getComputedStyle
+  if (typeof getComputedStyle === 'undefined') {
+    (win.getComputedStyle) = function (elem: any) {
+      return elem.currentStyle;
+    };
+  }
 
-    // set vars
-    let style: string;
-    let thisNode;
-    let styleId: string;
-    const allStyles: Array<[string, string] | string> = [];
-    const nodes = document.body.getElementsByTagName('*');
-    let styleBefore;
-    let styleAfter;
+  // set vars
+  let style: string;
+  let thisNode;
+  let styleId: string;
+  const allStyles: Array<[string, string] | string> = [];
+  const nodes = document.body.getElementsByTagName('*');
+  let styleBefore;
+  let styleAfter;
 
-    // loop over all elements
-    for (let i = 0; i < nodes.length; i++) {
-        thisNode = <HTMLElement>nodes[i];
-        if (thisNode.style) {
+  // loop over all elements
+  for (let i = 0; i < nodes.length; i++) {
+    thisNode = <HTMLElement>nodes[i];
+    if (thisNode.style) {
             // eslint-disable-line
-            styleId = `#${thisNode.id || `${thisNode.nodeName}(${i})`}`;
-            style = thisNode.style.fontFamily || (getComputedStyle(thisNode, '') as any)[css];
+      styleId = `#${thisNode.id || `${thisNode.nodeName}(${i})`}`;
+      style = thisNode.style.fontFamily || (getComputedStyle(thisNode, '') as any)[css];
 
-            // get element’s style
-            if (style) {
-                if (verbose) {
-                    allStyles.push([styleId, style]);
-                } else if (allStyles.indexOf(style) == -1) {
-                    allStyles.push(style);
-                }
-
-                // add data-attribute with key for allStyles array
-                thisNode.dataset.styleId = allStyles.indexOf(style).toString();
-            }
-
-            // get element:before’s style
-            styleBefore = (getComputedStyle(thisNode, ':before') as any)[css];
-            if (styleBefore) {
-                if (verbose) {
-                    allStyles.push([styleId, styleBefore]);
-                } else if (allStyles.indexOf(styleBefore) == -1) {
-                    allStyles.push(styleBefore);
-                }
-
-                // add data-attribute with key for allStyles array
-                thisNode.dataset.styleId = allStyles.indexOf(styleBefore).toString();
-            }
-
-            // get element:after’s style
-            styleAfter = (getComputedStyle(thisNode, ':after') as any)[css];
-            if (styleAfter) {
-                if (verbose) {
-                    allStyles.push([styleId, styleAfter]);
-                } else if (allStyles.indexOf(styleAfter) == -1) {
-                    allStyles.push(styleAfter);
-                }
-
-                // add data-attribute with key for allStyles array
-                thisNode.dataset.styleId = allStyles.indexOf(styleAfter).toString();
-            }
+      // get element’s style
+      if (style) {
+        if (verbose) {
+          allStyles.push([styleId, style]);
+        } else if (allStyles.indexOf(style) == -1) {
+          allStyles.push(style);
         }
+
+        // add data-attribute with key for allStyles array
+        thisNode.dataset.styleId = allStyles.indexOf(style).toString();
+      }
+
+      // get element:before’s style
+      styleBefore = (getComputedStyle(thisNode, ':before') as any)[css];
+      if (styleBefore) {
+        if (verbose) {
+          allStyles.push([styleId, styleBefore]);
+        } else if (allStyles.indexOf(styleBefore) == -1) {
+          allStyles.push(styleBefore);
+        }
+
+        // add data-attribute with key for allStyles array
+        thisNode.dataset.styleId = allStyles.indexOf(styleBefore).toString();
+      }
+
+      // get element:after’s style
+      styleAfter = (getComputedStyle(thisNode, ':after') as any)[css];
+      if (styleAfter) {
+        if (verbose) {
+          allStyles.push([styleId, styleAfter]);
+        } else if (allStyles.indexOf(styleAfter) == -1) {
+          allStyles.push(styleAfter);
+        }
+
+        // add data-attribute with key for allStyles array
+        thisNode.dataset.styleId = allStyles.indexOf(styleAfter).toString();
+      }
     }
-    return allStyles;
+  }
+  return allStyles;
 }
 
 /**

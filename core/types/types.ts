@@ -1,16 +1,16 @@
 import { ColorCountExtractResult, TextSizeExtractResult } from './factors';
 import {
-    AlignmentPointsExtractResult,
-    AnchorElementsExtractResult,
-    BrowserInfoExtractResult,
-    ColorDistributionExtractResult,
-    ColorSymmetryExtractResult,
-    GenericElementsExtractResult,
-    ImageElementsExtractResult,
-    TextElementsExtractResult,
-    VibrantColorsExtractResult,
-    VideoElementsExtractResult,
-    ViewportScreenshotExtractResult,
+  AlignmentPointsExtractResult,
+  AnchorElementsExtractResult,
+  BrowserInfoExtractResult,
+  ColorDistributionExtractResult,
+  ColorSymmetryExtractResult,
+  GenericElementsExtractResult,
+  ImageElementsExtractResult,
+  TextElementsExtractResult,
+  VibrantColorsExtractResult,
+  VideoElementsExtractResult,
+  ViewportScreenshotExtractResult,
 } from './feature-extractor';
 
 //

@@ -1,5 +1,5 @@
 import {
-    GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement, VideoElementsExtractResult, AnchorElementsExtractResult,
+  GenericElementsExtractResult, ImageElementsExtractResult, TextElementsExtractResult, GenericElement, VideoElementsExtractResult, AnchorElementsExtractResult,
 } from 'Core/types/feature-extractor';
 
 /**
@@ -9,62 +9,62 @@ import {
  * @param imageElements
  */
 export function majorElementsExtract(
-    textElements: TextElementsExtractResult,
-    imageElements: ImageElementsExtractResult,
-    videoElements: VideoElementsExtractResult,
-    anchorElements: AnchorElementsExtractResult,
+  textElements: TextElementsExtractResult,
+  imageElements: ImageElementsExtractResult,
+  videoElements: VideoElementsExtractResult,
+  anchorElements: AnchorElementsExtractResult,
 ): GenericElementsExtractResult {
-    const majorElementPosition: GenericElement[] = [];
+  const majorElementPosition: GenericElement[] = [];
 
-    imageElements.elements.forEach((el) => {
-        if (el.visible) {
-            majorElementPosition.push({
-                position: el.position,
-                area: el.area,
-                visible: true,
-                aspectRatio: el.aspectRatio,
-            });
-        }
-    });
+  imageElements.elements.forEach((el) => {
+    if (el.visible) {
+      majorElementPosition.push({
+        position: el.position,
+        area: el.area,
+        visible: true,
+        aspectRatio: el.aspectRatio,
+      });
+    }
+  });
 
-    textElements.elements.forEach((el) => {
-        if (el.visible) {
-            majorElementPosition.push({
-                position: el.position,
-                area: el.area,
-                visible: true,
-                aspectRatio: el.aspectRatio,
-            });
-        }
-    });
+  textElements.elements.forEach((el) => {
+    if (el.visible) {
+      majorElementPosition.push({
+        position: el.position,
+        area: el.area,
+        visible: true,
+        aspectRatio: el.aspectRatio,
+      });
+    }
+  });
 
-    videoElements.elements.forEach((el) => {
-        if (el.visible) {
-            majorElementPosition.push({
-                position: el.position,
-                area: el.area,
-                visible: true,
-                aspectRatio: el.aspectRatio,
-            });
-        }
-    });
+  videoElements.elements.forEach((el) => {
+    if (el.visible) {
+      majorElementPosition.push({
+        position: el.position,
+        area: el.area,
+        visible: true,
+        aspectRatio: el.aspectRatio,
+      });
+    }
+  });
 
-    anchorElements.elements.forEach((el) => {
-        if (el.visible) {
-            majorElementPosition.push({
-                position: el.position,
-                area: el.area,
-                visible: true,
-                aspectRatio: el.aspectRatio,
-            });
-        }
-    });
+  anchorElements.elements.forEach((el) => {
+    if (el.visible) {
+      majorElementPosition.push({
+        position: el.position,
+        area: el.area,
+        visible: true,
+        aspectRatio: el.aspectRatio,
+      });
+    }
+  });
 
-    return {
-        elements: majorElementPosition,
-        elementCount: majorElementPosition.length,
-        visibleElementCount: majorElementPosition.length,
-        pageWidth: textElements.pageWidth,
-        pageHeight: textElements.pageHeight,
-    };
+  return {
+    elements: majorElementPosition,
+    elementCount: majorElementPosition.length,
+    visibleElementCount: majorElementPosition.length,
+    pageWidth: textElements.pageWidth,
+    pageHeight: textElements.pageHeight,
+  };
 }
