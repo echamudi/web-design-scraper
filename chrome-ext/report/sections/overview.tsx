@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ReportState } from '../report';
 import { PrimaryButton } from 'office-ui-fabric-react';
+import { ReportState } from '../report';
 
 export class OverviewReport extends React.Component<{
   reportState: ReportState,

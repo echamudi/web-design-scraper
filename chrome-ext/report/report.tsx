@@ -101,16 +101,16 @@ class App extends React.Component {
     const fileName = `Web Design Scraping ${time}.json`;
 
     const blob = new Blob([text], { type: 'text/json' });
-    
+
     const a = document.createElement('a');
     a.download = fileName;
     a.href = URL.createObjectURL(blob);
     a.dataset.downloadurl = [fileType, a.download, a.href].join(':');
-    a.style.display = "none";
+    a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    setTimeout(function() { URL.revokeObjectURL(a.href); }, 1500);
+    setTimeout(() => { URL.revokeObjectURL(a.href); }, 1500);
   }
 
   render() {
@@ -137,8 +137,8 @@ class App extends React.Component {
     return (
       <div className="report">
         <div className="report-navbar">
-          <img src="./assets/logo-small.svg" height="40"/>
-          <div className="report-navbar-title" style={{margin: '0 10px'}}>
+          <img src="./assets/logo-small.svg" height="40" />
+          <div className="report-navbar-title" style={{ margin: '0 10px' }}>
             Web Design Scraper
           </div>
         </div>
@@ -149,9 +149,9 @@ class App extends React.Component {
           <div className="report-details">
             {this.state.currentPage === 'meta-overview'
               && (
-                <OverviewReport 
+                <OverviewReport
                   reportState={this.state}
-                  downloadJSON={() => {this.downloadJSON(this.state)}}
+                  downloadJSON={() => { this.downloadJSON(this.state); }}
                 />
               )}
             {this.state.currentPage === 'symmetry-pixel'
@@ -197,10 +197,12 @@ class App extends React.Component {
                 <ConsistencyScoreReport
                   consistencyResult={phase3.cohesionImageDom}
                   title="Cohesion (Image DOM)"
-                  description={<p>
-                    The cohesion algorithm checks the consistency of image aspect ratio.
-                    The aspect ratio is width divided by height.
-                  </p>}
+                  description={(
+                    <p>
+                      The cohesion algorithm checks the consistency of image aspect ratio.
+                      The aspect ratio is width divided by height.
+                    </p>
+                  )}
                   visualizationDescription={<></>}
                 />
               )
@@ -211,17 +213,23 @@ class App extends React.Component {
                 <ConsistencyScoreReport
                   consistencyResult={phase3.economyImageDom}
                   title="Economy (Image DOM)"
-                  description={<p>
-                    The economy-images algorithm checks the consistency of image elements area.
-                    The areas are rounded to the multiplication of 100x100 sizes.
-                  </p>}
-                  visualizationDescription={<>
+                  description={(
                     <p>
-                      0 means area between 0 and 10000 pxsq,<br/>
-                      1 means area between 10,000 and 20,000 pxsq,<br/>
-                      2 means area between 20,000 and 30,000 pxsq, etc.
+                      The economy-images algorithm checks the consistency of image elements area.
+                      The areas are rounded to the multiplication of 100x100 sizes.
                     </p>
-                  </>}
+                  )}
+                  visualizationDescription={(
+                    <>
+                      <p>
+                        0 means area between 0 and 10000 pxsq,
+                        <br />
+                        1 means area between 10,000 and 20,000 pxsq,
+                        <br />
+                        2 means area between 20,000 and 30,000 pxsq, etc.
+                      </p>
+                    </>
+                  )}
                 />
               )
             }
@@ -231,17 +239,23 @@ class App extends React.Component {
                 <ConsistencyScoreReport
                   consistencyResult={phase3.economyTextDom}
                   title="Economy (Text)"
-                  description={<p>
-                    The economy-text algorithm checks the consistency of text elements area.
-                    The areas are rounded to the multiplication of 100x100 sizes.
-                  </p>}
-                  visualizationDescription={<>
+                  description={(
                     <p>
-                      0 means area between 0 and 10000 pxsq,<br/>
-                      1 means area between 10,000 and 20,000 pxsq,<br/>
-                      2 means area between 20,000 and 30,000 pxsq, etc.
+                      The economy-text algorithm checks the consistency of text elements area.
+                      The areas are rounded to the multiplication of 100x100 sizes.
                     </p>
-                  </>}
+                  )}
+                  visualizationDescription={(
+                    <>
+                      <p>
+                        0 means area between 0 and 10000 pxsq,
+                        <br />
+                        1 means area between 10,000 and 20,000 pxsq,
+                        <br />
+                        2 means area between 20,000 and 30,000 pxsq, etc.
+                      </p>
+                    </>
+                  )}
                 />
               )
             }

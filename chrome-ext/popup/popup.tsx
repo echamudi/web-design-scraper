@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppState } from 'Core/types/types';
-import { Phase1Result, Phase2Result } from 'Core/types/types';
-import { DefaultButton, PrimaryButton, Stack, IStackTokens } from 'office-ui-fabric-react';
+import { AppState, Phase1Result, Phase2Result } from 'Core/types/types';
+
+import {
+  DefaultButton, PrimaryButton, Stack, IStackTokens,
+} from 'office-ui-fabric-react';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { executePhase2 } from 'Executor/phases';
 
@@ -14,11 +16,11 @@ type ContentRes = {
 async function init(): Promise<number> {
   return new Promise((resolve) => {
     let tabId: number | undefined;
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0].id;
       if (tabId === undefined) throw new Error('Tab id is undefined');
 
-      chrome.tabs.executeScript(tabId, { file: 'content.js' }, function () {
+      chrome.tabs.executeScript(tabId, { file: 'content.js' }, () => {
         resolve(tabId);
       });
     });
@@ -43,14 +45,14 @@ class App extends React.Component {
           <Analyzer />
         </Stack>
       </div>
-    )
+    );
   }
 }
 
 class Analyzer extends React.Component {
   public state: AppState = {
     analyzingStatus: '',
-    result: null
+    result: null,
   };
 
   constructor(props: any) {
@@ -66,7 +68,7 @@ class Analyzer extends React.Component {
     // Get screenshots
     const [
       screenshot,
-      contentRes
+      contentRes,
     ] = await Promise.allSettled([
       new Promise<string>((resolve, reject) => {
         chrome.tabs.captureVisibleTab({}, async (image) => {
@@ -74,7 +76,7 @@ class Analyzer extends React.Component {
         });
       }),
       new Promise<ContentRes>((resolve, reject) => {
-        chrome.tabs.sendMessage(tabId, { message: "extract-features" }, (response: ContentRes) => {
+        chrome.tabs.sendMessage(tabId, { message: 'extract-features' }, (response: ContentRes) => {
           resolve(response);
         });
       }),
@@ -92,7 +94,7 @@ class Analyzer extends React.Component {
 
     const phase2Result = await executePhase2(
       contentRes.value.phase1Result,
-      screenshot.value
+      screenshot.value,
     );
 
     console.log(phase2Result);
@@ -102,12 +104,11 @@ class Analyzer extends React.Component {
     this.setState(() => {
       const x: Partial<AppState> = {
         analyzingStatus: 'Done!',
-        result
+        result,
       };
       return x;
     });
-  };
-
+  }
 
   async openQuickReport() {
     const phase2Data = this.state.result;
@@ -117,16 +118,16 @@ class Analyzer extends React.Component {
       return;
     }
 
-    await new Promise(resolve => {
-      chrome.storage.local.set({ webPageData: phase2Data }, function () {
+    await new Promise((resolve) => {
+      chrome.storage.local.set({ webPageData: phase2Data }, () => {
         resolve(true);
       });
     });
 
     chrome.windows.create({
       url: '/report.html',
-      type: 'normal'
-    }, function () {
+      type: 'normal',
+    }, () => {
     });
   }
 
@@ -140,22 +141,25 @@ class Analyzer extends React.Component {
         <img src="./assets/logo.svg" />
         <PrimaryButton text="Analyze Current Page" onClick={this.analyzeHandler} />
         {
-          this.state.analyzingStatus === 'processing' &&
-          <div>
-            <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
-            <div>Analyzing page...</div>
-            <div>This process might take up to one minute.</div>
-          </div>
+          this.state.analyzingStatus === 'processing'
+          && (
+            <div>
+              <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
+              <div>Analyzing page...</div>
+              <div>This process might take up to one minute.</div>
+            </div>
+          )
         }
         {
-          this.state.analyzingStatus === 'Done!' &&
-          <DefaultButton text="Open Report" onClick={this.openQuickReport} />
+          this.state.analyzingStatus === 'Done!'
+          && <DefaultButton text="Open Report" onClick={this.openQuickReport} />
         }
-        <DefaultButton 
-          text="Learn More About Web Design Scraping" 
-          onClick={()=> window.open("https://github.com/echamudi/web-design-scraper", "_blank")} />
+        <DefaultButton
+          text="Learn More About Web Design Scraping"
+          onClick={() => window.open('https://github.com/echamudi/web-design-scraper', '_blank')}
+        />
       </Stack>
-    )
+    );
   }
 }
 

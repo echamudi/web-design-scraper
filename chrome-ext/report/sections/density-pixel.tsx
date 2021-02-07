@@ -69,7 +69,11 @@ export class DensityPixelReport extends React.Component<Props> {
         <hr />
 
         <h2>Visualization</h2>
-        <p>The blue area is the part of the screenshot that uses the most used color ({topColorHex}).</p>
+        <p>
+          The blue area is the part of the screenshot that uses the most used color (
+          {topColorHex}
+          ).
+        </p>
         <img style={{ width: this.props.browserInfo.viewportWidth / 2 }} src={this.props.colorDistribution.colorTop1.visualization} alt="" />
       </div>
     );
