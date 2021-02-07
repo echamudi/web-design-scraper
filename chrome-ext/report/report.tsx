@@ -1,7 +1,7 @@
 // import { WebPageData } from "Core/types/types";
 import * as React from 'react';
 import { render } from 'react-dom';
-import { initializeIcons, Spinner, SpinnerSize } from 'office-ui-fabric-react';
+import { DefaultButton, initializeIcons, Spinner, SpinnerSize } from 'office-ui-fabric-react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import * as moment from 'moment';
 import { Phase2Result } from 'Core/types/types';
@@ -42,9 +42,14 @@ class App extends React.Component {
   constructor(props: any) {
     super(props);
 
+    // Set active page
+    this.state.currentPage = window.location.hash.slice(1);
+
+    // Prepare left sidebar
     navLinkGroups.forEach((group) => {
       group.links.forEach((link) => {
         link.forceAnchor = true;
+        link.url = '#' + link.key;
         link.onClick = () => {
           this.setState((prevStates: Readonly<ReportState>): ReportState => ({
             ...prevStates,
@@ -136,18 +141,26 @@ class App extends React.Component {
 
     return (
       <div className="report">
+        {/* Navbar */}
         <div className="report-navbar">
           <img src="./assets/logo-small.svg" height="40" />
           <div className="report-navbar-title" style={{ margin: '0 10px' }}>
             Web Design Scraper
           </div>
+          <div style={{flex: 1}}></div>
+          <DefaultButton
+            text="Learn More"
+            onClick={() => window.open('https://github.com/echamudi/web-design-scraper', '_blank')}
+          />
         </div>
         <div className="report-content">
+          {/* Sidebar */}
           <div className="report-sidebar">
             <Nav styles={{ root: { width: 300 } }} groups={navLinkGroups} />
           </div>
+          {/* Content */}
           <div className="report-details">
-            {this.state.currentPage === 'meta-overview'
+            {this.state.currentPage === 'overview'
               && (
                 <OverviewReport
                   reportState={this.state}

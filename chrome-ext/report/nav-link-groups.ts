@@ -6,7 +6,7 @@ const navLinkGroups: INavLinkGroup[] = [
     links: [
       {
         name: 'Overview',
-        key: 'meta-overview',
+        key: 'overview',
         url: '',
       },
       // {
