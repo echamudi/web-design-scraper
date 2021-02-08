@@ -7,9 +7,9 @@ import { colorCountExtract } from './color-count';
 test('colorDistributionExtract', async () => {
   const img = await imageToBase64(path.join(__dirname, '../../../test/fixtures/small-imgs/four-colors.png'));
   const imageData = await imageToImageData(`data:image/png;base64,${img}`);
-  const colorCountExtractResult = await colorCountExtract(imageData);
+  const colorCountExtractResult = colorCountExtract(imageData);
 
-  const colorDistributionExtractResult = await colorDistributionExtract(
+  const colorDistributionExtractResult = colorDistributionExtract(
     imageData,
     colorCountExtractResult,
   );
@@ -18,9 +18,10 @@ test('colorDistributionExtract', async () => {
     {
       mostUsedColor: { r: 0, g: 255, b: 0 },
       totalPixels: 100,
-      colorPercentageOfTheTop1: 0.42,
-      colorPercentageOfTheTop5: 1,
-      colorPercentageOfTheTop10: 1,
+      colorTop1: {
+        percentage: 0.42,
+        visualization: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABmJLR0QA/wD/AP+gvaeTAAAAHElEQVQYlWNgGPyAkYHh/3880owwFhOxJg4FhQDsNQIM6MgcDAAAAABJRU5ErkJggg==",
+      },
     },
   );
 });
