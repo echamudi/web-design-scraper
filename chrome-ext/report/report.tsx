@@ -16,7 +16,9 @@ import { DensityPixelReport } from './sections/density-pixel';
 import { ConsistencyScoreReport } from './sections/consistency-score';
 import { DensityMajorDomReport } from './sections/density-major-dom';
 import { ComplexityTextDomReport } from './sections/complexity-text-dom';
-// import { PartialDeep } from 'type-fest';
+import { initializeIcons } from '@uifabric/icons';
+
+initializeIcons();
 
 export interface ReportState {
   currentPage: string,
