@@ -1,0 +1,27 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check node versions
+        run: |
+          node -v
+
+      - name: Install node modules
+        run: |
+          npm install
+
+      - name: Build
+        run: |
+          npm run build:chrome
+
+      - name: Test JS/TS codes using Jest
+        run: |
+          npx tsc --noEmit
+          npx jest
