@@ -304,7 +304,7 @@ class App extends Component {
                     <tbody>
                       <tr>
                         <td>Total Alignment Points</td>
-                        <td>[0, 1]</td>
+                        <td>[0, ∞)</td>
                         <td>{phase3.simplicityHorizontal?.data.totalSignificantAPs}</td>
                       </tr>
                       <tr>
@@ -354,7 +354,7 @@ class App extends Component {
                     <tbody>
                       <tr>
                         <td>Total Alignment Points</td>
-                        <td>[0, 1]</td>
+                        <td>[0, ∞)</td>
                         <td>{phase3.simplicityVertical?.data.totalSignificantAPs}</td>
                       </tr>
                       <tr>
@@ -407,7 +407,7 @@ class App extends Component {
                     <tbody>
                       <tr>
                         <td>Total Image Area</td>
-                        <td>[0, Inf]</td>
+                        <td>[0, ∞)</td>
                         <td>{this.state.phase3.graphicPictures?.imageArea}</td>
                       </tr>
                       <tr>
