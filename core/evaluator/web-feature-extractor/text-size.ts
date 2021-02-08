@@ -4,23 +4,23 @@ import { TextSizeExtractResult } from 'Core/types/factors';
 import { TextElementsExtractResult } from 'Core/types/feature-extractor';
 
 export function textSizeExtract(textElementExtractResult: TextElementsExtractResult): TextSizeExtractResult {
-    const textSizeMap: Record<string, number> = {};
-    let totalCharacters: number = 0;
+  const textSizeMap: Record<string, number> = {};
+  let totalCharacters: number = 0;
 
-    textElementExtractResult.elements.forEach((textElement) => {
-        const fontSize = parseInt(textElement.fontSize);
-        const chars = textElement.totalCharacters;
+  textElementExtractResult.elements.forEach((textElement) => {
+    const fontSize = parseInt(textElement.fontSize);
+    const chars = textElement.totalCharacters;
 
-        if (textSizeMap[fontSize] === undefined) {
-            textSizeMap[fontSize] = chars;
-        } else {
-            textSizeMap[fontSize] += chars;
-        }
+    if (textSizeMap[fontSize] === undefined) {
+      textSizeMap[fontSize] = chars;
+    } else {
+      textSizeMap[fontSize] += chars;
+    }
 
-        totalCharacters += chars;
-    });
+    totalCharacters += chars;
+  });
 
-    return { totalCharacters, textSizeMap };
+  return { totalCharacters, textSizeMap };
 }
 
 /**

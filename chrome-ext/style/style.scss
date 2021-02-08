@@ -36,6 +36,7 @@
     align-items: center;
     background: #fff;
     box-shadow: 0 0 6px 0 rgb(0 0 0 / 0.4);
+    box-sizing: border-box;
 
     &-title {
         font-size: 28px;
@@ -52,6 +53,7 @@
     flex: 1;
     padding: 0 20px;
     overflow-y: scroll;
+    padding-bottom: 20px;
 }
 
 .report-sidebar {
@@ -63,4 +65,30 @@
 hr {
     border: none;
     border-top: 1px solid #dbdbdb;
+}
+
+.standard-text {
+    font-size: 14px;
+}
+
+.message {
+    background: #eaeaea;
+    padding: 20px;
+}
+
+.loader-hider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(2px);
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    user-select: none;
 }

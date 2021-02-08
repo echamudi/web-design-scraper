@@ -8,31 +8,31 @@
 
 /** */
 export function isVisible(element: HTMLElement | SVGSVGElement): boolean {
-    if (!isVisibleByStyles(element)) return false;
-    // if (isBehindOtherElement(element)) return false;
+  if (!isVisibleByStyles(element)) return false;
+  // if (isBehindOtherElement(element)) return false;
 
-    const bound = element.getBoundingClientRect();
-    if (bound.width === 0 && bound.height === 0) return false;
+  const bound = element.getBoundingClientRect();
+  if (bound.width === 0 && bound.height === 0) return false;
 
-    return true;
+  return true;
 }
 
 export function isVisibleByStyles(element: HTMLElement | SVGSVGElement): boolean {
-    const styles = window.getComputedStyle(element);
-    return styles.visibility !== 'hidden' && styles.display !== 'none' && styles.opacity !== '0';
+  const styles = window.getComputedStyle(element);
+  return styles.visibility !== 'hidden' && styles.display !== 'none' && styles.opacity !== '0';
 }
 
 export function isBehindOtherElement(element: HTMLElement | SVGSVGElement): boolean {
-    const boundingRect = element.getBoundingClientRect();
+  const boundingRect = element.getBoundingClientRect();
 
-    // adjust coordinates to get more accurate results
-    const left = boundingRect.left + 1;
-    const right = boundingRect.right - 1;
-    const top = boundingRect.top + 1;
-    const bottom = boundingRect.bottom - 1;
+  // adjust coordinates to get more accurate results
+  const left = boundingRect.left + 1;
+  const right = boundingRect.right - 1;
+  const top = boundingRect.top + 1;
+  const bottom = boundingRect.bottom - 1;
 
-    // Check if the center of element is covered by something
-    if (document.elementFromPoint((right + left) / 2, (top + bottom) / 2) !== element) return true;
+  // Check if the center of element is covered by something
+  if (document.elementFromPoint((right + left) / 2, (top + bottom) / 2) !== element) return true;
 
-    return false;
+  return false;
 }

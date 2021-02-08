@@ -1,18 +1,29 @@
 {
   "name": "Web Design Scraper",
-  "version": "1.0",
-  "description": "Web Design Scraper",
+  "version": "1.0.0",
+  "description": "Extract web design metrics from websites!",
   "manifest_version": 3,
   "permissions": [
     "tabCapture",
     "activeTab",
-    "declarativeContent",
     "storage",
     "tabs",
     "unlimitedStorage"
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/assets/ico_16.png",
+      "32": "/assets/ico_32.png",
+      "48": "/assets/ico_48.png",
+      "128": "/assets/ico_128.png"
+    }
+  },
+  "icons": {
+    "16": "/assets/ico_16.png",
+    "32": "/assets/ico_32.png",
+    "48": "/assets/ico_48.png",
+    "128": "/assets/ico_128.png"
   },
   "options_page": "preferences.html"
 }

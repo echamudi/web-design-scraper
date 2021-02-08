@@ -1,0 +1,56 @@
+name,license period,license type,link,comment,installed version,author
+@fluentui/react,perpetual,MIT,git+https://github.com/microsoft/fluentui.git,7.158.2,7.157.2,n/a
+color-diff,perpetual,BSD-3-Clause,git://github.com/markusn/color-diff.git,1.2.0,1.2.0,markusn kael
+color-rgba,perpetual,MIT,git+https://github.com/colorjs/color-rgba.git,2.2.3,2.2.3,Dmitry Yv
+moment,perpetual,MIT,git+https://github.com/moment/moment.git,2.29.1,2.29.1,Iskren Ivov Chernev
+node-vibrant,perpetual,MIT,git+https://github.com/akfish/node-vibrant.git,3.1.6,3.1.6,akfish
+office-ui-fabric-react,perpetual,MIT,git+https://github.com/microsoft/fluentui.git,7.158.2,7.157.2,n/a
+react-charts,perpetual,MIT,git+https://github.com/react-tools/react-charts.git,2.0.1,2.0.0-beta.7,tannerlinsley
+simple-statistics,perpetual,ISC,git://github.com/simple-statistics/simple-statistics.git,7.4.0,7.4.0,Tom MacWright
+@babel/core,perpetual,MIT,https://github.com/babel/babel.git,7.12.13,7.12.10,Sebastian McKenzie <sebmck@gmail.com>
+@babel/preset-env,perpetual,MIT,https://github.com/babel/babel.git,7.12.13,7.12.11,Henry Zhu <hi@henryzoo.com>
+@babel/preset-typescript,perpetual,MIT,https://github.com/babel/babel.git,7.12.13,7.12.7,n/a
+@types/chrome,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,0.0.129,0.0.129,n/a
+@types/color-convert,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,2.0.0,2.0.0,n/a
+@types/color-diff,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,1.1.0,1.1.0,n/a
+@types/color-rgba,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,2.1.0,2.1.0,n/a
+@types/image-to-base64,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,2.1.0,2.1.0,n/a
+@types/jest,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,26.0.20,26.0.20,n/a
+@types/react,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,17.0.1,17.0.0,n/a
+@types/react-dom,perpetual,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped.git,17.0.0,17.0.0,n/a
+@typescript-eslint/eslint-plugin,perpetual,MIT,git+https://github.com/typescript-eslint/typescript-eslint.git,4.14.2,4.14.1,n/a
+@typescript-eslint/parser,perpetual,BSD-2-Clause,git+https://github.com/typescript-eslint/typescript-eslint.git,4.14.2,4.14.1,n/a
+babel-jest,perpetual,MIT,git+https://github.com/facebook/jest.git,26.6.3,26.6.3,n/a
+babel-plugin-module-resolver,perpetual,MIT,git+https://github.com/tleunen/babel-plugin-module-resolver.git,4.1.0,4.1.0,Tommy Leunen
+bootstrap,perpetual,MIT,git+https://github.com/twbs/bootstrap.git,4.6.0,4.6.0,The Bootstrap Authors
+canvas,perpetual,MIT,git://github.com/Automattic/node-canvas.git,2.6.1,2.6.1,TJ Holowaychuk
+clean-webpack-plugin,perpetual,MIT,git+https://github.com/johnagan/clean-webpack-plugin.git,3.0.0,3.0.0,John Agan
+color-convert,perpetual,MIT,git+https://github.com/Qix-/color-convert.git,2.0.1,2.0.1,Heather Arthur
+copy-webpack-plugin,perpetual,MIT,git+https://github.com/webpack-contrib/copy-webpack-plugin.git,7.0.0,7.0.0,Len Boyette
+css-loader,perpetual,MIT,git+https://github.com/webpack-contrib/css-loader.git,5.0.1,5.0.1,Tobias Koppers @sokra
+eslint,perpetual,MIT,git+https://github.com/eslint/eslint.git,7.19.0,7.18.0,Nicholas C. Zakas
+eslint-config-airbnb,perpetual,MIT,git+https://github.com/airbnb/javascript.git,18.2.1,18.2.1,Jake Teton-Landis
+eslint-plugin-import,perpetual,MIT,git+https://github.com/benmosher/eslint-plugin-import.git,2.22.1,2.22.1,Ben Mosher
+eslint-plugin-jsx-a11y,perpetual,MIT,git+https://github.com/evcohen/eslint-plugin-jsx-a11y.git,6.4.1,6.4.1,Ethan Cohen
+eslint-plugin-react,perpetual,MIT,git+https://github.com/yannickcr/eslint-plugin-react.git,7.22.0,7.22.0,Yannick Croissant
+eslint-plugin-react-hooks,perpetual,MIT,git+https://github.com/facebook/react.git,4.2.0,4.2.0,n/a
+html-webpack-plugin,perpetual,MIT,git+https://github.com/jantimon/html-webpack-plugin.git,5.0.0,5.0.0-beta.4,Jan Nicklas
+image-to-base64,perpetual,MIT,git+https://github.com/renanbastos93/image-to-base64.git,2.1.1,2.1.1,Renan Bastos -
+jest,perpetual,MIT,git+https://github.com/facebook/jest.git,26.6.3,26.6.3,n/a
+jest-environment-jsdom,perpetual,MIT,git+https://github.com/facebook/jest.git,26.6.2,26.6.2,n/a
+jsdom,perpetual,MIT,git+https://github.com/jsdom/jsdom.git,16.4.0,16.4.0,n/a
+mini-css-extract-plugin,perpetual,MIT,git+https://github.com/webpack-contrib/mini-css-extract-plugin.git,1.3.6,1.3.5,Tobias Koppers @sokra
+office-ui-fabric-core,perpetual,MIT,git+https://github.com/OfficeDev/Office-UI-Fabric-Core.git,11.0.0,11.0.0,Office UI Fabric Team
+react,perpetual,MIT,git+https://github.com/facebook/react.git,17.0.1,17.0.1,n/a
+react-dom,perpetual,MIT,git+https://github.com/facebook/react.git,17.0.1,17.0.1,n/a
+rimraf,perpetual,ISC,git://github.com/isaacs/rimraf.git,3.0.2,3.0.2,Isaac Z. Schlueter
+rxjs,perpetual,Apache-2.0,git+https://github.com/reactivex/rxjs.git,6.6.3,6.6.3,Ben Lesh
+sass,perpetual,MIT,git+https://github.com/sass/dart-sass.git,1.32.6,1.32.5,Natalie Weizenbaum
+sass-loader,perpetual,MIT,git+https://github.com/webpack-contrib/sass-loader.git,10.1.1,10.1.1,J. Tangelder
+style-loader,perpetual,MIT,git+https://github.com/webpack-contrib/style-loader.git,2.0.0,2.0.0,Tobias Koppers @sokra
+ts-loader,perpetual,MIT,git+https://github.com/TypeStrong/ts-loader.git,8.0.15,8.0.14,John Reilly
+type-fest,perpetual,(MIT OR CC0-1.0),git+https://github.com/sindresorhus/type-fest.git,0.20.2,0.20.2,Sindre Sorhus
+typescript,perpetual,Apache-2.0,git+https://github.com/Microsoft/TypeScript.git,4.1.3,4.1.3,Microsoft Corp.
+web-worker,perpetual,Apache-2.0,git+https://github.com/developit/web-worker.git,1.0.0,1.0.0,n/a
+webpack,perpetual,MIT,git+https://github.com/webpack/webpack.git,5.21.2,5.19.0,Tobias Koppers @sokra
+webpack-cli,perpetual,MIT,git+https://github.com/webpack/webpack-cli.git,4.5.0,4.4.0,n/a

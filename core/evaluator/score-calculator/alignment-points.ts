@@ -35,60 +35,60 @@ export interface AlignmentPointsScoreCalculateConfig {
 }
 
 export function alignmentPointsScoreCalculate(
-    alignmentPointWeights: AlignmentPointWeights,
-    config?: AlignmentPointsScoreCalculateConfig,
+  alignmentPointWeights: AlignmentPointWeights,
+  config?: AlignmentPointsScoreCalculateConfig,
 ): AlignmentPointsScoreCalculateResult {
-    // Load configurations
-    const minimumArea = config?.minimumArea ?? 10000;
-    const passThreshold = config?.failThreshold ?? 8;
-    const failThreshold = config?.failThreshold ?? 64;
-    const transformer = config?.transformer ?? ((val: number) => val);
+  // Load configurations
+  const minimumArea = config?.minimumArea ?? 10000;
+  const passThreshold = config?.failThreshold ?? 8;
+  const failThreshold = config?.failThreshold ?? 64;
+  const transformer = config?.transformer ?? ((val: number) => val);
 
-    const totalInitialAP = Object.keys(alignmentPointWeights).length;
+  const totalInitialAP = Object.keys(alignmentPointWeights).length;
 
-    // Guard
-    if (passThreshold >= failThreshold || totalInitialAP === 0) {
-        return {
-            data: {
-                totalSignificantAPs: undefined,
-                transformedAPs: undefined,
-            },
-            score: undefined,
-        };
-    }
-
-    // Transform alignment points
-    const transformedAPs: AlignmentPointWeights = {};
-
-    Object.keys(alignmentPointWeights).forEach((key) => {
-        const area = alignmentPointWeights[Number(key)];
-        const transformedAlignmentPoint = transformer(Number(key));
-
-        if (transformedAPs[transformedAlignmentPoint] === undefined) {
-            transformedAPs[transformedAlignmentPoint] = area;
-        } else {
-            transformedAPs[transformedAlignmentPoint] += area;
-        }
-    });
-
-    // Filter based on the weights
-    Object.keys(transformedAPs).forEach((key) => {
-        const area = transformedAPs[Number(key)];
-
-        if (area <= minimumArea) {
-            delete transformedAPs[Number(key)];
-        }
-    });
-
-    const totalSignificantAPs = Object.keys(transformedAPs).length;
-
-    const score = 1 - scaleValue(totalSignificantAPs, [passThreshold, failThreshold], [0, 1]);
-
+  // Guard
+  if (passThreshold >= failThreshold || totalInitialAP === 0) {
     return {
-        data: {
-            totalSignificantAPs,
-            transformedAPs,
-        },
-        score,
+      data: {
+        totalSignificantAPs: undefined,
+        transformedAPs: undefined,
+      },
+      score: undefined,
     };
+  }
+
+  // Transform alignment points
+  const transformedAPs: AlignmentPointWeights = {};
+
+  Object.keys(alignmentPointWeights).forEach((key) => {
+    const area = alignmentPointWeights[Number(key)];
+    const transformedAlignmentPoint = transformer(Number(key));
+
+    if (transformedAPs[transformedAlignmentPoint] === undefined) {
+      transformedAPs[transformedAlignmentPoint] = area;
+    } else {
+      transformedAPs[transformedAlignmentPoint] += area;
+    }
+  });
+
+  // Filter based on the weights
+  Object.keys(transformedAPs).forEach((key) => {
+    const area = transformedAPs[Number(key)];
+
+    if (area <= minimumArea) {
+      delete transformedAPs[Number(key)];
+    }
+  });
+
+  const totalSignificantAPs = Object.keys(transformedAPs).length;
+
+  const score = 1 - scaleValue(totalSignificantAPs, [passThreshold, failThreshold], [0, 1]);
+
+  return {
+    data: {
+      totalSignificantAPs,
+      transformedAPs,
+    },
+    score,
+  };
 }

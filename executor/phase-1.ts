@@ -9,33 +9,33 @@ import { videoElementsExtract } from 'Core/evaluator/web-feature-extractor/video
 import { Phase1Result } from 'Core/types/types';
 
 export function executePhase1(win: Window): Phase1Result {
-    const browserInfo = browserInfoExtract(win);
-    const textElements = textElementsExtract(win, browserInfo);
-    const imageElements = imageElementsExtract(win, browserInfo);
-    const videoElements = videoElementsExtract(win, browserInfo);
-    const anchorElements = anchorElementsExtract(win, browserInfo);
-    const majorElements = majorElementsExtract(
-        textElements,
-        imageElements,
-        videoElements,
-        anchorElements,
-    );
-    const alignmentPoints = alignmentPointsExtract(
-        majorElements.elements.map((el) => el.position),
-        browserInfo,
-    );
-    const textSize = textSizeExtract(textElements);
+  const browserInfo = browserInfoExtract(win);
+  const textElements = textElementsExtract(win, browserInfo);
+  const imageElements = imageElementsExtract(win, browserInfo);
+  const videoElements = videoElementsExtract(win, browserInfo);
+  const anchorElements = anchorElementsExtract(win, browserInfo);
+  const majorElements = majorElementsExtract(
+    textElements,
+    imageElements,
+    videoElements,
+    anchorElements,
+  );
+  const alignmentPoints = alignmentPointsExtract(
+    majorElements.elements.map((el) => el.position),
+    browserInfo,
+  );
+  const textSize = textSizeExtract(textElements);
 
-    const phase1Result: Phase1Result = {
-        browserInfo,
-        textElements,
-        imageElements,
-        videoElements,
-        anchorElements,
-        majorElements,
-        alignmentPoints,
-        textSize,
-    };
+  const phase1Result: Phase1Result = {
+    browserInfo,
+    textElements,
+    imageElements,
+    videoElements,
+    anchorElements,
+    majorElements,
+    alignmentPoints,
+    textSize,
+  };
 
-    return phase1Result;
+  return phase1Result;
 }

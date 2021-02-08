@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { AppState } from 'Core/types/types';
-import { Phase1Result, Phase2Result } from 'Core/types/types';
-import { DefaultButton, PrimaryButton, Stack, IStackTokens } from 'office-ui-fabric-react';
+import { AppState, Phase1Result, Phase2Result } from 'Core/types/types';
+
+import {
+  DefaultButton, PrimaryButton, Stack, IStackTokens,
+} from 'office-ui-fabric-react';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { executePhase2 } from 'Executor/phases';
 
@@ -14,11 +16,11 @@ type ContentRes = {
 async function init(): Promise<number> {
   return new Promise((resolve) => {
     let tabId: number | undefined;
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0].id;
       if (tabId === undefined) throw new Error('Tab id is undefined');
 
-      chrome.tabs.executeScript(tabId, { file: 'content.js' }, function () {
+      chrome.tabs.executeScript(tabId, { file: 'content.js' }, () => {
         resolve(tabId);
       });
     });
@@ -29,7 +31,7 @@ async function init(): Promise<number> {
 //   console.log(image);
 // });
 
-class App extends React.Component {
+class App extends Component {
   public state = {};
 
   constructor(props: any) {
@@ -40,18 +42,17 @@ class App extends React.Component {
     return (
       <div className="container">
         <Stack tokens={{ childrenGap: 10 }}>
-          <div className="ms-fontSize-32">Web Design Scraper</div>
           <Analyzer />
         </Stack>
       </div>
-    )
+    );
   }
 }
 
-class Analyzer extends React.Component {
+class Analyzer extends Component {
   public state: AppState = {
     analyzingStatus: '',
-    result: null
+    result: null,
   };
 
   constructor(props: any) {
@@ -61,54 +62,65 @@ class Analyzer extends React.Component {
   }
 
   async analyzeHandler() {
-    const tabId = await init();
-    this.setState(() => ({ analyzingStatus: 'processing', lastReceiptId: undefined }));
+    try {
+      const tabId = await init();
+      this.setState(() => ({ analyzingStatus: 'processing', lastReceiptId: undefined }));
 
-    // Get screenshots
-    const [
-      screenshot,
-      contentRes
-    ] = await Promise.allSettled([
-      new Promise<string>((resolve, reject) => {
-        chrome.tabs.captureVisibleTab({}, async (image) => {
-          resolve(image);
-        });
-      }),
-      new Promise<ContentRes>((resolve, reject) => {
-        chrome.tabs.sendMessage(tabId, { message: "extract-features" }, (response: ContentRes) => {
-          resolve(response);
-        });
-      }),
-    ]);
+      // Get screenshots
+      const [
+        screenshot,
+        contentRes,
+      ] = await Promise.allSettled([
+        new Promise<string>((resolve, reject) => {
+          chrome.tabs.captureVisibleTab({}, async (image) => {
+            resolve(image);
+          });
+        }),
+        new Promise<ContentRes>((resolve, reject) => {
+          chrome.tabs.sendMessage(tabId, { message: 'extract-features' }, (response: ContentRes) => {
+            resolve(response);
+          });
+        }),
+      ]);
 
-    if (screenshot.status === 'rejected') {
-      console.log('screenshot.status rejected');
-      return;
+      if (screenshot.status === 'rejected') {
+        console.log('screenshot.status rejected');
+        return;
+      }
+
+      if (contentRes.status === 'rejected') {
+        console.log('contentRes.status rejected');
+        return;
+      }
+
+      const phase2Result = await executePhase2(
+        contentRes.value.phase1Result,
+        screenshot.value,
+      );
+
+      console.log(phase2Result);
+
+      const result: Phase2Result = phase2Result;
+
+      this.setState(() => {
+        const x: Partial<AppState> = {
+          analyzingStatus: 'Done!',
+          result,
+        };
+        return x;
+      }, () => {
+        this.openQuickReport();
+      });
+    } catch (e) {
+      console.error(e);
+      this.setState(() => {
+        const x: Partial<AppState> = {
+          analyzingStatus: 'Error!'
+        };
+        return x;
+      });
     }
-
-    if (contentRes.status === 'rejected') {
-      console.log('contentRes.status rejected');
-      return;
-    }
-
-    const phase2Result = await executePhase2(
-      contentRes.value.phase1Result,
-      screenshot.value
-    );
-
-    console.log(phase2Result);
-
-    const result: Phase2Result = phase2Result;
-
-    this.setState(() => {
-      const x: Partial<AppState> = {
-        analyzingStatus: 'Done!',
-        result
-      };
-      return x;
-    });
-  };
-
+  }
 
   async openQuickReport() {
     const phase2Data = this.state.result;
@@ -118,42 +130,76 @@ class Analyzer extends React.Component {
       return;
     }
 
-    await new Promise(resolve => {
-      chrome.storage.local.set({ webPageData: phase2Data }, function () {
+    await new Promise((resolve) => {
+      chrome.storage.local.set({ webPageData: phase2Data }, () => {
         resolve(true);
       });
     });
 
     chrome.windows.create({
-      url: '/report.html',
-      type: 'normal'
-    }, function () {
+      url: '/report.html#overview',
+      type: 'normal',
+    }, () => {
     });
-  }
-
-  async openSaved() {
-
   }
 
   render() {
     return (
-      <Stack tokens={{ childrenGap: 10 }}>
-        <DefaultButton text="Open Saved Analysis Result (.json)" onClick={this.openSaved} />
-        <PrimaryButton text="Analyze" onClick={this.analyzeHandler} />
+      <div>
+        <Stack tokens={{ childrenGap: 10 }}>
+          <a
+            href="https://github.com/echamudi/web-design-scraper"
+            rel="noopener noreferrer"
+            target="_blank">
+            <img src="./assets/logo.svg" style={{ width: '100%' }}/>
+          </a>
+
+          <p className="standard-text">
+            Web Design Scraper is a tool to extract web design metrics from a web page.
+            {' '}
+            <a
+                href="https://github.com/echamudi/web-design-scraper"
+                rel="noopener noreferrer"
+                target="_blank">
+                Learn more
+            </a>
+          </p>
+          <PrimaryButton text="Analyze Current Page" onClick={this.analyzeHandler} />
+          {
+            this.state.analyzingStatus === 'Error!'
+            && (
+              <div className="message">
+                <div className="standard-text">
+                  An error has occured. 😢
+                  <br/>
+                  Please check the consoles of the web page and this pop-up.
+                </div>
+              </div>
+            )
+          }
+          {
+            this.state.analyzingStatus === 'Done!'
+            &&
+            <>
+              <DefaultButton text="Open Report" onClick={this.openQuickReport} />
+              <div className="standard-text">Success! 💪</div>
+            </>
+          }
+        </Stack>
         {
-          this.state.analyzingStatus === 'processing' &&
-          <div>
-            <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
-            <div>Analyzing page...</div>
-            <div>This process might take up to one minute.</div>
-          </div>
+          this.state.analyzingStatus === 'processing'
+          && (
+            <div className="loader-hider">
+              <Spinner label="" labelPosition="bottom" size={SpinnerSize.large} />
+              <p className="standard-text">
+                Please keep this popup open.<br />
+                This process might take up to one minute.<br />
+              </p>
+            </div>
+          )
         }
-        {
-          this.state.analyzingStatus === 'Done!' &&
-          <DefaultButton text="Open Report" onClick={this.openQuickReport} />
-        }
-      </Stack>
-    )
+      </div>
+    );
   }
 }
 

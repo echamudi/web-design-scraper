@@ -5,9 +5,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "clean-dist": "rimraf ./chrome-ext-dist",
-    "build": "npm run clean-dist && npx webpack",
-    "watch": "npm run clean-dist && npx webpack --mode=development --watch",
+    "clean-dist:chrome": "rimraf ./chrome-ext-dist",
+    "build:chrome": "npm run clean-dist:chrome && npx webpack",
+    "watch:chrome": "npm run clean-dist:chrome && npx webpack --mode=development --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "moment": "^2.29.1",
     "node-vibrant": "^3.1.6",
     "office-ui-fabric-react": "^7.157.2",
+    "react-charts": "^2.0.0-beta.7",
     "simple-statistics": "^7.4.0"
   },
   "devDependencies": {

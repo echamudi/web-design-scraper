@@ -1,14 +1,18 @@
 import * as React from 'react';
+import { PrimaryButton } from 'office-ui-fabric-react';
 import { ReportState } from '../report';
 
-export class OverviewReport extends React.Component<{ reportState: ReportState }> {
+export class OverviewReport extends React.Component<{
+  reportState: ReportState,
+  downloadJSON(): void,
+}> {
   constructor(props: any) {
     super(props);
   }
 
   render() {
     const rs = this.props.reportState;
-    if (rs.webPageData === null) return <div></div>;
+    if (rs.webPageData === null) return <div />;
 
     return (
       <div className="report-details-container">
@@ -17,10 +21,23 @@ export class OverviewReport extends React.Component<{ reportState: ReportState }
         </h1>
         <hr />
         <p>
-          <b>URL: </b> <a href={rs.reportData__url} target="_blank" rel="noopener noreferrer">{rs.reportData__url}</a><br />
-          <b>Date: </b> {rs.reportData__timestamp}<br />
+          <b>URL: </b>
+          {' '}
+          <a href={rs.reportData__url} target="_blank" rel="noopener noreferrer">{rs.reportData__url}</a>
+          <br />
+          <b>Date: </b>
+          {' '}
+          {rs.reportData__timestamp}
+          <br />
         </p>
         <img src={rs.webPageData.viewportScreenshot.image} style={{ width: 800 }} />
+        <hr />
+        <p>
+          This report is the result of web design scraping of the link above.
+          You can browse the results from the left sidebar,
+          or you can download the raw result in JSON format from the link below:
+        </p>
+        <PrimaryButton text="Download JSON" onClick={this.props.downloadJSON} />
         <hr />
         <table>
           <thead>
