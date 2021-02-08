@@ -1,7 +1,7 @@
 {
   "name": "Web Design Scraper",
   "version": "1.0.0",
-  "description": "Extract web design metrics from websites!",
+  "description": "Extract and inspect web design metrics!",
   "manifest_version": 3,
   "permissions": [
     "tabCapture",
