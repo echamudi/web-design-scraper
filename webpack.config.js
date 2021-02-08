@@ -5,7 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
+/** @type {any} */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+/** @type {any} */
+const TerserPlugin = require("terser-webpack-plugin");
 
 /**
  * @type import('webpack').Configuration
@@ -87,6 +90,20 @@ const chromeExt = {
     filename: '[name].js',
     path: path.resolve(__dirname , './chrome-ext-dist'),
   },
+  optimization: {
+    minimizer: [
+      // @ts-ignore
+      new TerserPlugin({
+        terserOptions: {
+          output: {
+            // Turned on because emoji and regex is not minified properly using default
+            // https://github.com/facebook/create-react-app/issues/2488
+            ascii_only: true,
+          },
+        },
+      }),
+    ],
+  }
 };
 
 module.exports = (env, argv) => {
