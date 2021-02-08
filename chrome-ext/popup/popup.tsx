@@ -157,12 +157,6 @@ class Analyzer extends Component {
           <p className="standard-text">
             Web Design Scraper is a tool to extract web design metrics from a web page.
             {' '}
-            <a
-                href="https://github.com/echamudi/web-design-scraper"
-                rel="noopener noreferrer"
-                target="_blank">
-                Learn more
-            </a>
           </p>
           <PrimaryButton text="Analyze Current Page" onClick={this.analyzeHandler} />
           {
@@ -186,6 +180,23 @@ class Analyzer extends Component {
             </>
           }
         </Stack>
+        <hr/>
+        <p className="standard-text">
+          <a
+            href="https://github.com/echamudi/web-design-scraper"
+            rel="noopener noreferrer"
+            target="_blank">
+              GitHub Page ↗️
+          </a>
+        </p>
+        <p className="standard-text">
+          <a
+            href="https://github.com/echamudi/web-design-scraper/blob/main/licenses.csv"
+            rel="noopener noreferrer"
+            target="_blank">
+              Open Source Licenses ↗️
+          </a>
+        </p>
         {
           this.state.analyzingStatus === 'processing'
           && (
