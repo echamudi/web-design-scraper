@@ -59,7 +59,7 @@ export function DensityMajorDomReport(props: {
       </table>
       <hr />
       <h2>Visualization</h2>
-      <p>The blue area is text DOM, and the orange area is image based DOM.</p>
+      <p>The blue area is text DOM elements, and the orange area is image based DOM elements.</p>
       <canvas ref={props.densityMajorDomViz} style={{ width: props.miniVw, border: 'red solid 2px' }} />
     </div>
   );
