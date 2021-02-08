@@ -1,9 +1,10 @@
-@fluentui/react,perpetual,MIT,git+https://github.com/microsoft/fluentui.git,7.158.1,7.157.2,n/a
+name,license period,license type,link,comment,installed version,author
+@fluentui/react,perpetual,MIT,git+https://github.com/microsoft/fluentui.git,7.158.2,7.157.2,n/a
 color-diff,perpetual,BSD-3-Clause,git://github.com/markusn/color-diff.git,1.2.0,1.2.0,markusn kael
 color-rgba,perpetual,MIT,git+https://github.com/colorjs/color-rgba.git,2.2.3,2.2.3,Dmitry Yv
 moment,perpetual,MIT,git+https://github.com/moment/moment.git,2.29.1,2.29.1,Iskren Ivov Chernev
 node-vibrant,perpetual,MIT,git+https://github.com/akfish/node-vibrant.git,3.1.6,3.1.6,akfish
-office-ui-fabric-react,perpetual,MIT,git+https://github.com/microsoft/fluentui.git,7.158.1,7.157.2,n/a
+office-ui-fabric-react,perpetual,MIT,git+https://github.com/microsoft/fluentui.git,7.158.2,7.157.2,n/a
 react-charts,perpetual,MIT,git+https://github.com/react-tools/react-charts.git,2.0.1,2.0.0-beta.7,tannerlinsley
 simple-statistics,perpetual,ISC,git://github.com/simple-statistics/simple-statistics.git,7.4.0,7.4.0,Tom MacWright
 @babel/core,perpetual,MIT,https://github.com/babel/babel.git,7.12.13,7.12.10,Sebastian McKenzie <sebmck@gmail.com>
