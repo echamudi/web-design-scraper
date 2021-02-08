@@ -8,7 +8,7 @@ Web Design Scraper is a tool to extract web design metrics from a web page. This
 - Web browser (Google Chrome extension)
 - CLI (using puppeteer) -->
 
-## Project Goal
+## Project Goals
 
 The extracted web design metrics from this tool can be used for:
 - Auditing web designs through objective measurements
@@ -80,4 +80,4 @@ Copyright © 2020 Ezzat Chamudi & Web Design Scraper Team
 
 Web Design Scraper code is licensed under MPL-2.0. Images, logos, docs, and articles in this project are released under CC-BY-SA-4.0.
 
-Libraries, dependencies, and tools used in this project are tied with their licenses.
+Libraries, dependencies, and tools used in this project are tied with [their licenses](./licenses.csv).
