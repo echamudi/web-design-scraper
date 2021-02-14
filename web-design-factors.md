@@ -3,7 +3,7 @@
 List of web design factors from past research results.
 
 | Factor | Item | Description | Measurable? | Sub-item | Detection Area | Unique ID |
-|  |  |  |  |  |  |  |
+| - | - | - | - | - | - | - |
 | Distribution of Components | Symmetry | Overall symmetrical appearance towards vertical, horizontal, and diagonal | Yes | Pixel color vertical symmetry | Viewport | symmetry-pixel-vertical |
 |  |  |  |  | Pixel color horizontal symmetry | Viewport | symmetry-pixel-horizontal |
 |  | Balance | Difference of components weight between two sides divided by horizontal axis and vertical axis. | Yes |  |  | balance-lr |
