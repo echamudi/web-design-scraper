@@ -43,19 +43,25 @@ There are [more measurements](./web-design-factors.md) planned to be included in
 This tool can runs as a chrome extension.
 Please use the lastest Google Chrome browser to use the extension.
 
-## Building
+## Building & Running
 
 <!-- ### Chrome Extension -->
 
-You need node.js installed in your machine to build the chrome extension.
+You need node.js installed in your machine to build the chrome extension. 
+If you have it already, please follow the following steps to build the extension:
 
-```
-npm install
-npm run build:chrome
-```
+1. Clone this repository and open the folder in terminal.
 
-The commands above will produce a chrome extension inside `./chrome-ext-dist` folder.
-Then, you can run it by [sideloading](https://developer.chrome.com/docs/extensions/mv2/getstarted/#unpacked) the folder to Google Chrome.
+2. Run the following commands:
+
+  ```
+  npm install
+  npm run build:chrome
+  ```
+
+  The commands above will produce the chrome extension inside `./chrome-ext-dist` folder.
+
+3. Then, you can run the extension by [sideloading](https://developer.chrome.com/docs/extensions/mv2/getstarted/#unpacked) the `./chrome-ext-dist` folder to Google Chrome.
 
 <!-- ### Puppeteer
 
