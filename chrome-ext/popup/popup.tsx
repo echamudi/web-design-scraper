@@ -155,8 +155,7 @@ class Analyzer extends Component {
           </a>
 
           <p className="standard-text">
-            Web Design Scraper is a tool to extract web design metrics from a web page.
-            {' '}
+            Web Design Scraper is a tool to extracting objective web design measurements from a web page.
           </p>
           <PrimaryButton text="Analyze Current Page" onClick={this.analyzeHandler} />
           {
