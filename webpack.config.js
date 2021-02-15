@@ -54,11 +54,11 @@ const chromeExt = {
       template: './chrome-ext/popup/popup.html',
       chunks: ['popup','style']
     }),
-    new HtmlWebpackPlugin({
-      filename: 'preferences.html',
-      template: './chrome-ext/preferences/preferences.html',
-      chunks: ['preferences', 'style']
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'preferences.html',
+    //   template: './chrome-ext/preferences/preferences.html',
+    //   chunks: ['preferences', 'style']
+    // }),
     new HtmlWebpackPlugin({
       filename: 'report.html',
       template: './chrome-ext/report/report.html',
