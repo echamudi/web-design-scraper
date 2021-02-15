@@ -2,7 +2,7 @@
 
 <img src="./assets/logo.svg" alt="Web Design Scraper Logo" height="127"/>
 
-Web Design Scraper is a tool to extract web design metrics from a web page. This repo contains the early implementation of the web design scraping concept that we coined in [our research paper](https://ieeexplore.ieee.org/abstract/document/9271770).
+Web Design Scraper is a tool to extract objective web design measurements from a web page. This repo contains the early implementation of the web design scraping concept that we coined in [our research paper](https://ieeexplore.ieee.org/abstract/document/9271770).
 
 <!-- This tool can run in the following environments:
 - Web browser (Google Chrome extension)
@@ -13,7 +13,7 @@ Web Design Scraper is a tool to extract web design metrics from a web page. This
 
 ## Project Goals
 
-The extracted web design metrics from this tool can be used for:
+The extracted web design measurements from this tool can be used for:
 - Auditing web designs through objective measurements
 - Understanding and comparing web design patterns between different websites
 
