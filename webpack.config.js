@@ -16,9 +16,9 @@ const TerserPlugin = require("terser-webpack-plugin");
 const chromeExt = {
   entry: {
     content: './chrome-ext/content/content.ts',
-    background: './chrome-ext/background/background.ts',
+    // background: './chrome-ext/background/background.ts',
     popup: './chrome-ext/popup/popup.tsx',
-    preferences: './chrome-ext/preferences/preferences.tsx',
+    // preferences: './chrome-ext/preferences/preferences.tsx',
     report: './chrome-ext/report/report.tsx',
     style: './chrome-ext/style/style.scss'
   },
