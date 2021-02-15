@@ -4,7 +4,6 @@
   "description": "Extract and inspect web design metrics!",
   "manifest_version": 3,
   "permissions": [
-    "tabCapture",
     "activeTab",
     "storage",
     "unlimitedStorage"
