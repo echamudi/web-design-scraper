@@ -51,7 +51,7 @@ You need node.js installed in your machine to build the chrome extension.
 
 ```
 npm install
-npm run build
+npm run build:chrome
 ```
 
 The commands above will produce a chrome extension inside `./chrome-ext-dist` folder.
