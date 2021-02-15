@@ -8,6 +8,9 @@ Web Design Scraper is a tool to extract web design metrics from a web page. This
 - Web browser (Google Chrome extension)
 - CLI (using puppeteer) -->
 
+[![Web Design Scraper Screenshot](https://raw.githubusercontent.com/echamudi/echamudi/master/project-screenshots/web-design-scraper.png)](https://github.com/echamudi/web-design-scraper)
+
+
 ## Project Goals
 
 The extracted web design metrics from this tool can be used for:
