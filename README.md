@@ -2,6 +2,10 @@
 
 <img src="./assets/logo.svg" alt="Web Design Scraper Logo" height="127"/>
 
+<a href="https://chrome.google.com/webstore/detail/web-design-scraper/lhhebabfhjommcpnaapcncphgbbjlknd" target="_blank">
+<img src="https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png" alt="Chrome Web Store" height="48"/>
+</a>
+
 Web Design Scraper is a tool to extract objective web design measurements from a web page. This repo contains the early implementation of the web design scraping concept that we coined in [our research paper](https://ieeexplore.ieee.org/abstract/document/9271770).
 
 <!-- This tool can run in the following environments:
@@ -40,10 +44,11 @@ There are [more measurements](./web-design-factors.md) planned to be included in
 
 ## Running this Project
 
-This tool can runs as a chrome extension.
-Please use the lastest Google Chrome browser to use the extension.
+To run this project, you can either install the published version from the [chrome web store](https://chrome.google.com/webstore/detail/web-design-scraper/lhhebabfhjommcpnaapcncphgbbjlknd) or [build](#build) it by yourself.
 
-## Building & Running
+This repo might contain the more updated version of the tool than the published one.
+
+## Building
 
 <!-- ### Chrome Extension -->
 
