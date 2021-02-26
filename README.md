@@ -85,7 +85,7 @@ This tool is built by using TypeScript, React, Webpack, SCSS, Farbic UI, Vibrant
 
 ## License
 
-Copyright © 2020 Ezzat Chamudi & Web Design Scraper Team
+Copyright © 2020 Web Design Scraper Team
 
 Web Design Scraper code is licensed under MPL-2.0. Images, logos, docs, and articles in this project are released under CC-BY-SA-4.0.
 
