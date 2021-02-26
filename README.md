@@ -1,8 +1,6 @@
 # Web Design Scraper
 
-<img src="./assets/logo.svg" alt="Web Design Scraper Logo" height="127"/>
-
-<a href="https://chrome.google.com/webstore/detail/web-design-scraper/lhhebabfhjommcpnaapcncphgbbjlknd" target="_blank">
+<img src="./assets/logo.svg" alt="Web Design Scraper Logo" height="96"/><a href="https://chrome.google.com/webstore/detail/web-design-scraper/lhhebabfhjommcpnaapcncphgbbjlknd" target="_blank">
 <img src="https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png" alt="Chrome Web Store" height="48"/>
 </a>
 
