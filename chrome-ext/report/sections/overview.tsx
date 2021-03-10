@@ -39,7 +39,7 @@ export class OverviewReport extends React.Component<{
         </p>
         <PrimaryButton text="Download JSON" onClick={this.props.downloadJSON} />
         <hr />
-        <table>
+        <table className="dsr-table">
           <thead>
             <tr>
               <th style={{ width: 200 }}>Property</th>

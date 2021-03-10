@@ -52,7 +52,7 @@ export class TextSizeReport extends React.Component<{ textSize: TextSizeExtractR
         <h2>
           Design Scraping Result
         </h2>
-        <table>
+        <table className="dsr-table">
           <thead>
             <tr>
               <th style={{ width: 200 }}>Text Size</th>

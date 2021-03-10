@@ -82,7 +82,7 @@ hr {
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(2px);
     color: white;
     text-align: center;
@@ -91,4 +91,28 @@ hr {
     justify-content: center;
     flex-direction: column;
     user-select: none;
+}
+
+.dsr-table {
+    color: #333;
+    background: white;
+    border: 1px solid grey;
+    font-size: 12pt;
+    border-collapse: collapse;
+}
+
+.dsr-table thead th,
+.dsr-table tfoot th {
+    color: #000;
+    background: rgba(0, 0, 0, .1);
+}
+
+.dsr-table caption {
+    padding: .5em;
+}
+
+.dsr-table th,
+.dsr-table td {
+    padding: .5em;
+    border: 1px solid lightgrey;
 }

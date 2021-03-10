@@ -38,7 +38,7 @@ export class DensityPixelReport extends React.Component<Props> {
         <h2>
           Design Scraping Result
         </h2>
-        <table>
+        <table className="dsr-table">
           <thead>
             <tr>
               <th style={{ width: 200 }}>Metric</th>

@@ -36,7 +36,7 @@ export class DominantColorsReport extends React.Component<{ reportState: ReportS
         </h2>
         <img src={rs.webPageData.viewportScreenshot.image} style={{ width: 800 }} />
 
-        <table>
+        <table className="dsr-table">
           <thead>
             <tr>
               <th style={{ width: 200 }}>Metric</th>

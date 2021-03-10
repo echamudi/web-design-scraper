@@ -295,7 +295,7 @@ class App extends Component {
                   <h2>
                     Design Scraping Result
                   </h2>
-                  <table>
+                  <table className="dsr-table">
                     <thead>
                       <tr>
                         <th style={{ width: 200 }}>Metric</th>
@@ -345,7 +345,7 @@ class App extends Component {
                   <h2>
                     Design Scraping Result
                   </h2>
-                  <table>
+                  <table className="dsr-table">
                     <thead>
                       <tr>
                         <th style={{ width: 200 }}>Metric</th>
@@ -398,7 +398,7 @@ class App extends Component {
                   <h2>
                     Design Scraping Result
                   </h2>
-                  <table>
+                  <table className="dsr-table">
                     <thead>
                       <tr>
                         <th style={{ width: 200 }}>Metric</th>
@@ -451,7 +451,7 @@ class App extends Component {
                   <h2>
                     Design Scraping Result
                   </h2>
-                  <table>
+                  <table className="dsr-table">
                     <thead>
                       <tr>
                         <th style={{ width: 350 }}>Font Stack</th>
