@@ -1,7 +1,7 @@
 {
   "name": "web-design-scraper",
   "version": "0.1.0",
-  "description": "[⏳WIP - 🧪Experimental] Extract web design data from a web page.",
+  "description": "Extract web design data from a web page.",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
-    "@types/chrome": "0.0.129",
+    "@types/chrome": "0.0.133",
     "@types/color-convert": "^2.0.0",
     "@types/color-diff": "^1.1.0",
     "@types/color-rgba": "^2.1.0",
