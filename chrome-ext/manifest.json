@@ -1,6 +1,6 @@
 {
   "name": "Web Design Scraper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Extract and inspect web design measurements!",
   "manifest_version": 3,
   "permissions": [
