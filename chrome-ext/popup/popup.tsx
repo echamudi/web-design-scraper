@@ -20,7 +20,7 @@ async function init(): Promise<number> {
       const tabId = tabs[0].id;
       if (tabId === undefined) throw new Error('Tab id is undefined');
 
-      chrome.tabs.executeScript(tabId, { file: 'content.js' }, () => {
+      chrome.scripting.executeScript({ files: ['content.js'], target: {tabId} }, () => {
         resolve(tabId);
       });
     });
